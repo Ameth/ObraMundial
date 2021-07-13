@@ -5,7 +5,7 @@ ObraMundial es un sitio de gestión de informes y publicadores para las congrega
 Visite: [www.obramundial.net](https://www.obramundial.net)
 
 ## Contribución
-Los Pull requests son bienvenidos. Para cambios importantes, abra un problema primero para discutir qué le gustaría cambiar.
+Los pull requests son bienvenidos. Para cambios importantes, abra un problema primero para discutir qué le gustaría cambiar.
 
 Asegúrese de actualizar las pruebas según corresponda. 
 
