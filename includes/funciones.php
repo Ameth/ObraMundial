@@ -719,6 +719,26 @@ function AuthJWT($pUser, $pPassword, $pEndpoint='Login', $pParametros=''){
 	return $return;
 }
 
+function UltimoDiaMes($pMes, $pAnio=""){//Obtener el ultimo dia del mes
+	if($pAnio==""){
+		$pAnio=date('Y');
+	}
+	$month = $pMes; //date('m');
+	$year = $pAnio; //date('Y');
+	$day = date("d", mktime(0,0,0, $month+1, 0, $year));
+
+	return date('Y-m-d', mktime(0,0,0, $month, $day, $year));
+}
+ 
+function PrimerDiaMes($pMes, $pAnio=""){//Obtener el primer dia del mes
+	if($pAnio==""){
+		$pAnio=date('Y');
+	}
+	$month = $pMes; //date('m');
+	$year = $pAnio; //date('Y');
+	return date('Y-m-d', mktime(0,0,0, $month, 1, $year));
+}
+
 function IconAttach($TypeFile, $Version=1){//Colocar un icono en los archivos anexos dependiendo de la extension
 	if($Version==1){
 		switch (strtolower($TypeFile)){

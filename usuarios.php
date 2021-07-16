@@ -221,19 +221,19 @@ function Mostrar(){
 				  </div>
 				<div class="form-group">
 					<label class="col-lg-1 control-label">Nombre <span class="text-danger">*</span></label>
-					<div class="col-lg-3"><input name="Nombre" type="text" required="required" class="form-control" id="Nombre" value="<?php if($edit==1){echo $row['Nombre'];}?>"></div>
+					<div class="col-lg-3"><input name="Nombre" type="text" required="required" class="form-control" autocomplete="off" id="Nombre" value="<?php if($edit==1){echo $row['Nombre'];}?>"></div>
 					<label class="col-lg-1 control-label">Segundo nombre</label>
-					<div class="col-lg-3"><input name="SegundoNombre" type="text" class="form-control" id="SegundoNombre" value="<?php if($edit==1){echo $row['SegundoNombre'];}?>"></div>
+					<div class="col-lg-3"><input name="SegundoNombre" type="text" class="form-control" id="SegundoNombre" autocomplete="off" value="<?php if($edit==1){echo $row['SegundoNombre'];}?>"></div>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-1 control-label">Apellido <span class="text-danger">*</span></label>
-					<div class="col-lg-3"><input name="Apellido" type="text" required="required" class="form-control" id="Apellido" value="<?php if($edit==1){echo $row['Apellido'];}?>"></div>
+					<div class="col-lg-3"><input name="Apellido" type="text" required="required" class="form-control" autocomplete="off" id="Apellido" value="<?php if($edit==1){echo $row['Apellido'];}?>"></div>
 					<label class="col-lg-1 control-label">Segundo apellido</label>
-					<div class="col-lg-3"><input name="SegundoApellido" type="text" class="form-control" id="SegundoApellido" value="<?php if($edit==1){echo $row['SegundoApellido'];}?>"></div>
+					<div class="col-lg-3"><input name="SegundoApellido" type="text" class="form-control" autocomplete="off" id="SegundoApellido" value="<?php if($edit==1){echo $row['SegundoApellido'];}?>"></div>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-1 control-label">Email</label>
-					<div class="col-lg-3"><input name="Email" type="email" class="form-control" id="Email" value="<?php if($edit==1){echo $row['Email'];}?>"></div>					
+					<div class="col-lg-3"><input name="Email" type="email" class="form-control" autocomplete="off" id="Email" value="<?php if($edit==1){echo $row['Email'];}?>"></div>					
 					<?php if(PermitirFuncion(101)){?>
 					<label class="col-lg-1 control-label">Congregación <span class="text-danger">*</span></label>
 					<div class="col-lg-3">
@@ -262,7 +262,7 @@ function Mostrar(){
 				  </div>
 				<div class="form-group" id="pwd-container1">
 					<label class="col-lg-1 control-label">Usuario <span class="text-danger">*</span></label>
-					<div class="col-lg-2"><input name="Usuario" type="text" required="required" class="form-control" id="Usuario" onChange="ValidarUsuario(this.value);" value="<?php if($edit==1){echo $row['Usuario'];}?>" <?php if($edit==1){ echo "readonly";}?>></div>
+					<div class="col-lg-2"><input name="Usuario" type="text" required="required" class="form-control" autocomplete="off" id="Usuario" onChange="ValidarUsuario(this.value);" value="<?php if($edit==1){echo $row['Usuario'];}?>" <?php if($edit==1){ echo "readonly";}?>></div>
 					<div id="Validar" class="col-lg-1">
 						<div id="spinner1" style="visibility: hidden;" class="sk-spinner sk-spinner-wave">
 							<div class="sk-rect1"></div>

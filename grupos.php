@@ -153,7 +153,7 @@ if(isset($sw_error)&&($sw_error==1)){
 					<label class="col-lg-12"><h3 class="bg-success p-xs b-r-sm"><i class="fa fa-info-circle"></i> Datos del grupo</h3></label>
 				</div>
 				<div class="form-group">
-					<label class="col-lg-1 control-label">Nombre</label>
+					<label class="col-lg-1 control-label">Nombre <span class="text-danger">*</span></label>
 					<div class="col-lg-3">
                     	<input name="NombreGrupo" type="text" required="required" class="form-control" id="Nombre" maxlength="100" value="<?php if(($edit==1)||($sw_error==1)){echo $row['NombreGrupo'];}?>" <?php if(($edit==1)&&(!PermitirFuncion(203))){ echo "readonly='readonly'";}?>>
                	  	</div>
@@ -168,7 +168,7 @@ if(isset($sw_error)&&($sw_error==1)){
 				<div class="form-group">
 					<label class="col-lg-1 control-label">Superintendente</label>
 					<div class="col-lg-3">
-                    	<select name="SuperGrupo" class="form-control select2" id="SuperGrupo" <?php if(($edit==1)&&(!PermitirFuncion(203))){ echo "disabled='disabled'";}?> required="required">
+                    	<select name="SuperGrupo" class="form-control select2" id="SuperGrupo" <?php if(($edit==1)&&(!PermitirFuncion(203))){ echo "disabled='disabled'";}?>>
 							<option value="">(Ninguno)</option>
                           <?php while($row_Super=sqlsrv_fetch_array($SQL_Super)){?>
 								<option value="<?php echo $row_Super['IDPublicador'];?>" <?php if((isset($row['SuperGrupo']))&&(strcmp($row_Super['IDPublicador'],$row['SuperGrupo'])==0)){ echo "selected=\"selected\"";}?>><?php echo $row_Super['Nombre']." ".$row_Super['Apellido']." ".$row_Super['SegundoApellido'];?></option>

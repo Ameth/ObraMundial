@@ -69,7 +69,7 @@ if(isset($_POST['P'])&&($_POST['P']!="")){//Insertar registro
 
 if($edit==1){//Editar
 	
-	$SQL=Seleccionar('uvw_tbl_PeriodosInformes','*',"IDPeriodo='".$IdPeriodo."'");
+	$SQL=Seleccionar('uvw_tbl_PeriodosInformes','*',"IDPeriodo='".$IdPeriodo."' and NumCong='".$_SESSION['NumCong']."'");
 	$row=sqlsrv_fetch_array($SQL);
 }
 	
@@ -195,9 +195,9 @@ function Mostrar(){
 					<label class="col-xs-12"><h3 class="bg-success p-xs b-r-sm"><i class="fa fa-info-circle"></i> Datos del periodo</h3></label>
 				  </div>
 				<div class="form-group">
-					<label class="col-lg-1 control-label">Año</label>
+					<label class="col-lg-1 control-label">Año <span class="text-danger">*</span></label>
 				  	<div class="col-lg-2">
-                    	<select name="Anio" class="form-control m-b" id="Anio" required="required" onChange="ValCodPeriodo();" <?php if($edit==1){ echo "disabled='disabled'";}?>>
+                    	<select name="Anio" class="form-control" id="Anio" required="required" onChange="ValCodPeriodo();" <?php if($edit==1){ echo "disabled='disabled'";}?>>
 							<option value="">Seleccione...</option>
 							<option value="2019" <?php if((isset($row['AnioPeriodo']))&&(strcmp($row['AnioPeriodo'],'2019')==0)){ echo "selected=\"selected\"";}?>>2019</option>
 							<option value="2020" <?php if((isset($row['AnioPeriodo']))&&(strcmp($row['AnioPeriodo'],'2020')==0)){ echo "selected=\"selected\"";}?>>2020</option>
@@ -206,9 +206,9 @@ function Mostrar(){
 							<option value="2023" <?php if((isset($row['AnioPeriodo']))&&(strcmp($row['AnioPeriodo'],'2023')==0)){ echo "selected=\"selected\"";}?>>2023</option>
 						</select>
                	  	</div>
-					<label class="col-lg-1 control-label">Mes</label>
+					<label class="col-lg-1 control-label">Mes <span class="text-danger">*</span></label>
 				  	<div class="col-lg-2">
-                    	<select name="Mes" class="form-control m-b" id="Mes" required="required" onChange="ValCodPeriodo();" <?php if($edit==1){ echo "disabled='disabled'";}?>>
+                    	<select name="Mes" class="form-control" id="Mes" required="required" onChange="ValCodPeriodo();" <?php if($edit==1){ echo "disabled='disabled'";}?>>
 							<option value="">Seleccione...</option>
 							<option value="1" <?php if((isset($row['MesPeriodo']))&&(strcmp($row['MesPeriodo'],'1')==0)){ echo "selected=\"selected\"";}?>>1 - Enero</option>
 							<option value="2" <?php if((isset($row['MesPeriodo']))&&(strcmp($row['MesPeriodo'],'2')==0)){ echo "selected=\"selected\"";}?>>2 - Febrero</option>
@@ -224,7 +224,7 @@ function Mostrar(){
 							<option value="12" <?php if((isset($row['MesPeriodo']))&&(strcmp($row['MesPeriodo'],'12')==0)){ echo "selected=\"selected\"";}?>>12 - Diciembre</option>
 						</select>
                	  	</div>
-					<label class="col-lg-1 control-label">Código del periodo</label>
+					<label class="col-lg-1 control-label">Código del periodo <span class="text-danger">*</span></label>
 					<div class="col-lg-2"><input name="CodPeriodo" type="text" required="required" readonly class="form-control" id="CodPeriodo" value="<?php if($edit==1){echo $row['CodigoPeriodo'];}?>"></div>
 					<div id="Validar" class="col-lg-2"></div>
 					<div class="col-lg-1">
@@ -239,12 +239,12 @@ function Mostrar(){
 					
 				</div>
 				<div class="form-group">
-					<label class="col-lg-1 control-label">Año de servicio</label>
+					<label class="col-lg-1 control-label">Año de servicio <span class="text-danger">*</span></label>
 					<div class="col-lg-2"><input name="AServicio" type="text" required="required" readonly class="form-control" id="AServicio" value="<?php if($edit==1){echo $row['AnioServicio'];}?>"></div>
 					<?php if(PermitirFuncion(101)){?>
-					<label class="col-lg-1 control-label">Congregación</label>
+					<label class="col-lg-1 control-label">Congregación <span class="text-danger">*</span></label>
 					<div class="col-lg-3">
-						<select name="Cong" class="form-control m-b select2" required id="Cong" onChange="ValCodPeriodo();">
+						<select name="Cong" class="form-control select2" required id="Cong" onChange="ValCodPeriodo();">
 							<option value="">(Seleccione)</option>
                           <?php while($row_Cong=sqlsrv_fetch_array($SQL_Cong)){?>
 								<option value="<?php echo $row_Cong['NumCong'];?>" <?php if(($edit==1)&&(isset($row['NumCong']))&&(strcmp($row_Cong['NumCong'],$row['NumCong'])==0)){ echo "selected=\"selected\"";}?>><?php echo $row_Cong['NombreCongregacion'].", ".$row_Cong['Ciudad']." (".$row_Cong['NumCong'].")";?></option>
@@ -252,9 +252,9 @@ function Mostrar(){
 						</select>
 					</div>
 					<?php }?>
-					<label class="col-lg-1 control-label">Estado</label>
+					<label class="col-lg-1 control-label">Estado <span class="text-danger">*</span></label>
 					<div class="col-lg-2">
-                    	<select name="Estado" class="form-control m-b" id="Estado">
+                    	<select name="Estado" class="form-control" id="Estado">
                           <?php while($row_Estado=sqlsrv_fetch_array($SQL_Estados)){?>
 								<option value="<?php echo $row_Estado['IDEstado'];?>" <?php if(($edit==1)&&(strcmp($row_Estado['IDEstado'],$row['IDEstado'])==0)){ echo "selected=\"selected\"";}?>><?php echo $row_Estado['NombreEstado'];?></option>
 						  <?php }?>
@@ -272,16 +272,13 @@ function Mostrar(){
 					</div>
 				</div>
 				<?php 			
-				   	$EliminaMsg=array("&a=".base64_encode("OK_Perd"),"&a=".base64_encode("OK_EditPerd"));//Eliminar mensajes
-	
-					if(isset($_GET['return'])){
-						$_GET['return']=str_replace($EliminaMsg,"",base64_decode($_GET['return']));
-					}
-					if(isset($_GET['return'])){
-						$return=base64_decode($_GET['pag'])."?".$_GET['return'];
+				   	if(isset($_GET['return'])){
+						$return=base64_decode($_GET['pag'])."?".base64_decode($_GET['return']);
 					}else{
 						$return="gestionar_periodos.php?";
-					}?>
+					}
+				  	$return=QuitarParametrosURL($return,array("a"));?>
+				  
 				<input type="hidden" id="IDPeriodo" name="IDPeriodo" value="<?php if($edit==1){echo base64_encode($row['IDPeriodo']);}?>" />
 				<input type="hidden" id="P" name="P" value="<?php if($edit==1){ echo "6";}else{echo "7";}?>" />
 				<input type="hidden" id="tl" name="tl" value="<?php echo $edit;?>" />

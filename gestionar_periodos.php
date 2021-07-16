@@ -8,7 +8,7 @@ if(isset($_GET['Buscar'])&&$_GET['Buscar']!=""){
 	$And=1;
 }
 
-$Cons="Select * From uvw_tbl_PeriodosInformes NumCong='".$_SESSION['NumCong']."' $Filtro Order by FechaInicioPeriodo DESC";
+$Cons="Select * From uvw_tbl_PeriodosInformes Where NumCong='".$_SESSION['NumCong']."' $Filtro Order by FechaInicioPeriodo DESC";
 $SQL=sqlsrv_query($conexion,$Cons);
 
 ?>

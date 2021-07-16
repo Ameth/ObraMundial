@@ -192,27 +192,27 @@ if(isset($sw_error)&&($sw_error==1)){
 					<label class="col-xs-12"><h3 class="bg-success p-xs b-r-sm"><i class="fa fa-address-book"></i> Datos del publicador</h3></label>
 				</div>
 				<div class="form-group">
-					<label class="col-lg-1 control-label">Nombre</label>
+					<label class="col-lg-1 control-label">Nombre <span class="text-danger">*</span></label>
 					<div class="col-lg-3">
-                    	<input name="Nombre" type="text" required="required" class="form-control" id="Nombre" maxlength="100" value="<?php if(($edit==1)||($sw_error==1)){echo $row['Nombre'];}?>" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "readonly='readonly'";}?>>
+                    	<input name="Nombre" type="text" required="required" class="form-control" id="Nombre" maxlength="100" autocomplete="off" value="<?php if(($edit==1)||($sw_error==1)){echo $row['Nombre'];}?>" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "readonly='readonly'";}?>>
                	  	</div>
 					<label class="col-lg-1 control-label">Segundo nombre</label>
 					<div class="col-lg-3">
-                    	<input name="SegundoNombre" type="text" class="form-control" id="SegundoNombre" maxlength="100" value="<?php if(($edit==1)||($sw_error==1)){echo $row['SegundoNombre'];}?>" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "readonly='readonly'";}?>>
+                    	<input name="SegundoNombre" type="text" class="form-control" id="SegundoNombre" autocomplete="off" maxlength="100" value="<?php if(($edit==1)||($sw_error==1)){echo $row['SegundoNombre'];}?>" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "readonly='readonly'";}?>>
                	  	</div>
 				</div>
 				<div class="form-group">
-					<label class="col-lg-1 control-label">Apellido</label>
+					<label class="col-lg-1 control-label">Apellido <span class="text-danger">*</span></label>
 					<div class="col-lg-3">
-                    	<input name="Apellido" type="text" required="required" class="form-control" id="Apellido" maxlength="100" value="<?php if(($edit==1)||($sw_error==1)){echo $row['Apellido'];}?>" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "readonly='readonly'";}?>>
+                    	<input name="Apellido" type="text" required="required" class="form-control" id="Apellido" autocomplete="off" maxlength="100" value="<?php if(($edit==1)||($sw_error==1)){echo $row['Apellido'];}?>" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "readonly='readonly'";}?>>
                	  	</div>
 					<label class="col-lg-1 control-label">Segundo apellido</label>
 					<div class="col-lg-3">
-                    	<input name="SegundoApellido" type="text" class="form-control" id="SegundoApellido" maxlength="100" value="<?php if(($edit==1)||($sw_error==1)){echo $row['SegundoApellido'];}?>" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "readonly='readonly'";}?>>
+                    	<input name="SegundoApellido" type="text" class="form-control" id="SegundoApellido" autocomplete="off" maxlength="100" value="<?php if(($edit==1)||($sw_error==1)){echo $row['SegundoApellido'];}?>" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "readonly='readonly'";}?>>
                	  	</div>
 				</div>
 				<div class="form-group">
-					<label class="col-lg-1 control-label">Genero</label>
+					<label class="col-lg-1 control-label">Genero <span class="text-danger">*</span></label>
 					<div class="col-lg-3">
                     	<select name="Genero" class="form-control m-b" id="Genero" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "disabled='disabled'";}?> required="required">
 							<option value="">Seleccione...</option>
@@ -223,23 +223,23 @@ if(isset($sw_error)&&($sw_error==1)){
                	  	</div>
 					<label class="col-lg-1 control-label">Fecha de nacimiento</label>
 				  	<div class="col-lg-2 input-group date">
-                    	 <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input name="FechaNac" type="text" class="form-control" id="FechaNac" value="<?php if($edit==1){if($row['FechaNac']!=""){echo $row['FechaNac']->format('Y-m-d');}}?>" placeholder="YYYY-MM-DD" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "readonly='readonly'";}?>>
+                    	 <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input name="FechaNac" type="text" class="form-control" id="FechaNac" autocomplete="off" value="<?php if($edit==1){if($row['FechaNac']!=""){echo $row['FechaNac']->format('Y-m-d');}}?>" placeholder="YYYY-MM-DD" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "readonly='readonly'";}?>>
                	  	</div>
 					<label class="col-lg-1 control-label">Dirección</label>
 					<div class="col-lg-4">
-                    	<input name="Direccion" type="text" class="form-control" id="Direccion" maxlength="100" value="<?php if($edit==1){echo $row['Direccion'];}?>" <?php if(($edit==1)&&(!PermitirFuncion(201))){echo "readonly='readonly'";}?>>
+                    	<input name="Direccion" type="text" class="form-control" id="Direccion" autocomplete="off" maxlength="100" value="<?php if($edit==1){echo $row['Direccion'];}?>" <?php if(($edit==1)&&(!PermitirFuncion(201))){echo "readonly='readonly'";}?>>
 					</div>					
 				</div>
 				<div class="form-group">
 					<label class="col-lg-1 control-label">Teléfono</label>
 					<div class="col-lg-3">
-                    	<input name="Telefono" autocomplete="off" type="text" class="form-control" id="Telefono" maxlength="50" value="<?php if(($edit==1)){echo $row['Telefono'];}?>" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "readonly='readonly'";}?>>
+                    	<input name="Telefono" autocomplete="off" type="text" class="form-control" autocomplete="off" id="Telefono" maxlength="50" value="<?php if(($edit==1)){echo $row['Telefono'];}?>" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "readonly='readonly'";}?>>
                	  	</div>
 					<label class="col-lg-1 control-label">Celular</label>
 					<div class="col-lg-3">
-                    	<input name="Celular" autocomplete="off" type="text" class="form-control" id="Celular" maxlength="50" value="<?php if(($edit==1)){echo $row['Celular'];}?>" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "readonly='readonly'";}?>>
+                    	<input name="Celular" autocomplete="off" type="text" class="form-control" autocomplete="off" id="Celular" maxlength="50" value="<?php if(($edit==1)){echo $row['Celular'];}?>" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "readonly='readonly'";}?>>
                	  	</div>
-					<label class="col-lg-1 control-label">Estado</label>
+					<label class="col-lg-1 control-label">Estado <span class="text-danger">*</span></label>
 					<div class="col-lg-2">
                     	<select name="Estado" class="form-control m-b" id="Estado" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "disabled='disabled'";}?> required="required">
                           <?php while($row_Estado=sqlsrv_fetch_array($SQL_Estado)){?>
@@ -254,9 +254,9 @@ if(isset($sw_error)&&($sw_error==1)){
 				<div class="form-group">
 					<label class="col-lg-1 control-label">Fecha de bautismo</label>
 				  	<div class="col-lg-2 input-group date">
-                    	 <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input name="FechaBaut" type="text" class="form-control" id="FechaBaut" value="<?php if($edit==1){if($row['FechaBaut']!=""){echo $row['FechaBaut']->format('Y-m-d');}}?>" placeholder="YYYY-MM-DD" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "readonly='readonly'";}?>>
+                    	 <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input name="FechaBaut" type="text" class="form-control" id="FechaBaut" autocomplete="off" value="<?php if($edit==1){if($row['FechaBaut']!=""){echo $row['FechaBaut']->format('Y-m-d');}}?>" placeholder="YYYY-MM-DD" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "readonly='readonly'";}?>>
                	  	</div>
-					<label class="col-lg-1 control-label">Grupo</label>
+					<label class="col-lg-1 control-label">Grupo <span class="text-danger">*</span></label>
 					<div class="col-lg-3">
                     	<select name="Grupo" class="form-control m-b" id="Grupo" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "disabled='disabled'";}?> required="required">
 							<?php if(!PermitirFuncion(205)){?><option value="">Seleccione...</option><?php }?>
@@ -265,7 +265,7 @@ if(isset($sw_error)&&($sw_error==1)){
 						  <?php }?>
 						</select>
                	  	</div>
-					<label class="col-lg-1 control-label">Tipo publicador</label>
+					<label class="col-lg-1 control-label">Tipo publicador <span class="text-danger">*</span></label>
 					<div class="col-lg-3">
                     	<select name="TipoPublicador" class="form-control m-b" id="TipoPublicador" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "disabled='disabled'";}?> required="required">
 							<option value="">Seleccione...</option>
@@ -276,7 +276,7 @@ if(isset($sw_error)&&($sw_error==1)){
                	  	</div>
 				</div>
 				<div class="form-group">
-					<label class="col-lg-1 control-label">Anciano / SM</label>
+					<label class="col-lg-1 control-label">Anciano / SM <span class="text-danger">*</span></label>
 					<div class="col-lg-2">
                     	<select name="PrivServicio" class="form-control m-b" id="PrivServicio" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "disabled='disabled'";}?> required="required">
                           <?php while($row_PrivServicio=sqlsrv_fetch_array($SQL_PrivServicio)){?>
@@ -284,7 +284,7 @@ if(isset($sw_error)&&($sw_error==1)){
 						  <?php }?>
 						</select>
                	  	</div>
-					<label class="col-lg-1 control-label">Tipo esperanza</label>
+					<label class="col-lg-1 control-label">Tipo esperanza <span class="text-danger">*</span></label>
 					<div class="col-lg-2">
                     	<select name="TipoEsperanza" class="form-control m-b" id="TipoEsperanza" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "disabled='disabled'";}?> required="required">
 							<option value="">Seleccione...</option>
@@ -300,11 +300,11 @@ if(isset($sw_error)&&($sw_error==1)){
 				<div class="form-group">
 					<label class="col-lg-1 control-label">Persona de contacto</label>
 					<div class="col-lg-3">
-                    	<input name="PersonaCont" autocomplete="off" type="text" class="form-control" id="PersonaCont" maxlength="50" value="<?php if(($edit==1)){echo $row['PersonaCont'];}?>" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "readonly='readonly'";}?>>
+                    	<input name="PersonaCont" autocomplete="off" type="text" class="form-control" autocomplete="off" id="PersonaCont" maxlength="50" value="<?php if(($edit==1)){echo $row['PersonaCont'];}?>" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "readonly='readonly'";}?>>
                	  	</div>
 					<label class="col-lg-1 control-label">Teléfono contacto</label>
 					<div class="col-lg-3">
-                    	<input name="TelefonoCont" autocomplete="off" type="text" class="form-control" id="TelefonoCont" maxlength="50" value="<?php if(($edit==1)){echo $row['TelefonoCont'];}?>" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "readonly='readonly'";}?>>
+                    	<input name="TelefonoCont" autocomplete="off" type="text" class="form-control" autocomplete="off" id="TelefonoCont" maxlength="50" value="<?php if(($edit==1)){echo $row['TelefonoCont'];}?>" <?php if(($edit==1)&&(!PermitirFuncion(201))){ echo "readonly='readonly'";}?>>
                	  	</div>
 				</div>
 				 <br>
