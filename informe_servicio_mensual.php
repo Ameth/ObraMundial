@@ -20,7 +20,7 @@ if(isset($_GET['Periodo'])&&$_GET['Periodo']!=""){
 }
 
 //Periodos
-$SQL_Periodos=Seleccionar('uvw_tbl_PeriodosInformes','*',"NumCong='".$_SESSION['NumCong']."'",'CodigoPeriodo');
+$SQL_Periodos=Seleccionar('uvw_tbl_PeriodosInformes','*',"NumCong='".$_SESSION['NumCong']."'",'AnioPeriodo DESC, MesPeriodo DESC');
 
 //Grupos de congregacion
 if(PermitirFuncion(205)){

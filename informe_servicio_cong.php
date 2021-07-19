@@ -15,7 +15,7 @@ if(isset($_GET['Periodo'])&&$_GET['Periodo']!=""){
 }
 
 //Periodos
-$SQL_Periodos=Seleccionar('uvw_tbl_PeriodosInformes','*',"NumCong='".$_SESSION['NumCong']."'",'CodigoPeriodo');
+$SQL_Periodos=Seleccionar('uvw_tbl_PeriodosInformes','*',"NumCong='".$_SESSION['NumCong']."'",'AnioPeriodo DESC, MesPeriodo DESC');
 
 if($sw==1){
 	$SQL=EjecutarSP('usp_InformeServicioCongGrupos',$Periodo);
@@ -74,7 +74,7 @@ if($sw==1){
 							<label class="col-xs-12"><h3 class="bg-success p-xs b-r-sm"><i class="fa fa-filter"></i> Datos para filtrar</h3></label>
 						</div>
 					 	<div class="form-group">
-							<label class="col-lg-1 control-label">Periodo</label>
+							<label class="col-lg-1 control-label">Periodo <span class="text-danger">*</span></label>
 							<div class="col-lg-3">
 								<select name="Periodo" class="form-control m-b select2" id="Periodo" required>
 									<option value="">Seleccione...</option>

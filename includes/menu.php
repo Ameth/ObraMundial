@@ -37,11 +37,12 @@ $Num_Menu=sqlsrv_num_rows($SQL_Menu);
                     </ul>
                 </li>
                 <?php }?>
-				<?php if(PermitirFuncion(301)){?>
+				<?php if(PermitirFuncion([301,302])){?>
             	<li>
-                    <a href="#"><i class="fa fa-child"></i> <span class="nav-label">Informes de predicación</span><span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-pencil"></i> <span class="nav-label">Ingresar informes</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-						<?php if(PermitirFuncion(301)){?><li><a class="alnk" href="gestionar_informes.php"><i class="fa fa-pencil"></i> Ingresar informes</a></li><?php }?>
+						<?php if(PermitirFuncion(301)){?><li><a class="alnk" href="gestionar_informes.php"><i class="fa fa-clock-o"></i> Informes de predicación</a></li><?php }?>
+						<?php if(PermitirFuncion(302)){?><li><a class="alnk" href="asistencia.php"><i class="fa fa-users"></i> Asistencia a las reuniones</a></li><?php }?>
                     </ul>
                 </li>
                 <?php }?>

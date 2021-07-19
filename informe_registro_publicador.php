@@ -101,16 +101,16 @@ if($sw==1){
 					 	<div class="form-group">
 							<label class="col-lg-1 control-label">Grupo</label>
 							<div class="col-lg-3">
-								<select name="Grupo" class="form-control m-b" id="Grupo">
+								<select name="Grupo" class="form-control" id="Grupo">
 									<?php if(!PermitirFuncion(205)){?><option value="">(Todos)</option><?php }?>
 								  <?php while($row_Grupos=sqlsrv_fetch_array($SQL_Grupos)){?>
 										<option value="<?php echo $row_Grupos['IDGrupo'];?>" <?php if((isset($_GET['Grupo']))&&(strcmp($row_Grupos['IDGrupo'],$_GET['Grupo'])==0)){ echo "selected=\"selected\"";}?>><?php echo $row_Grupos['NombreGrupo'];?></option>
 								  <?php }?>
 								</select>
 							</div>
-							<label class="col-lg-1 control-label">Publicador</label>
+							<label class="col-lg-1 control-label">Publicador <span class="text-danger">*</span></label>
 							<div class="col-lg-3">
-								<select name="Publicador" class="form-control m-b select2" id="Publicador" required>
+								<select name="Publicador" class="form-control select2" id="Publicador" required>
 									<option value="">(Seleccione)</option>
 								  <?php 
 									if($sw==1||PermitirFuncion(205)){

@@ -82,7 +82,7 @@ $Num=sqlsrv_num_rows($SQL);
 <head>
 <?php include("includes/cabecera.php"); ?>
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>Ingresar informes | <?php echo NOMBRE_PORTAL;?></title>
+<title>Ingresar informes <?php echo $row_Grupo['NombreGrupo'];?> | <?php echo NOMBRE_PORTAL;?></title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 
@@ -106,10 +106,10 @@ $Num=sqlsrv_num_rows($SQL);
                             <a href="index1.php">Inicio</a>
                         </li>
                         <li>
-                            <a href="#">Informes de predicación</a>
+                            <a href="#">Ingresar informes</a>
                         </li>
 						<li>
-                            <a href="gestionar_informes.php">Ingresar informes</a>
+                            <a href="gestionar_informes.php">Informes de predicación</a>
                         </li>
                         <li class="active">
                             <strong><?php echo $row_Grupo['NombreGrupo'];?></strong>

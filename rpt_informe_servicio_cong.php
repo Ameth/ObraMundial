@@ -18,6 +18,13 @@ $SQL_Grp=Seleccionar('uvw_tbl_Grupos','*',"NumCong='".$_SESSION['NumCong']."'");
 $SQL_Prd=Seleccionar('uvw_tbl_PeriodosInformes','*',"NumCong='".$_SESSION['NumCong']."' and IDPeriodo='".$Periodo."'");
 $row_Prd=sqlsrv_fetch_array($SQL_Prd);
 
+$ParamAsist=array(
+	"'".$_SESSION['NumCong']."'",
+	"'".$Periodo."'"
+);
+$SQL_Asist=EjecutarSP('usp_CalcularTotalesAsistencia',$ParamAsist);
+$row_Asist=sqlsrv_fetch_array($SQL_Asist);
+
 // reference the Dompdf namespace
 use Dompdf\Dompdf;
 $dompdf = new Dompdf();
@@ -231,13 +238,40 @@ $DatosTotales.="
 	<tbody>
 	</table>";
 
+//Asistencia
+$DatosAsistencia="";
+$DatosAsistencia='
+<table class="table">
+	<thead>
+		<tr>
+			<th align="center" width="28%">Asistencia</th>
+			<th align="center" width="12%">Total</th>
+			<th align="center" width="12%">Promedio</th>
+		</tr>
+	</thead>
+	<tbody>';
+$DatosAsistencia.="
+	<tr>
+	  <td>Reunión de entre semana</td>
+	  <td align='center'>".$row_Asist['TotalSemana']."</td>
+	  <td align='center'>".$row_Asist['PromSemana']."</td>
+	</tr>
+	<tr>
+	  <td>Reunión del fin de semana</td>
+	  <td align='center'>".$row_Asist['TotalFinSemana']."</td>
+	  <td align='center'>".$row_Asist['PromFinSemana']."</td>
+	</tr>
+	<tbody>
+</table>";
+
+
 $Cierre='</body>
 </html>';
 //InsertarLog("Descarga de entrada");
 //sqlsrv_close($conexion);
 //echo $HTML1.$Datos.$HTML2;/*
 // instantiate and use the dompdf class
-$dompdf->loadHtml($Cabecera.$DatosGrupos.$DatosTotales.$Cierre);
+$dompdf->loadHtml($Cabecera.$DatosGrupos.$DatosTotales.$DatosAsistencia.$Cierre);
 
 // (Optional) Setup the paper size and orientation
 $dompdf->setPaper('letter', 'portrait');

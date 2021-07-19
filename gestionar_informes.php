@@ -39,7 +39,7 @@ $SQL=EjecutarSP('usp_ConsultarGruposInformes',$Param);
 <head>
 <?php include("includes/cabecera.php"); ?>
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>Ingresar informes | <?php echo NOMBRE_PORTAL;?></title>
+<title>Informes de predicación | <?php echo NOMBRE_PORTAL;?></title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <?php 
@@ -69,16 +69,16 @@ if(isset($_GET['a'])&&($_GET['a']==base64_encode("OK_InfAdd"))){
         <!-- InstanceBeginEditable name="Contenido" -->
         <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-sm-8">
-                    <h2>Ingresar informes</h2>
+                    <h2>Informes de predicación</h2>
                     <ol class="breadcrumb">
                         <li>
                             <a href="index1.php">Inicio</a>
                         </li>
                         <li>
-                            <a href="#">Informes de predicación</a>
+                            <a href="#">Ingresar informes</a>
                         </li>
                         <li class="active">
-                            <strong>Ingresar informes</strong>
+                            <strong>Informes de predicación</strong>
                         </li>
                     </ol>
                 </div>
