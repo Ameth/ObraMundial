@@ -90,17 +90,19 @@ if(isset($_GET['a'])&&($_GET['a']==base64_encode("OK_InfAdd"))){
 					 <?php include("includes/spinner.php"); ?>
 				  <form action="gestionar_informes.php" method="get" id="formBuscar" class="form-horizontal">
 					<?php if($row_Periodo['IDPeriodo']!=""){?>
-					  <div class="form-group">
-						<div class="col-lg-1 control-label">
-							<h2><strong>Periodo: </strong></h2>
+						<div class="form-group">
+							<div class="col-lg-2">
+								<h2><strong>Periodo: </strong></h2>
+							</div>
 						</div>
-						<div class="col-lg-3 p-xxs">
-							<h2><?php echo $row_Periodo['CodigoPeriodo'];?></h2>
+					  	<div class="form-group">
+							<div class="col-lg-3">
+								<h2 class="bg-primary b-r-md p-xs font-bold"><?php echo $row_Periodo['CodigoPeriodo']." (".$row_Periodo['NombreMes']."/".$row_Periodo['AnioPeriodo'].")";?></h2>
+							</div>
 						</div>
-					</div>
 					<?php }else{?>
 					<div class="form-group">
-						<div class="col-xs-12 ">
+						<div class="col-xs-12">
 							<h3><div class="alert alert-danger"><i class="fa fa-times-circle"></i> No hay periodos abiertos para ingresar informes.</div></h3>
 						</div>
 					</div>	  

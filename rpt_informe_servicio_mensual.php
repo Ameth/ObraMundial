@@ -135,7 +135,7 @@ if($row_Grp['NombreGrupo']!=""){
 		</tr>';
 }
 $HTML1.='<tr>
-			<td>PERIODO: '.$row_Prd['CodigoPeriodo'].'</td>
+			<td>PERIODO: '.$row_Prd['CodigoPeriodo'].' ('.$row_Prd['NombreMes'].'/'.$row_Prd['AnioPeriodo'].')</td>
 		</tr>
 	</table>
 	<table class="table">

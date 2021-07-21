@@ -263,7 +263,7 @@ $(document).ready(function(){
 		<?php if($row_Periodo['IDPeriodo']!=""){?>
 			<div class="row">
 				<div class="col-lg-12">
-					<h3 class="bg-info p-xss b-r-xs"><i class="fa fa-pencil"></i> Informes del periodo: <?php echo $row_Periodo['CodigoPeriodo'];?></h3>
+					<h3 class="bg-info p-xss b-r-xs"><i class="fa fa-pencil"></i> Informes del periodo: <?php echo $row_Periodo['CodigoPeriodo']." (".$row_Periodo['NombreMes']."/".$row_Periodo['AnioPeriodo'].")";?></h3>
 					<div class="ibox-content">
 						<div class="row">
 							<div class="col-lg-12 col-md-12">
@@ -466,7 +466,7 @@ Highcharts.chart('graph', {
         type: 'column'
     },
     title: {
-        text: 'Informes del periodo <?php echo $row_Periodo['CodigoPeriodo'];?>'
+        text: 'Informes del periodo <?php echo $row_Periodo['CodigoPeriodo']." (".$row_Periodo['NombreMes']."/".$row_Periodo['AnioPeriodo'].")";?>'
     },
     subtitle: {
         text: 'Estado actual de los informes'

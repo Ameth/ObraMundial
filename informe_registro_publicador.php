@@ -99,10 +99,10 @@ if($sw==1){
 							<label class="col-xs-12"><h3 class="bg-success p-xs b-r-sm"><i class="fa fa-filter"></i> Datos para filtrar</h3></label>
 						</div>
 					 	<div class="form-group">
-							<label class="col-lg-1 control-label">Grupo</label>
+							<label class="col-lg-1 control-label">Grupo <span class="text-danger">*</span></label>
 							<div class="col-lg-3">
-								<select name="Grupo" class="form-control" id="Grupo">
-									<?php if(!PermitirFuncion(205)){?><option value="">(Todos)</option><?php }?>
+								<select name="Grupo" class="form-control" id="Grupo" required>
+									<?php if(!PermitirFuncion(205)){?><option value="">(Seleccione)</option><?php }?>
 								  <?php while($row_Grupos=sqlsrv_fetch_array($SQL_Grupos)){?>
 										<option value="<?php echo $row_Grupos['IDGrupo'];?>" <?php if((isset($_GET['Grupo']))&&(strcmp($row_Grupos['IDGrupo'],$_GET['Grupo'])==0)){ echo "selected=\"selected\"";}?>><?php echo $row_Grupos['NombreGrupo'];?></option>
 								  <?php }?>
@@ -137,7 +137,7 @@ if($sw==1){
 				<?php include("includes/spinner.php"); ?>
 					<div class="form-group">
 						<div class="col-lg-6">
-							<a href="rpt_informe_registro_publicador.php?id=<?php echo base64_encode($Periodo);?>" target="_blank" class="btn btn-outline btn-danger"><i class="fa fa-file-pdf-o"></i> Descargar en PDF</a>
+							<a href="rpt_informe_registro_publicador.php?id=<?php echo base64_encode($Periodo);?>" target="_blank" class="btn btn-outline btn-danger"><i class="fa fa-file-pdf-o"></i> Descargar tarjeta S-21 en PDF</a>
 						</div>
 					</div>
 				</div>

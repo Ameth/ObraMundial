@@ -124,10 +124,10 @@ $Num=sqlsrv_num_rows($SQL);
            <div class="col-lg-12">
 			   <form action="informes.php" method="post" class="form-horizontal" enctype="multipart/form-data" id="frmInformes">   
 				<div class="form-group">
-					<label class="col-xs-12"><h3 class="bg-success p-xs b-r-sm"><i class="fa fa-edit"></i> Ingrese los informes del periodo <?php echo $row_Periodo['CodigoPeriodo'];?></h3></label>
+					<label class="col-xs-12"><h3 class="bg-success p-xs b-r-sm"><i class="fa fa-edit"></i> Ingrese los informes del periodo <?php echo $row_Periodo['CodigoPeriodo']." (".$row_Periodo['NombreMes']."/".$row_Periodo['AnioPeriodo'].")";?></h3></label>
 				</div>
 				<div class="form-group">
-					<div class="col-xs-12 text-success"><strong>NOTA:</strong> Si un publicador no reportó este mes, ingrese 0 en el campo <strong>Horas</strong>.</div>
+					<div class="col-xs-12 text-danger"><strong>NOTA:</strong> Si un publicador no reportó este mes, ingrese 0 en el campo <strong>Horas</strong>.</div>
 				</div>
 				<div class="table-responsive">
 				<table class="table table-striped table-hover dataTables-example" >

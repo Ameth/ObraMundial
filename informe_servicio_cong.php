@@ -76,10 +76,10 @@ if($sw==1){
 					 	<div class="form-group">
 							<label class="col-lg-1 control-label">Periodo <span class="text-danger">*</span></label>
 							<div class="col-lg-3">
-								<select name="Periodo" class="form-control m-b select2" id="Periodo" required>
+								<select name="Periodo" class="form-control select2" id="Periodo" required>
 									<option value="">Seleccione...</option>
 								  <?php while($row_Periodos=sqlsrv_fetch_array($SQL_Periodos)){?>
-										<option value="<?php echo $row_Periodos['IDPeriodo'];?>" <?php if((isset($_GET['Periodo']))&&(strcmp($row_Periodos['IDPeriodo'],$_GET['Periodo'])==0)){ echo "selected=\"selected\"";}?>><?php echo $row_Periodos['CodigoPeriodo'];?></option>
+										<option value="<?php echo $row_Periodos['IDPeriodo'];?>" <?php if((isset($_GET['Periodo']))&&(strcmp($row_Periodos['IDPeriodo'],$_GET['Periodo'])==0)){ echo "selected=\"selected\"";}?>><?php echo $row_Periodos['CodigoPeriodo']." (".$row_Periodos['NombreMes']."/".$row_Periodos['AnioPeriodo'].")";?></option>
 								  <?php }?>
 								</select>
 							</div>
@@ -87,6 +87,14 @@ if($sw==1){
 								<button type="submit" class="btn btn-outline btn-success pull-right"><i class="fa fa-search"></i> Buscar</button>
 							</div>							
 						</div>
+					  <?php if($sw==1){?>
+					  	<div class="form-group">
+							<div class="col-lg-3">
+								<a href="rpt_informe_servicio_cong.php?id=<?php echo base64_encode($Periodo);?>" target="_blank" class="btn btn-outline btn-danger"><i class="fa fa-file-pdf-o"></i> Descargar en PDF</a>
+							</div>							
+						</div>
+					  <?php }?>
+					  
 					  <input type="hidden" id="MM_Buscas" name="MM_Buscar" value="1">
 				 </form>
 			</div>
@@ -101,7 +109,6 @@ if($sw==1){
 					<?php include("includes/spinner.php"); ?>
 					<div class="row m-b-md">
 						<div class="col-lg-12">
-							<a href="rpt_informe_servicio_cong.php?id=<?php echo base64_encode($Periodo);?>" target="_blank" class="btn btn-outline btn-danger"><i class="fa fa-file-pdf-o"></i> Descargar en PDF</a>
 							<a href="exportar_excel.php?exp=10&Cons=<?php echo base64_encode($Periodo);?>&sp=<?php echo base64_encode('usp_InformeServicioCongGrupos');?>" class="btn btn-outline btn-primary"><i class="fa fa-file-excel-o"></i> Exportar a Excel</a>
 						</div>
 					</div>
@@ -146,7 +153,6 @@ if($sw==1){
 					<?php include("includes/spinner.php"); ?>
 					<div class="row m-b-md">
 						<div class="col-lg-12">
-							<a href="rpt_informe_servicio_cong.php?id=<?php echo base64_encode($Periodo);?>" target="_blank" class="btn btn-outline btn-danger"><i class="fa fa-file-pdf-o"></i> Descargar en PDF</a>
 							<a href="exportar_excel.php?exp=10&Cons=<?php echo base64_encode($Periodo);?>&sp=<?php echo base64_encode('usp_InformeServicioCongTotal');?>" class="btn btn-outline btn-primary"><i class="fa fa-file-excel-o"></i> Exportar a Excel</a>
 						</div>
 					</div>

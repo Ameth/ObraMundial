@@ -86,24 +86,24 @@ if($sw==1){
 							<label class="col-xs-12"><h3 class="bg-success p-xs b-r-sm"><i class="fa fa-filter"></i> Datos para filtrar</h3></label>
 						</div>
 					 	<div class="form-group">
+							<label class="col-lg-1 control-label">Periodo <span class="text-danger">*</span></label>
+							<div class="col-lg-3">
+								<select name="Periodo" class="form-control select2" id="Periodo" required>
+									<option value="">Seleccione...</option>
+								  <?php while($row_Periodos=sqlsrv_fetch_array($SQL_Periodos)){?>
+										<option value="<?php echo $row_Periodos['IDPeriodo'];?>" <?php if((isset($_GET['Periodo']))&&(strcmp($row_Periodos['IDPeriodo'],$_GET['Periodo'])==0)){ echo "selected=\"selected\"";}?>><?php echo $row_Periodos['CodigoPeriodo']." (".$row_Periodos['NombreMes']."/".$row_Periodos['AnioPeriodo'].")";?></option>
+								  <?php }?>
+								</select>
+							</div>
 							<label class="col-lg-1 control-label">Grupo</label>
 							<div class="col-lg-3">
-								<select name="Grupo" class="form-control m-b" id="Grupo">
+								<select name="Grupo" class="form-control" id="Grupo">
 									<?php if(!PermitirFuncion(205)){?><option value="">(Todos)</option><?php }?>
 								  <?php while($row_Grupos=sqlsrv_fetch_array($SQL_Grupos)){?>
 										<option value="<?php echo $row_Grupos['IDGrupo'];?>" <?php if((isset($_GET['Grupo']))&&(strcmp($row_Grupos['IDGrupo'],$_GET['Grupo'])==0)){ echo "selected=\"selected\"";}?>><?php echo $row_Grupos['NombreGrupo'];?></option>
 								  <?php }?>
 								</select>
-							</div>
-							<label class="col-lg-1 control-label">Periodo</label>
-							<div class="col-lg-3">
-								<select name="Periodo" class="form-control m-b select2" id="Periodo" required>
-									<option value="">Seleccione...</option>
-								  <?php while($row_Periodos=sqlsrv_fetch_array($SQL_Periodos)){?>
-										<option value="<?php echo $row_Periodos['IDPeriodo'];?>" <?php if((isset($_GET['Periodo']))&&(strcmp($row_Periodos['IDPeriodo'],$_GET['Periodo'])==0)){ echo "selected=\"selected\"";}?>><?php echo $row_Periodos['CodigoPeriodo'];?></option>
-								  <?php }?>
-								</select>
-							</div>
+							</div>							
 							<div class="col-lg-1">
 								<button type="submit" class="btn btn-outline btn-success pull-right"><i class="fa fa-search"></i> Buscar</button>
 							</div>							

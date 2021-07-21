@@ -135,7 +135,7 @@ if(isset($_GET['a'])&&($_GET['a']==base64_encode("OK_PubUpd"))){
 					 	<div class="form-group">
 							<label class="col-lg-1 control-label">Estado</label>
 							<div class="col-lg-3">
-								<select name="Estado" class="form-control m-b" id="Estado">
+								<select name="Estado" class="form-control" id="Estado">
 										<option value="">(Todos)</option>
 								  <?php while($row_Estado=sqlsrv_fetch_array($SQL_Estado)){?>
 										<option value="<?php echo $row_Estado['IDEstado'];?>" <?php if((isset($_GET['Estado']))&&(strcmp($row_Estado['IDEstado'],$_GET['Estado'])==0)){ echo "selected=\"selected\"";}?>><?php echo $row_Estado['NombreEstado'];?></option>
@@ -145,7 +145,7 @@ if(isset($_GET['a'])&&($_GET['a']==base64_encode("OK_PubUpd"))){
 							<?php if(!PermitirFuncion(205)){?>
 							<label class="col-lg-1 control-label">Grupo</label>
 							<div class="col-lg-3">
-								<select name="Grupo" class="form-control m-b" id="Grupo">
+								<select name="Grupo" class="form-control" id="Grupo">
 									<option value="">(Todos)</option>
 								  <?php while($row_Grupos=sqlsrv_fetch_array($SQL_Grupos)){?>
 										<option value="<?php echo $row_Grupos['IDGrupo'];?>" <?php if((isset($_GET['Grupo']))&&(strcmp($row_Grupos['IDGrupo'],$_GET['Grupo'])==0)){ echo "selected=\"selected\"";}?>><?php echo $row_Grupos['NombreGrupo'];?></option>
@@ -155,7 +155,7 @@ if(isset($_GET['a'])&&($_GET['a']==base64_encode("OK_PubUpd"))){
 							<?php }?>
 							<label class="col-lg-1 control-label">Genero</label>
 							<div class="col-lg-3">
-								<select name="Genero" class="form-control m-b" id="Genero">
+								<select name="Genero" class="form-control" id="Genero">
 									<option value="">(Todos)</option>
 								  <?php while($row_Genero=sqlsrv_fetch_array($SQL_Genero)){?>
 										<option value="<?php echo $row_Genero['IDGenero'];?>" <?php if((isset($_GET['Genero']))&&(strcmp($row_Genero['IDGenero'],$_GET['Genero'])==0)){ echo "selected=\"selected\"";}?>><?php echo $row_Genero['NombreGenero'];?></option>
@@ -166,7 +166,7 @@ if(isset($_GET['a'])&&($_GET['a']==base64_encode("OK_PubUpd"))){
 					  	<div class="form-group">
 							<label class="col-lg-1 control-label">Tipo publicador</label>
 							<div class="col-lg-3">
-								<select name="TipoPublicador" class="form-control m-b" id="TipoPublicador">
+								<select name="TipoPublicador" class="form-control" id="TipoPublicador">
 									<option value="">(Todos)</option>
 								  <?php while($row_TipoPublicador=sqlsrv_fetch_array($SQL_TipoPublicador)){?>
 										<option value="<?php echo $row_TipoPublicador['IDTipoPublicador'];?>" <?php if((isset($_GET['TipoPublicador']))&&(strcmp($row_TipoPublicador['IDTipoPublicador'],$_GET['TipoPublicador'])==0)){ echo "selected=\"selected\"";}?>><?php echo $row_TipoPublicador['TipoPublicador'];?></option>
@@ -175,7 +175,7 @@ if(isset($_GET['a'])&&($_GET['a']==base64_encode("OK_PubUpd"))){
 							</div>
 							<label class="col-lg-1 control-label">Anciano / SM</label>
 							<div class="col-lg-3">
-								<select name="PrivServicio" class="form-control m-b" id="PrivServicio">
+								<select name="PrivServicio" class="form-control" id="PrivServicio">
 									<option value="">(Todos)</option>
 								  <?php while($row_PrivServicio=sqlsrv_fetch_array($SQL_PrivServicio)){?>
 										<option value="<?php echo $row_PrivServicio['IDPrivServicio'];?>" <?php if((isset($_GET['PrivServicio']))&&(strcmp($row_PrivServicio['IDPrivServicio'],$_GET['PrivServicio'])==0)){ echo "selected=\"selected\"";}?>><?php echo $row_PrivServicio['PrivilegioServicio'];?></option>
