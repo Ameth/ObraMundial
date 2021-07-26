@@ -7,28 +7,45 @@ $sw=0;
 $Filtro="";//Filtro
 $Grupo="";
 $Periodo="";
+
+//Grupos de congregacion
+$SQL_Grupos=Seleccionar('uvw_tbl_Grupos','*',"NumCong='".$_SESSION['NumCong']."'",'NombreGrupo');
+
+//Tipo publicador
+$SQL_TipoPublicador=Seleccionar('uvw_tbl_TipoPublicador','*','','TipoPublicador');
+
+//Tipo privilegio de servicio
+$SQL_PrivServicio=Seleccionar('uvw_tbl_PrivilegioServicio','*','','PrivilegioServicio');
+
+
 if(isset($_GET['Grupo'])&&$_GET['Grupo']!=""){
 	$Filtro.=" and IDGrupo='".$_GET['Grupo']."'";
 	$Grupo=$_GET['Grupo'];
 	$sw=1;
 }
 
-if(isset($_GET['Publicador'])&&$_GET['Publicador']!=""){
-	$Periodo=$_GET['Publicador'];
+if(isset($_GET['TipoPublicador'])&&$_GET['TipoPublicador']!=""){
+	$Filtro.=" and IDTipoPublicador='".$_GET['TipoPublicador']."'";
 	$sw=1;
 }
 
-//Grupos de congregacion
-if(PermitirFuncion(205)){
-	$SQL_Grupos=Seleccionar('uvw_tbl_Grupos','*',"NumCong='".$_SESSION['NumCong']."' and IDGrupo='".$_SESSION['Grupo']."'",'NombreGrupo');
-	
-	$SQL_Pub=Seleccionar('uvw_tbl_Publicadores','*',"NumCong='".$_SESSION['NumCong']."' and IDGrupo='".$_SESSION['Grupo']."'",'NombrePublicador');
-}else{
-	$SQL_Grupos=Seleccionar('uvw_tbl_Grupos','*',"NumCong='".$_SESSION['NumCong']."'",'NombreGrupo');
+if(isset($_GET['PrivServicio'])&&$_GET['PrivServicio']!=""){
+	$Filtro.=" and IDPrivServicio='".$_GET['PrivServicio']."'";
+	$sw=1;
 }
 
-if($sw==1){
-	$SQL_Pub=Seleccionar('uvw_tbl_Publicadores','*',"NumCong='".$_SESSION['NumCong']."' and IDGrupo='".$_GET['Grupo']."'",'NombrePublicador');
+//if(isset($_GET['Publicador'])&&$_GET['Publicador']!=""){
+//	$Periodo=$_GET['Publicador'];
+//	$sw=1;
+//}
+
+if(isset($_GET['MM_Buscar'])){
+	if(PermitirFuncion(205)){
+		$SQL=Seleccionar('uvw_tbl_Publicadores','*',"NumCong='".$_SESSION['NumCong']."' and IDGrupo='".$_SESSION['Grupo']."' $Filtro",'NombrePublicador');
+	}else{
+		$SQL=Seleccionar('uvw_tbl_Publicadores','*',"NumCong='".$_SESSION['NumCong']."' $Filtro",'NombrePublicador');
+	}
+	$sw=1;
 }
 
 //echo $Cons;
@@ -44,21 +61,26 @@ if($sw==1){
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <script type="text/javascript">
-	$(document).ready(function() {//Cargar los combos dependiendo de otros
-		$("#Grupo").change(function(){
-			$('.ibox-content').toggleClass('sk-loading',true);
-			var Grupo=document.getElementById('Grupo').value;
-			$.ajax({
-				type: "POST",
-				url: "ajx_cbo_select.php?type=2&id="+Grupo,
-				success: function(response){
-					$('#Publicador').html(response).fadeIn();
-					$('#Publicador').trigger('change');
-					$('.ibox-content').toggleClass('sk-loading',false);
-				}
-			});
-		});
+	
+$(document).ready(function() {//Cargar los combos dependiendo de otros
+
+});
+
+function DescargarZIP(){
+	Swal.fire({
+		title: "Este proceso podría tardar unos minutos",
+		text: "¿Desea continuar?",
+		icon: "warning",
+		showCancelButton: true,
+		confirmButtonText: "Si, confirmo",
+		cancelButtonText: "No"
+	}).then((result) => {
+		if (result.isConfirmed) {
+			DescargarSAPDownload("filedownload.php", "zip="+btoa('1')+"&file="+btoa("s-21")+"&filtro=<?php echo base64_encode($Filtro);?>", true)
+		}
 	});
+}
+	
 </script>
 <!-- InstanceEndEditable -->
 </head>
@@ -99,32 +121,40 @@ if($sw==1){
 							<label class="col-xs-12"><h3 class="bg-success p-xs b-r-sm"><i class="fa fa-filter"></i> Datos para filtrar</h3></label>
 						</div>
 					 	<div class="form-group">
-							<label class="col-lg-1 control-label">Grupo <span class="text-danger">*</span></label>
+							<?php if(!PermitirFuncion(205)){?>
+							<label class="col-lg-1 control-label">Grupo</label>
 							<div class="col-lg-3">
-								<select name="Grupo" class="form-control" id="Grupo" required>
-									<?php if(!PermitirFuncion(205)){?><option value="">(Seleccione)</option><?php }?>
+								<select name="Grupo" class="form-control" id="Grupo">
+									<option value="">(Todos)</option>
 								  <?php while($row_Grupos=sqlsrv_fetch_array($SQL_Grupos)){?>
 										<option value="<?php echo $row_Grupos['IDGrupo'];?>" <?php if((isset($_GET['Grupo']))&&(strcmp($row_Grupos['IDGrupo'],$_GET['Grupo'])==0)){ echo "selected=\"selected\"";}?>><?php echo $row_Grupos['NombreGrupo'];?></option>
 								  <?php }?>
 								</select>
 							</div>
-							<label class="col-lg-1 control-label">Publicador <span class="text-danger">*</span></label>
+							<?php }?>
+							<label class="col-lg-1 control-label">Tipo publicador</label>
 							<div class="col-lg-3">
-								<select name="Publicador" class="form-control select2" id="Publicador" required>
-									<option value="">(Seleccione)</option>
-								  <?php 
-									if($sw==1||PermitirFuncion(205)){
-										while($row_Pub=sqlsrv_fetch_array($SQL_Pub)){?>
-											<option value="<?php echo $row_Pub['IDPublicador'];?>" <?php if((isset($_GET['Publicador']))&&(strcmp($row_Pub['IDPublicador'],$_GET['Publicador'])==0)){ echo "selected=\"selected\"";}?>><?php echo $row_Pub['NombrePublicador'];?></option>
-								  <?php }
-									}?>
+								<select name="TipoPublicador" class="form-control" id="TipoPublicador">
+									<option value="">(Todos)</option>
+								  <?php while($row_TipoPublicador=sqlsrv_fetch_array($SQL_TipoPublicador)){?>
+										<option value="<?php echo $row_TipoPublicador['IDTipoPublicador'];?>" <?php if((isset($_GET['TipoPublicador']))&&(strcmp($row_TipoPublicador['IDTipoPublicador'],$_GET['TipoPublicador'])==0)){ echo "selected=\"selected\"";}?>><?php echo $row_TipoPublicador['TipoPublicador'];?></option>
+								  <?php }?>
+								</select>
+							</div>
+							<label class="col-lg-1 control-label">Anciano / SM</label>
+							<div class="col-lg-2">
+								<select name="PrivServicio" class="form-control" id="PrivServicio">
+									<option value="">(Todos)</option>
+								  <?php while($row_PrivServicio=sqlsrv_fetch_array($SQL_PrivServicio)){?>
+										<option value="<?php echo $row_PrivServicio['IDPrivServicio'];?>" <?php if((isset($_GET['PrivServicio']))&&(strcmp($row_PrivServicio['IDPrivServicio'],$_GET['PrivServicio'])==0)){ echo "selected=\"selected\"";}?>><?php echo $row_PrivServicio['PrivilegioServicio'];?></option>
+								  <?php }?>
 								</select>
 							</div>
 							<div class="col-lg-1">
 								<button type="submit" class="btn btn-outline btn-success pull-right"><i class="fa fa-search"></i> Consultar</button>
 							</div>							
 						</div>
-					  <input type="hidden" id="MM_Buscas" name="MM_Buscar" value="1">
+					  <input type="hidden" id="MM_Buscar" name="MM_Buscar" value="1">
 				 </form>
 			</div>
 			</div>
@@ -132,17 +162,43 @@ if($sw==1){
          <br>
 		<?php if($sw==1){?>
 		<div class="row">
-			<div class="col-lg-12">   		
-				<div class="ibox-content">
-				<?php include("includes/spinner.php"); ?>
-					<div class="form-group">
-						<div class="col-lg-6">
-							<a href="rpt_informe_registro_publicador.php?id=<?php echo base64_encode($Periodo);?>" target="_blank" class="btn btn-outline btn-danger"><i class="fa fa-file-pdf-o"></i> Descargar tarjeta S-21 en PDF</a>
+           <div class="col-lg-12">
+			    <div class="ibox-content">
+					 <?php include("includes/spinner.php"); ?>
+					<div class="row m-b-md">
+						<div class="col-lg-12">
+							<button class="pull-right btn btn-danger btn-outline" id="btnDescargarTodos" name="btnDescargarTodos" type="button" onClick="DescargarZIP();"><i class="fa fa-file-zip-o"></i> Descargar todos</button>
 						</div>
 					</div>
+					<div class="table-responsive">
+						<table class="table table-striped table-bordered table-hover dataTables-example" >
+						<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Apellidos</th>
+							<th>Grupo</th>
+							<th>Privilegio</th>
+							<th>Anciano/SM</th>
+							<th>Acciones</th>
+						</tr>
+						</thead>
+						<tbody>
+						<?php while($row=sqlsrv_fetch_array($SQL)){?>
+							 <tr class="gradeX tooltip-demo">
+								<td><?php echo $row['Nombre']." ".$row['SegundoNombre'];?></td>
+								<td><?php echo $row['Apellido']." ".$row['SegundoApellido'];?></td>				
+								<td><?php echo $row['NombreGrupo'];?></td>
+								<td><?php echo $row['TipoPublicador'];?></td>
+								<td><?php echo $row['PrivilegioServicio'];?></td>
+								<td><a href="rpt_informe_registro_publicador.php?id=<?php echo base64_encode($row['IDPublicador']);?>" class="btn btn-primary btn-sm" target="_blank"><i class="fa fa-download"></i> Descargar tarjeta S-21</a></td>
+							</tr>
+						<?php }?>
+						</tbody>
+						</table>
+              		</div>
 				</div>
-			</div>
-		</div>
+			 </div> 
+          </div>
 		<?php }?>
         </div>
         <!-- InstanceEndEditable -->

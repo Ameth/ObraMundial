@@ -421,8 +421,7 @@ function EliminarTemporal($carpeta){//Eliminar los archivos de la carpeta tempor
 }
 
 function LimpiarDirTemp(){//Limpiar la carpeta temporal antes de cargar nuevos anexos
-	$temp=ObtenerVariable("CarpetaTmp");
-	$route= $temp."/".$_SESSION['CodUser']."/";
+	$route= "download/".$_SESSION['CodUser']."/";
 	if(file_exists($route)){
 		EliminarTemporal($route);
 		mkdir($route,0777, true);
@@ -653,6 +652,30 @@ function DescargarFileAPI($pNombreWS,$method='GET'){
 		$JWT="Authorization: Bearer ".$_SESSION['JWT'];
 		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json', $JWT));
 	}	
+	
+	if($method!="GET"){
+		curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+	}
+	
+	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+	$result = curl_exec($curl);
+	//echo "json: ".$json;
+	$cod_http = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+	$array_res= curl_getinfo($curl);
+	//echo "Codigo HTTP:".$cod_http;
+	if($cod_http!=200){//Ocurrio un error
+		echo "Codigo ".$cod_http.": (".$method.") ".$array_res['content_type'];	
+	}
+	curl_close($curl);
+	return $result;			
+}
+
+function DescargarFile($pNombreWS,$method='GET'){
+	
+	//$Url=ObtenerVariable('DireccionAPIJSON');
+	$apiUrl = $pNombreWS;
+	$curl = curl_init();
+	curl_setopt($curl, CURLOPT_URL, $apiUrl);
 	
 	if($method!="GET"){
 		curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);

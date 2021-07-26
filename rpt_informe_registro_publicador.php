@@ -6,6 +6,8 @@ require_once("includes/conexion.php");
 
 PermitirAcceso(404);
 
+$zip=(isset($_GET['zip'])&&$_GET['zip']==1) ? 1 : 0;
+
 //Congregacion
 $SQL_Cong=Seleccionar('uvw_tbl_Congregaciones','*',"NumCong='".$_SESSION['NumCong']."'");
 $row_Cong=sqlsrv_fetch_array($SQL_Cong);
@@ -16,6 +18,7 @@ $Publicador=base64_decode($_GET['id']);
 //Publicador
 $SQL_Pub=Seleccionar('uvw_tbl_Publicadores','*',"NumCong='".$_SESSION['NumCong']."' and IDPublicador='".$Publicador."'");
 $row_Pub=sqlsrv_fetch_array($SQL_Pub);
+$NombrePub=$row_Pub['NombrePublicador'];
 
 //Datos
 if($row_Pub['FechaNac']!=""){
@@ -554,11 +557,11 @@ while($row_Pub=sqlsrv_fetch_array($SQL_AServ)){
 		  <td align="center">&nbsp;</td>
 		</tr>';
 	
-	$PromPub=$TotalPub/$Count;
-	$PromVideos=$TotalVideos/$Count;
-	$PromHoras=$TotalHoras/$Count;
-	$PromRevisitas=$TotalRevisitas/$Count;
-	$PromCursos=$TotalCursos/$Count;
+	$PromPub=($Count>0) ? $TotalPub/$Count : 0;
+	$PromVideos=($Count>0) ? $TotalVideos/$Count : 0;
+	$PromHoras=($Count>0) ? $TotalHoras/$Count : 0;
+	$PromRevisitas=($Count>0) ? $TotalRevisitas/$Count : 0;
+	$PromCursos=($Count>0) ? $TotalCursos/$Count : 0;
 	
 	$Datos.='<tr  style="font-weight: bold;">
 		  <td>Promedio</td>
@@ -588,7 +591,12 @@ $dompdf->setPaper('letter', 'portrait');
 // Render the HTML as PDF
 $dompdf->render();
 
-// Output the generated PDF to Browser
-$dompdf->stream("Registro_publicador_S-21.pdf",array("Attachment" => false));
-exit(0);
+if($zip==1){
+	$output = $dompdf->output();
+	file_put_contents("download/".$_SESSION['CodUser']."/".$NombrePub.".pdf", $output);
+}else{
+	// Output the generated PDF to Browser
+	$dompdf->stream($NombrePub.".pdf",array("Attachment" => false));
+}
+//exit(0);
 ?>

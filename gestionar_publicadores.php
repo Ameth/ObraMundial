@@ -44,6 +44,7 @@ if(isset($_GET['BuscarDato'])&&$_GET['BuscarDato']!=""){
 	$Filtro.=" and (Nombre LIKE '%".$_GET['BuscarDato']."%' OR SegundoNombre LIKE '%".$_GET['BuscarDato']."%' OR Apellido LIKE '%".$_GET['BuscarDato']."%' OR SegundoApellido LIKE '%".$_GET['BuscarDato']."%' OR Direccion LIKE '%".$_GET['BuscarDato']."%' OR PersonaCont LIKE '%".$_GET['BuscarDato']."%')";
 	$sw=1;
 }
+
 if(PermitirFuncion(205)){
 	$Cons="Select * From uvw_tbl_Publicadores Where NumCong='".$_SESSION['NumCong']."' and IDGrupo='".$_SESSION['Grupo']."' $Filtro";
 }else{
