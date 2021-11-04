@@ -71,21 +71,12 @@ if(isset($_REQUEST['file'])&&$_REQUEST['file']!=""){
 	if($ZipMode==1){
 		$filename = $filezip;
 		$NombreArchivo=$zipName;
-	}
-
-	$size = filesize($filename);
-
-	//BUSCAR ARCHIVO PARA DESCARGAR
-	if($ZipMode==1){
-		$filename = $filezip;
-		$NombreArchivo=$zipName;
 	}else{
 		$filename = $RutaAttachSAP[0].$row['NombreArchivo'];
 		$NombreArchivo=$row['NombreArchivo'];
 	}
 
-	$size = filesize($filename);
-		
+	$size = filesize($filename);	
 	
 	
 	header("Content-Transfer-Encoding: binary");
