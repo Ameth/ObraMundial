@@ -223,6 +223,7 @@ if(isset($_GET['a'])&&($_GET['a']==base64_encode("OK_PubUpd"))){
 						<th>Celular</th>
 						<th>Privilegio</th>
 						<th>Anciano/SM</th>
+						<th>Contacto</th>
 						<th>Estado</th>
 						<th>Acciones</th>
                     </tr>
@@ -240,7 +241,8 @@ if(isset($_GET['a'])&&($_GET['a']==base64_encode("OK_PubUpd"))){
 							<td><?php echo $row['Telefono'];?></td>
 							<td><?php echo $row['Celular'];?></td>
 							<td><?php echo $row['TipoPublicador'];?></td>
-							<td><?php echo $row['PrivilegioServicioAbr'];?></td>							 
+							<td><?php echo $row['PrivilegioServicioAbr'];?></td>
+							<td><?php echo $row['PersonaCont'];?></td>
 							<td><span <?php if($row['IDEstado']=='1'){echo "class='label label-info'";}else{echo "class='label label-danger'";}?>><?php echo $row['NombreEstado'];?></span></td>							 
 							<td><a href="publicadores.php?id=<?php echo base64_encode($row['IDPublicador']);?>&return=<?php echo base64_encode($_SERVER['QUERY_STRING']);?>&pag=<?php echo base64_encode('gestionar_publicadores.php');?>&tl=1" class="alkin btn btn-success btn-xs"><i class="fa fa-edit"></i> Editar</a></td>
 						</tr>

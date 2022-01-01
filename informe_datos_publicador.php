@@ -8,8 +8,10 @@ $Filtro="";//Filtro
 $Grupo="";
 
 if(isset($_GET['Grupo'])){
-	$Filtro.=" and IDGrupo='".$_GET['Grupo']."'";
-	$Grupo=$_GET['Grupo'];
+	if($_GET['Grupo']!=""){
+		$Filtro.=" and IdGrupo='".$_GET['Grupo']."'";
+		$Grupo=$_GET['Grupo'];
+	}	
 	$sw=1;
 }
 
@@ -21,8 +23,8 @@ if(PermitirFuncion(205)){
 }
 
 if($sw==1){
-	$SQL=Seleccionar('uvw_tbl_Publicadores','*',"NumCong='".$_SESSION['NumCong']."' and IdGrupo='".$Grupo."'",'NombrePublicador');
-	$SQLCons=ReturnCons('uvw_tbl_Publicadores','*',"NumCong='".$_SESSION['NumCong']."' and IdGrupo='".$Grupo."'",'NombrePublicador');
+	$SQL=Seleccionar('uvw_tbl_Publicadores','*',"NumCong='".$_SESSION['NumCong']."' $Filtro",'NombrePublicador');
+	$SQLCons=ReturnCons('uvw_tbl_Publicadores','*',"NumCong='".$_SESSION['NumCong']."' $Filtro",'NombrePublicador');
 }
 
 ?>
@@ -123,6 +125,7 @@ if($sw==1){
 						<th>Celular</th>
 						<th>Privilegio</th>
 						<th>Anciano/SM</th>
+						<th>Contacto emergencia</th>
 						<th>Estado</th>
                     </tr>
                     </thead>
@@ -139,6 +142,7 @@ if($sw==1){
 							<td><?php echo $row['Celular'];?></td>
 							<td><?php echo $row['TipoPublicador'];?></td>
 							<td><?php echo $row['PrivilegioServicioAbr'];?></td>													
+							<td><?php echo $row['PersonaCont'];?></td>
 							<td><span <?php if($row['IDEstado']=='1'){echo "class='label label-info'";}else{echo "class='label label-danger'";}?>><?php echo $row['NombreEstado'];?></span></td>
 						</tr>
 					<?php }?>

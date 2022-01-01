@@ -80,7 +80,7 @@ $Cabecera='<html>
 <head>
 <title>Registro de publicador S-21</title>
 <style>
- 	@page { margin: 120px 50px; }
+ 	@page { margin: 120px 50px 130px 50px; }
 	body{
 		font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 		font-size:11px;
