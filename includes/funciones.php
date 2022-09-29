@@ -161,6 +161,7 @@ function Seleccionar($pVista, $pCampos, $pWhere='', $pOrderBy='', $pOrderType=''
 		if(!$SQL){
 			$SQL=sqlsrv_query($conexion,$Consulta);
 		}
+		InsertarLog(2, 0, $Consulta);
 		return $SQL;
 	}elseif($pType==2){//Consulta a SAP HANA
 		global $conexion_odbc;
@@ -1360,6 +1361,3 @@ function EnviarMail($email_destino, $nombre_destino="", $tipo_email=0, $asunto="
 		sqlsrv_query($conexion,$InsertLog);
 	}*/
 }
-
-
-?>
