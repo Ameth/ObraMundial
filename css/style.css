@@ -42,6 +42,9 @@
 .header-50 {
   width: 50px !important;
 }
+.text-13em{
+  font-size: 1.3em;
+}
 /************************/
 h1,
 h2,
