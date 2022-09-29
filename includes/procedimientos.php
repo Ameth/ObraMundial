@@ -54,9 +54,24 @@ if(isset($_GET['type'])&&$_GET['type']!=""){
 			echo "<p class='text-info'><i class='fa fa-thumbs-up'></i> Nuevo periodo</p>";
 		}
 	}
+	if($_GET['type']==5){//Activar o Inactivar Periodo
+		$Cons="Select IDEstado From tbl_PeriodosInformes Where IDPeriodo='".$_GET['ID_Periodo']."'";
+		$SQL_Cons=sqlsrv_query($conexion,$Cons);
+		$row_Cons=sqlsrv_fetch_array($SQL_Cons);
+		if($row_Cons['IDEstado']==1){
+			$Upd="Update tbl_PeriodosInformes Set IDEstado=2 Where IDPeriodo='".$_GET['ID_Periodo']."'";
+			$SQL_Upd=sqlsrv_query($conexion,$Upd);
+			if($SQL_Upd){
+				echo "2";
+			}
+		}else{
+			$Upd="Update tbl_PeriodosInformes Set IDEstado=1 Where IDPeriodo='".$_GET['ID_Periodo']."'";
+			$SQL_Upd=sqlsrv_query($conexion,$Upd);
+			if($SQL_Upd){
+				echo "1";
+			}
+		}
+	}
 	
 	sqlsrv_close($conexion);	
 }
-
-
-?>
