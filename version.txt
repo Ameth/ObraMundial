@@ -1,32 +1,35 @@
-:: NOTAS DE LA VERSIÓN ::
+:: NOTAS DE LA VERSIï¿½N ::
+1.6.2
+Se agregÃ³ la opciÃ³n de selecciÃ³n multiple en los aÃ±os de servicio en el reporte S-21. Se agregÃ³ una alerta cuando se ingresan estudios biblicos sin revisitas en los informes mensuales de servicio.
+
 1.6.1
-Se crea el módulo de Inventarios para gestionar los articulos. Se crea inicialmente una ventana básica para poder consultarlos y actualizarlos, con los datos basicos como nombre, grupo y campos definidos por el usuario.
+Se crea el mï¿½dulo de Inventarios para gestionar los articulos. Se crea inicialmente una ventana bï¿½sica para poder consultarlos y actualizarlos, con los datos basicos como nombre, grupo y campos definidos por el usuario.
 
 1.6
-Se unifica el formulario de actividades para que cargue en una sola ventana y controlar los mensajes de error de integración con SAP B1. Se crean los formularios de Oferta de venta y se realizan unos cambios al de Orden de venta para que se puedan crear Ordenes basados en las ofertas.
+Se unifica el formulario de actividades para que cargue en una sola ventana y controlar los mensajes de error de integraciï¿½n con SAP B1. Se crean los formularios de Oferta de venta y se realizan unos cambios al de Orden de venta para que se puedan crear Ordenes basados en las ofertas.
 
 1.5.1
 Se unifica el formulario de llamada de servicio para que cargue en una sola ventana y controlar los mensajes de error cuando no integra a SAP B1.
 
 1.5
-Se agrega el módulo de Gestion Cartera y se integra con el servicio Callback de Elastix para grabar las llamadas desde el aplicativo.
-Se crea el módulo de parametrizaciones de informes de SAP que permite crear dinamicamente los informes con sus parametros del WebServices.
+Se agrega el mï¿½dulo de Gestion Cartera y se integra con el servicio Callback de Elastix para grabar las llamadas desde el aplicativo.
+Se crea el mï¿½dulo de parametrizaciones de informes de SAP que permite crear dinamicamente los informes con sus parametros del WebServices.
 
 1.4.5
-Se cambia la apariencia de la página de inicio de sesión en el portal, mas moderna al estilo Office 365.
+Se cambia la apariencia de la pï¿½gina de inicio de sesiï¿½n en el portal, mas moderna al estilo Office 365.
 
 1.4.4
-Se crea el modulo de la creación del Socio de negocio. Permite crear los socios con sus datos basicos y sus direcciones de facturación
+Se crea el modulo de la creaciï¿½n del Socio de negocio. Permite crear los socios con sus datos basicos y sus direcciones de facturaciï¿½n
 y de entrega.
 
 1.4.3
 Se crea el modulo de la orden de venta y se agregan unos cambios en las actividades y llamadas de servicio, como ocultar el
-cliente e información adicional que no es necesario cuando el tipo de tarea es Interno.
+cliente e informaciï¿½n adicional que no es necesario cuando el tipo de tarea es Interno.
 Tambien se hicieron cambios en la ventana inicial para ver las tareas asignadas y enviadas, mostrando el color
-dependiendo de los días de vencimiento. 
+dependiendo de los dï¿½as de vencimiento. 
 
 1.4.2
-Se corrigen unos campos en la creación de las actividades y se modifica el dashboard inicial para las actividades, mostrando
+Se corrigen unos campos en la creaciï¿½n de las actividades y se modifica el dashboard inicial para las actividades, mostrando
 las activiades que se le han asignado al usuario y las actividades que el usuario ha asignado.
 
 1.4.1
@@ -34,19 +37,19 @@ Se corrige un error que no permitia actualizar el acuerdo de confidencialidad po
 Se creo el script que recarga la pagina enviando los datos al registro y actualizando los datos en el archivo de texto.
 
 1.4
-Se modifica el sistema de permisos para que cada categoria tenga un permiso independiente y cargue el menú dependiendo de 
-este permiso asignado a cada perfil. Esto permite activar o desactivar las categorias de forma independiente en el menú.
+Se modifica el sistema de permisos para que cada categoria tenga un permiso independiente y cargue el menï¿½ dependiendo de 
+este permiso asignado a cada perfil. Esto permite activar o desactivar las categorias de forma independiente en el menï¿½.
 
 1.3
-Se crea el módulo de Gestión de tareas.
+Se crea el mï¿½dulo de Gestiï¿½n de tareas.
 
 1.2
 Se crea la categoria Calidad que funciona como otra categoria entre los documentos e informes.
-Este aparece como una opción en el menú y se pueden crear categorias dentro de la misma.
+Este aparece como una opciï¿½n en el menï¿½ y se pueden crear categorias dentro de la misma.
 
 1.1
 Se corrige un error que mostraba todas las sucursales de los clientes incluso si solo tenian unas cuantas habilitadas.
-Se crea una nueva función que permite limpiar los nombres de los archivos quitando los caracteres especiales y los acentos.
+Se crea una nueva funciï¿½n que permite limpiar los nombres de los archivos quitando los caracteres especiales y los acentos.
 
 1.0
-Se realiza la primera versión final del software.
+Se realiza la primera versiï¿½n final del software.

@@ -174,8 +174,8 @@ $Num = sqlsrv_num_rows($SQL);
 													<td><input name="Publicaciones[]" autocomplete="off" type="text" class="form-control text-right mw-80 txt-resaltado text-13em" id="Publicaciones<?php echo $row['IDPublicador']; ?>" maxlength="3" onKeyUp="revisaCadena(this);" onKeyPress="return justNumbers(event,this.value);" value="<?php echo $row_Informes['Publicaciones']; ?>"></td>
 													<td><input name="PresVideo[]" autocomplete="off" type="text" class="form-control text-right mw-80 txt-resaltado text-13em" id="PresVideo<?php echo $row['IDPublicador']; ?>" maxlength="3" onKeyUp="revisaCadena(this);" onKeyPress="return justNumbers(event,this.value);" value="<?php echo $row_Informes['Videos']; ?>"></td>
 													<td><input name="Horas[]" autocomplete="off" type="text" class="form-control text-right mw-80 txt-resaltado text-13em" id="Horas<?php echo $row['IDPublicador']; ?>" maxlength="3" onKeyUp="revisaCadena(this);" onKeyPress="return justNumbers(event,this.value);" value="<?php echo $row_Informes['Horas']; ?>"></td>
-													<td><input name="Revisitas[]" autocomplete="off" type="text" class="form-control text-right mw-80 txt-resaltado text-13em" id="Revisitas<?php echo $row['IDPublicador']; ?>" maxlength="3" onKeyUp="revisaCadena(this);" onKeyPress="return justNumbers(event,this.value);" value="<?php echo $row_Informes['Revisitas']; ?>"></td>
-													<td><input name="Cursos[]" autocomplete="off" type="text" class="form-control text-right mw-80 txt-resaltado text-13em" id="Cursos<?php echo $row['IDPublicador']; ?>" maxlength="3" onKeyUp="revisaCadena(this);" onKeyPress="return justNumbers(event,this.value);" value="<?php echo $row_Informes['Cursos']; ?>"></td>
+													<td><input name="Revisitas[]" data-info="revisitas" autocomplete="off" type="text" class="form-control text-right mw-80 txt-resaltado text-13em" id="Revisitas<?php echo $row['IDPublicador']; ?>" maxlength="3" onKeyUp="revisaCadena(this);" onKeyPress="return justNumbers(event,this.value);" value="<?php echo $row_Informes['Revisitas']; ?>"></td>
+													<td><input name="Cursos[]" data-info="cursos" data-id="<?php echo $row['IDPublicador']; ?>" autocomplete="off" type="text" class="form-control text-right mw-80 txt-resaltado text-13em" id="Cursos<?php echo $row['IDPublicador']; ?>" maxlength="3" onKeyUp="revisaCadena(this);" onKeyPress="return justNumbers(event,this.value);" value="<?php echo $row_Informes['Cursos']; ?>"></td>
 													<td><input name="Comentarios[]" autocomplete="off" type="text" class="form-control mw-130 txt-resaltado text-13em" id="Comentarios<?php echo $row['IDPublicador']; ?>" maxlength="50" value="<?php echo $row_Informes['Notas']; ?>"></td>
 												</tr>
 											<?php } ?>
@@ -229,18 +229,23 @@ $Num = sqlsrv_num_rows($SQL);
 		$(document).ready(function() {
 			$("#frmInformes").validate({
 				submitHandler: function(form) {
-					Swal.fire({
-						title: "¿Está seguro que desea guardar los datos?",
-						icon: "question",
-						showCancelButton: true,
-						confirmButtonText: "Si, confirmo",
-						cancelButtonText: "No"
-					}).then((result) => {
-						if (result.isConfirmed) {
-							$('.ibox-content').toggleClass('sk-loading', true);
-							form.submit();
-						}
-					});
+
+					if (verificarRevisitar()) {
+						Swal.fire({
+							title: "¿Está seguro que desea guardar los datos?",
+							icon: "question",
+							showCancelButton: true,
+							confirmButtonText: "Si, confirmo",
+							cancelButtonText: "No"
+						}).then((result) => {
+							if (result.isConfirmed) {
+								$('.ibox-content').toggleClass('sk-loading', true);
+								form.submit();
+							}
+						});
+					} else {
+						$('.ibox-content').toggleClass('sk-loading', false);
+					}
 				}
 			});
 			$(".alkin").on('click', function() {
@@ -259,6 +264,34 @@ $Num = sqlsrv_num_rows($SQL);
 				ordering: false
 			});
 		});
+	</script>
+	<script>
+		function verificarRevisitar() {
+			const listCursos = document.querySelectorAll("[data-info='cursos']");
+			const list = Array.isArray(listCursos) === false ? [...listCursos] : listCursos;
+			let alert = true
+
+			list.forEach((curso, index) => {
+				const {
+					id
+				} = curso.dataset
+				const revisitas = document.getElementById(`Revisitas${id}`)
+
+				// console.log(revisitas);
+				//Validar que si tiene cursos biblios, tenga tambien revisitas
+				if (Number(curso.value) > 0 && (Number(revisitas.value) === 0) || revisitas.value === "") {
+					//Alertar que debe tener revisitas
+					alert = false
+					Swal.fire({
+						title: "¡Existen estudios sin revisitas!",
+						text: "Por favor ingrese las revisitas que correspondan.",
+						icon: "warning",
+					});
+				}
+			})
+
+			return alert
+		}
 	</script>
 	<!-- InstanceEndEditable -->
 </body>
