@@ -12,7 +12,7 @@ $zip = (isset($_GET['zip']) && $_GET['zip'] == 1) ? 1 : 0;
 
 //Periodos
 if (isset($_GET['anio']) && $_GET['anio'] != "") {
-	$Periodo = " and AnioServicio='" . base64_decode($_GET['anio']) . "'";
+	$Periodo = " and AnioServicio IN (" . base64_decode($_GET['anio']) . ")";
 } else {
 	$Periodo = "";
 }

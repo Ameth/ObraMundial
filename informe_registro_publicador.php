@@ -38,7 +38,7 @@ if (isset($_GET['PrivServicio']) && $_GET['PrivServicio'] != "") {
 }
 
 if (isset($_GET['AnioServicio']) && $_GET['AnioServicio'] != "") {
-	$Periodo = $_GET['AnioServicio'];
+	$Periodo = implode(",", $_GET['AnioServicio']);
 	$sw = 1;
 }
 
@@ -165,11 +165,13 @@ if (isset($_GET['MM_Buscar'])) {
 								<div class="form-group">
 									<label class="col-lg-1 control-label">Año de servicio</label>
 									<div class="col-lg-3">
-										<select name="AnioServicio" class="form-control" id="AnioServicio">
+										<select data-placeholder="(Todos)" name="AnioServicio[]" class="form-control chosen-select" id="AnioServicio" multiple>
 											<option value="">(Todos)</option>
-											<?php while ($row_AnioServicio = sqlsrv_fetch_array($SQL_AnioServicio)) { ?>
-												<option value="<?php echo $row_AnioServicio['AnioServicio']; ?>" <?php if ((isset($_GET['AnioServicio'])) && (strcmp($row_AnioServicio['AnioServicio'], $_GET['AnioServicio']) == 0)) {
+											<?php $j = 0;
+											while ($row_AnioServicio = sqlsrv_fetch_array($SQL_AnioServicio)) { ?>
+												<option value="<?php echo $row_AnioServicio['AnioServicio']; ?>" <?php if ((isset($_GET['AnioServicio'][$j])) && (strcmp($row_AnioServicio['AnioServicio'], $_GET['AnioServicio'][$j]) == 0)) {
 																														echo "selected=\"selected\"";
+																														$j++;
 																													} ?>><?php echo $row_AnioServicio['AnioServicio']; ?></option>
 											<?php } ?>
 										</select>
