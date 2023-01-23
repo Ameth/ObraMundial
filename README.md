@@ -26,7 +26,7 @@ Los pull requests son bienvenidos. Para cambios importantes, abra un problema pr
 Asegúrese de actualizar las pruebas según corresponda. 
 
 ## Licencia
-[GNU/GLP](https://www.gnu.org/licenses/gpl-3.0.html)
+[GNU/GPL](https://www.gnu.org/licenses/gpl-3.0.html)
 
 ![](img/screenshots/home.png)
 ![](img/screenshots/home-reports.png)
