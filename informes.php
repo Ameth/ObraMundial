@@ -272,21 +272,26 @@ $Num = sqlsrv_num_rows($SQL);
 			let alert = true
 
 			list.forEach((curso, index) => {
-				const {
-					id
-				} = curso.dataset
-				const revisitas = document.getElementById(`Revisitas${id}`)
+				if (curso.value !== "") {
+					const {
+						id
+					} = curso.dataset
+					const revisitas = document.getElementById(`Revisitas${id}`)
 
-				// console.log(revisitas);
-				//Validar que si tiene cursos biblios, tenga tambien revisitas
-				if (Number(curso.value) > 0 && (Number(revisitas.value) === 0) || revisitas.value === "") {
-					//Alertar que debe tener revisitas
-					alert = false
-					Swal.fire({
-						title: "¡Existen estudios sin revisitas!",
-						text: "Por favor ingrese las revisitas que correspondan.",
-						icon: "warning",
-					});
+					// console.log('curso', curso.value);
+					// console.log('revisita', revisitas.value);
+
+					//Validar que si tiene cursos biblios, tenga tambien revisitas
+					if (Number(curso.value) > 0 && (Number(revisitas.value) === 0) || revisitas.value === "") {
+						// console.log(`Entro con curso en ${curso.value} y revisitas en ${revisitas.value}`)
+						//Alertar que debe tener revisitas
+						alert = false
+						Swal.fire({
+							title: "¡Existen estudios sin revisitas!",
+							text: "Por favor ingrese las revisitas que correspondan.",
+							icon: "warning",
+						});
+					}
 				}
 			})
 
