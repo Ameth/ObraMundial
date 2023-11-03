@@ -4,8 +4,8 @@ if (!isset($_SESSION)) {
     session_start();
 }
 if (isset($_SESSION['User']) && $_SESSION['User'] != "") {
-    // header('Location:index1.php');
-    header('Location:mantenimiento.php');
+    header('Location:index1.php');
+    // header('Location:mantenimiento.php');
     exit();
 }
 session_destroy();
@@ -50,8 +50,8 @@ if (isset($_POST['User']) || isset($_POST['Password'])) {
                     if (sqlsrv_query($conexion, $ConsUpdUltIng)) {
                         sqlsrv_close($conexion);
                         //echo "Ingreso al Index";
-                        // header('Location:index1.php');
-                        header('Location:mantenimiento.php');
+                        header('Location:index1.php');
+                        // header('Location:mantenimiento.php');
                     } else {
                         sqlsrv_close($conexion);
                         echo "Error de ingreso. Fecha invalida.";
@@ -102,7 +102,7 @@ if (isset($_POST['User']) || isset($_POST['Password'])) {
 
     <!-- Content -->
 
-    <div class="authentication-wrapper authentication-2 ui-bg-cover ui-bg-overlay-container px-4" style="background-image: url('img/img_background3.jpg');">
+    <div class="authentication-wrapper authentication-2 ui-bg-cover ui-bg-overlay-container px-4" style="background-image: url('img/img_background2.jpg');">
         <div class="ui-bg-overlay bg-dark opacity-25"></div>
 
         <div class="authentication-inner py-5">

@@ -21,6 +21,6 @@ if (!isset($_SESSION)) {
 	define("SO",php_uname('s'));
 }
 
-define("VERSION", "1.6.2");
+define("VERSION", "1.7.0");
 define("BDPRO","obramu_obramundial");
 define("BDPRUEBAS","");
