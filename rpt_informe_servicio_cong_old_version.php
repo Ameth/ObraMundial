@@ -121,23 +121,27 @@ $Cabecera='<html>
 //Resumen por grupo
 $DatosGrupos="";
 while($row_Grp=sqlsrv_fetch_array($SQL_Grp)){
-	$SQL=EjecutarSP('usp_InformeServicioCongGrupos',$Periodo);
+	$SQL=EjecutarSP('usp_InformeServicioCongGrupos_Old',$Periodo);
 	$TotalCant=0;
-	$TotalPredica=0;
+	$TotalPub=0;
+	$TotalVideos=0;
 	$TotalHoras=0;
+	$TotalRev=0;
 	$TotalCursos=0;
 	$DatosGrupos.='
 	<table class="table">
 		<thead>
 			<tr>
-				<td colspan="5"><strong>GRUPO: </strong>'.$row_Grp['NombreGrupo'].'</td>
+				<td colspan="7"><strong>GRUPO: </strong>'.$row_Grp['NombreGrupo'].'</td>
 			</tr>
 			<tr>
 				<th align="center" width="28%">Tipo publicador</th>
-				<th align="center" width="18%">Cuántos informan</th>
-				<th align="center" width="18%">Predicaron</th>
-				<th align="center" width="18%">Horas</th>
-				<th align="center" width="18%">Cursos bíblicos</th>
+				<th align="center" width="12%">Cuántos informan</th>
+				<th align="center" width="12%">Publicaciones</th>
+				<th align="center" width="12%">Presentaciones de video</th>
+				<th align="center" width="12%">Horas</th>
+				<th align="center" width="12%">Revisitas</th>
+				<th align="center" width="12%">Cursos bíblicos</th>
 			</tr>
 		</thead>
 		<tbody>';
@@ -147,13 +151,17 @@ while($row_Grp=sqlsrv_fetch_array($SQL_Grp)){
 			<tr>
 			  <td>".$row['TipoPublicador']."</td>
 			  <td align='center'>".$row['Cantidad']."</td>
-			  <td align='center'>".$row['Predica']."</td>
+			  <td align='center'>".$row['Publicaciones']."</td>
+			  <td align='center'>".$row['Videos']."</td>
 			  <td align='center'>".$row['Horas']."</td>
+			  <td align='center'>".$row['Revisitas']."</td>
 			  <td align='center'>".$row['Cursos']."</td>
 			</tr>";
 			$TotalCant=$TotalCant+$row['Cantidad'];
-			$TotalPredica=$TotalPub+$row['Predica'];
+			$TotalPub=$TotalPub+$row['Publicaciones'];
+			$TotalVideos=$TotalVideos+$row['Videos'];
 			$TotalHoras=$TotalHoras+$row['Horas'];
+			$TotalRev=$TotalRev+$row['Revisitas'];
 			$TotalCursos=$TotalCursos+$row['Cursos'];
 		}	
 	}
@@ -161,8 +169,10 @@ while($row_Grp=sqlsrv_fetch_array($SQL_Grp)){
 	<tr style='font-weight: bold;'>
       <td align='center'>TOTAL</td>
 	  <td align='center'>".$TotalCant."</td>
-	  <td align='center'>".$TotalPredica."</td>
+	  <td align='center'>".$TotalPub."</td>
+	  <td align='center'>".$TotalVideos."</td>
 	  <td align='center'>".$TotalHoras."</td>
+	  <td align='center'>".$TotalRev."</td>
 	  <td align='center'>".$TotalCursos."</td>
     </tr>
 	<tbody>
@@ -171,7 +181,7 @@ while($row_Grp=sqlsrv_fetch_array($SQL_Grp)){
 
 //Resumen total
 $DatosTotales="";
-$SQL_Total=EjecutarSP('usp_InformeServicioCongTotal',$Periodo);
+$SQL_Total=EjecutarSP('usp_InformeServicioCongTotal_Old',$Periodo);
 $DatosTotales='
 <table class="table-subtitle">
 	<tr>
@@ -182,15 +192,17 @@ $DatosTotales='
 	<thead>
 		<tr>
 			<th align="center" width="28%">Tipo publicador</th>
-			<th align="center" width="18%">Cuántos informan</th>
-			<th align="center" width="18%">Predicaron</th>
-			<th align="center" width="18%">Horas</th>
-			<th align="center" width="18%">Cursos bíblicos</th>
+			<th align="center" width="12%">Cuántos informan</th>
+			<th align="center" width="12%">Publicaciones</th>
+			<th align="center" width="12%">Presentaciones de video</th>
+			<th align="center" width="12%">Horas</th>
+			<th align="center" width="12%">Revisitas</th>
+			<th align="center" width="12%">Cursos bíblicos</th>
 		</tr>
 	</thead>
 	<tbody>';
 $TotalCant=0;
-$TotalPredica=0;
+$TotalPub=0;
 $TotalVideos=0;
 $TotalHoras=0;
 $TotalRev=0;
@@ -200,21 +212,27 @@ while($row_Total=sqlsrv_fetch_array($SQL_Total)){
 	<tr>
 	  <td>".$row_Total['TipoPublicador']."</td>
 	  <td align='center'>".$row_Total['Cantidad']."</td>
-	  <td align='center'>".$row_Total['Predica']."</td>
+	  <td align='center'>".$row_Total['Publicaciones']."</td>
+	  <td align='center'>".$row_Total['Videos']."</td>
 	  <td align='center'>".$row_Total['Horas']."</td>
+	  <td align='center'>".$row_Total['Revisitas']."</td>
 	  <td align='center'>".$row_Total['Cursos']."</td>
 	</tr>";
 	$TotalCant=$TotalCant+$row_Total['Cantidad'];
-	$TotalPredica=$TotalPub+$row_Total['Predica'];
+	$TotalPub=$TotalPub+$row_Total['Publicaciones'];
+	$TotalVideos=$TotalVideos+$row_Total['Videos'];
 	$TotalHoras=$TotalHoras+$row_Total['Horas'];
+	$TotalRev=$TotalRev+$row_Total['Revisitas'];
 	$TotalCursos=$TotalCursos+$row_Total['Cursos'];
 }
 $DatosTotales.="
 	<tr style='font-weight: bold;'>
       <td align='center'>TOTAL</td>
 	  <td align='center'>".$TotalCant."</td>
-	  <td align='center'>".$TotalPredica."</td>
+	  <td align='center'>".$TotalPub."</td>
+	  <td align='center'>".$TotalVideos."</td>
 	  <td align='center'>".$TotalHoras."</td>
+	  <td align='center'>".$TotalRev."</td>
 	  <td align='center'>".$TotalCursos."</td>
     </tr>
 	<tbody>

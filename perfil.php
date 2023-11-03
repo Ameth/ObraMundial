@@ -182,13 +182,14 @@ if($edit==1){//Editando
 								<th>Seleccionar</th>
 								<th>Funci&oacute;n</th>
 								<th>Descripci&oacute;n</th>
+								<th>C&oacute;digo</th>
 							</tr>
 							</thead>
 							<tbody>
 						<?php while($row_Permisos=sqlsrv_fetch_array($SQL_Permisos)){
 							if($row_Permisos['ID_Padre']==0){ ?>
 								<tr class="warning">
-									<td colspan="3"><strong><?php echo $row_Permisos['NombreFuncion'];?></strong></td>
+									<td colspan="4"><strong><?php echo $row_Permisos['NombreFuncion'];?></strong></td>
 								</tr>
 						<?php
 								$Cons_Padre="Select * From uvw_tbl_NombresPermisosPerfiles Where ID_Padre='".$row_Permisos['ID_Permiso']."'";
@@ -216,6 +217,7 @@ if($edit==1){//Editando
 												</td>
 												<td><?php echo $row_Hijo['NombreFuncion'];?></td>
 												<td><?php echo $row_Hijo['Descripcion'];?></td>
+												<td><?php echo $row_Hijo['ID_Permiso'];?></td>
 											</tr>
 											<?php
 										}
@@ -235,6 +237,7 @@ if($edit==1){//Editando
 												</td>
 												<td><?php echo $row_Padre['NombreFuncion'];?></td>
 												<td><?php echo $row_Padre['Descripcion'];?></td>
+												<td><?php echo $row_Padre['ID_Permiso'];?></td>
 											</tr>
 											<?php
 									}

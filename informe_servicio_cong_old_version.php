@@ -19,8 +19,8 @@ if (isset($_GET['Periodo']) && $_GET['Periodo'] != "") {
 $SQL_Periodos=Seleccionar('uvw_tbl_PeriodosInformes','*',"NumCong='".$_SESSION['NumCong']."'",'AnioPeriodo DESC, MesPeriodo DESC');
 
 if($sw==1){
-	$SQL=EjecutarSP('usp_InformeServicioCongGrupos',$Periodo);
-	$SQL_Total=EjecutarSP('usp_InformeServicioCongTotal',$Periodo);
+	$SQL=EjecutarSP('usp_InformeServicioCongGrupos_Old',$Periodo);
+	$SQL_Total=EjecutarSP('usp_InformeServicioCongTotal_Old',$Periodo);
 }
 
 //echo $Cons;
@@ -93,7 +93,7 @@ if($sw==1){
 					  <?php if($sw==1){?>
 					  	<div class="form-group">
 							<div class="col-lg-3">
-								<a href="rpt_informe_servicio_cong.php?id=<?php echo base64_encode($Periodo);?>" target="_blank" class="btn btn-outline btn-danger"><i class="fa fa-file-pdf-o"></i> Descargar en PDF</a>
+								<a href="rpt_informe_servicio_cong_old_version.php?id=<?php echo base64_encode($Periodo);?>" target="_blank" class="btn btn-outline btn-danger"><i class="fa fa-file-pdf-o"></i> Descargar en PDF</a>
 							</div>							
 						</div>
 					  <?php }?>
@@ -121,9 +121,11 @@ if($sw==1){
                     <tr>
 						<th>Nombre grupo</th>
 						<th>Tipo publicador</th>
-						<th>Cuántos informan</th>
-						<th>Predicaron</th>
+						<th>Cuántos informan</th>  
+						<th>Publicaciones</th>  
+                        <th>Presentaciones de video</th>
                         <th>Horas</th>
+						<th>Revisitas</th>
 						<th>Cursos biblicos</th>
                     </tr>
                     </thead>
@@ -132,9 +134,11 @@ if($sw==1){
 						 <tr class="gradeX tooltip-demo">
 							<td><?php echo $row['NombreGrupo'];?></td>
 							<td><?php echo $row['TipoPublicador'];?></td>
-							<td><?php echo $row['Cantidad'];?></td>
-							<td><?php echo $row['Predica'];?></td>
+							<td><?php echo $row['Cantidad'];?></td>						
+							<td><?php echo $row['Publicaciones'];?></td>
+							<td><?php echo $row['Videos'];?></td>
 							<td><?php echo $row['Horas'];?></td>
+							<td><?php echo $row['Revisitas'];?></td>
 							<td><?php echo $row['Cursos'];?></td>
 						</tr>
 					<?php }?>
@@ -161,8 +165,10 @@ if($sw==1){
 					<tr>
 						<th>Tipo publicador</th>
 						<th>Cuántos informan</th>  
-						<th>Predicaron</th>
+						<th>Publicaciones</th>  
+						<th>Presentaciones de video</th>
 						<th>Horas</th>
+						<th>Revisitas</th>
 						<th>Cursos biblicos</th>
 					</tr>
 					</thead>
@@ -170,9 +176,11 @@ if($sw==1){
 					<?php while($row_Total=sqlsrv_fetch_array($SQL_Total)){?>
 						 <tr class="gradeX tooltip-demo">
 							<td><?php echo $row_Total['TipoPublicador'];?></td>
-							<td><?php echo $row_Total['Cantidad'];?></td>
-							<td><?php echo $row_Total['Predica'];?></td>
+							<td><?php echo $row_Total['Cantidad'];?></td>						
+							<td><?php echo $row_Total['Publicaciones'];?></td>
+							<td><?php echo $row_Total['Videos'];?></td>
 							<td><?php echo $row_Total['Horas'];?></td>
+							<td><?php echo $row_Total['Revisitas'];?></td>
 							<td><?php echo $row_Total['Cursos'];?></td>
 						</tr>
 					<?php }?>

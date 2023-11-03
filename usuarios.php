@@ -113,12 +113,17 @@ if(PermitirFuncion(101)){
 	$SQL_Perfiles=Seleccionar('uvw_tbl_PerfilesUsuarios','*',"NumCong='".$_SESSION['NumCong']."'",'PerfilUsuario');
 }
 
-
+//Listar congregaciones si es SuperAdministrador
 if(PermitirFuncion(101)){
 	$SQL_Cong=Seleccionar('uvw_tbl_Congregaciones','*','','NombreCongregacion');
 }else{
 	$SQL_Publicadores=Seleccionar('uvw_tbl_Publicadores','*',"NumCong='".$_SESSION['NumCong']."'",'Nombre');
 }
+
+//Grupos
+$SQL_Grupos=Seleccionar('uvw_tbl_Grupos','IDGrupo, NombreGrupo',"NumCong='".$_SESSION['NumCong']."'","NombreGrupo");
+
+
 ?>
 <!DOCTYPE html>
 <html><!-- InstanceBegin template="/Templates/PlantillaPrincipal.dwt.php" codeOutsideHTMLIsLocked="false" -->
@@ -160,6 +165,24 @@ function ValidarUsuario(User){
 				document.getElementById('Crear').disabled=true;
 			}else{
 				document.getElementById('Crear').disabled=false;
+			}
+		}
+	});
+}
+
+function ValidarPerfil(perfil){
+	var spinner=document.getElementById('spinner1');
+	spinner.style.visibility='visible';
+	$.ajax({
+		type: "GET",
+		url: "includes/procedimientos.php?type=6&IDPerfil=" + perfil,
+		success: function(response) {
+			spinner.style.visibility='hidden';
+			if (response == 1) { //Tiene habilitado el permiso de solo ver su grupo
+				document.getElementById('dvGroup').classList.remove("hidden");
+			}
+			if (response == 2) { //No tiene habilitado el permiso
+				document.getElementById('dvGroup').classList.add("hidden");
 			}
 		}
 	});
@@ -297,7 +320,7 @@ function Mostrar(){
 				<div class="form-group">
 					<label class="col-lg-1 control-label">Perfil <span class="text-danger">*</span></label>
 					<div class="col-lg-3">
-                    	<select name="PerfilUsuario" class="form-control" id="PerfilUsuario" required>
+                    	<select name="PerfilUsuario" class="form-control" id="PerfilUsuario" required onChange="ValidarPerfil(this.value);">
                           <?php while($row_Perfiles=sqlsrv_fetch_array($SQL_Perfiles)){?>
 								<option value="<?php echo $row_Perfiles['IDPerfilUsuario'];?>" <?php if(($edit==1)&&(strcmp($row_Perfiles['IDPerfilUsuario'],$row['IDPerfilUsuario'])==0)){ echo "selected=\"selected\"";}?>><?php echo $row_Perfiles['PerfilUsuario'];?></option>
 						  <?php }?>
@@ -311,6 +334,25 @@ function Mostrar(){
 						  <?php }?>
 						</select>
                	  </div>
+				</div>
+				<div id="dvGroup" class="form-group hidden">
+					<label class="col-lg-1 control-label">Grupos asignados 
+						<small class="text-muted" style="font-weight: 400;">
+							Seleccione los grupos en los que este usuario puede ingresar informes. 
+							Si solo quiere que pueda ingresar únicamente a su grupo, no seleccione nada.
+						</small>
+					</label>
+					<div class="col-lg-3">
+					<?php while($row_Grupos=sqlsrv_fetch_array($SQL_Grupos)){?>
+						<div class="i-checks">
+							<label class="checkbox-inline"> 
+								<div class="icheckbox_square-green">
+								<input name="chkGroup<?php echo $row_Grupos['IDGrupo'];?>" type="checkbox" id="chkGroup<?php echo $row_Grupos['IDGrupo'];?>" value="<?php echo $row_Grupos['IDGrupo'];?>">
+								</div> <?php echo $row_Grupos['NombreGrupo'];?>
+							</label>
+						</div>	  
+					<?php }?>
+               	  	</div>
 				</div>
 				<div class="form-group">
 					<div class="col-lg-9">
@@ -383,6 +425,10 @@ function Mostrar(){
 			});
 		 $('.chosen-select').chosen({width: "100%"});
 		 $(".select2").select2();
+		 $('.i-checks').iCheck({
+				checkboxClass: 'icheckbox_square-green',
+				radioClass: 'iradio_square-green',
+			});
 		 
 		 $(".btn_del").each(function (el){
 			$(this).bind("click",delRow);

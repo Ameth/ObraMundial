@@ -21,7 +21,7 @@ $row_Grp=sqlsrv_fetch_array($SQL_Grp);
 $SQL_Prd=Seleccionar('uvw_tbl_PeriodosInformes','*',"NumCong='".$_SESSION['NumCong']."' and IDPeriodo='".$Periodo."'");
 $row_Prd=sqlsrv_fetch_array($SQL_Prd);
 
-$Cons="Select * From uvw_tbl_Informes Where NumCong='".$_SESSION['NumCong']."' $Filtro Order by NombrePublicador";
+$Cons="Select * From uvw_tbl_Informes_Old Where NumCong='".$_SESSION['NumCong']."' $Filtro Order by NombrePublicador";
 $SQL=sqlsrv_query($conexion,$Cons);
 
 $Datos="";
@@ -37,18 +37,26 @@ while($row=sqlsrv_fetch_array($SQL)){
       <td>".$row['NombrePublicador']."</td>
 	  <td align='center'>".$row['TipoPublicadorAbr']."</td>
 	  <td align='center'>".$row['DePrecAuxiliar']."</td>
-	  <td align='center'>".$row['DePredica']."</td>
+	  <td align='center'>".$row['Publicaciones']."</td>
+	  <td align='center'>".$row['Videos']."</td>
 	  <td align='center'>".$row['Horas']."</td>
+	  <td align='center'>".$row['Revisitas']."</td>
 	  <td align='center'>".$row['Cursos']."</td>
 	  <td>".$row['Notas']."</td>
     </tr>";
+	$TotalPub=$TotalPub+$row['Publicaciones'];
+	$TotalVideos=$TotalVideos+$row['Videos'];
 	$TotalHoras=$TotalHoras+$row['Horas'];
+	$TotalRev=$TotalRev+$row['Revisitas'];
 	$TotalCursos=$TotalCursos+$row['Cursos'];
 	$i++;
 }
 $Datos.="<tr style='font-weight: bold;'>
-      <td colspan='5' align='center'>TOTAL</td>
+      <td colspan='4' align='center'>TOTAL</td>
+	  <td align='center'>".$TotalPub."</td>
+	  <td align='center'>".$TotalVideos."</td>
 	  <td align='center'>".$TotalHoras."</td>
+	  <td align='center'>".$TotalRev."</td>
 	  <td align='center'>".$TotalCursos."</td>
 	  <td></td>
     </tr>";
@@ -137,9 +145,11 @@ $HTML1.='<tr>
 				<th align="center" width="19%">Nombre publicador</th>
 				<th align="center" width="7%">Tipo publicador</th>
 				<th align="center" width="7%">Prec. Auxiliar</th>
-				<th align="center" width="7%">Predicó</th>
+				<th align="center" width="7%">Publicaciones</th>
+				<th align="center" width="7%">Presentaciones de video</th>
 				<th align="center" width="7%">Horas</th>
-				<th align="center" width="7%">Cursos bíblicos</th>
+				<th align="center" width="7%">Revisitas</th>
+				<th align="center" width="7%">Cursos biblicos</th>
 				<th align="center" width="27%">Comentarios</th>
 			</tr>
 		</thead>

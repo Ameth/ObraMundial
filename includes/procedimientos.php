@@ -72,6 +72,21 @@ if(isset($_GET['type'])&&$_GET['type']!=""){
 			}
 		}
 	}
+	if($_GET['type']==6){//Consultar si el perfil del usuario tiene el permiso de solo ver su grupo
+		if(isset($_GET['cong'])&&$_GET['cong']!=""){
+			$Cong=$_GET['cong'];
+		}else{
+			$Cong=$_SESSION['NumCong'];
+		}
+		$Cons="Select IDPerfilUsuario From uvw_tbl_PermisosPerfiles Where IDPerfilUsuario='".$_GET['IDPerfil']."' and ID_Permiso=205 and NumCong='".$Cong."'";
+		$SQL_Cons=sqlsrv_query($conexion,$Cons);
+		$row_Cons=sqlsrv_fetch_array($SQL_Cons);
+		if($row_Cons['IDPerfilUsuario']!=""){
+			echo "1";
+		}else{
+			echo "2";
+		}
+	}
 	
 	sqlsrv_close($conexion);	
 }

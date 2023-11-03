@@ -31,7 +31,7 @@ if (PermitirFuncion(205)) {
 }
 
 if ($sw == 1) {
-	$Cons = "Select * From uvw_tbl_Informes Where NumCong='" . $_SESSION['NumCong'] . "' $Filtro Order by NombrePublicador";
+	$Cons = "Select * From uvw_tbl_Informes_Old Where NumCong='" . $_SESSION['NumCong'] . "' $Filtro Order by NombrePublicador";
 	$SQL = sqlsrv_query($conexion, $Cons);
 }
 
@@ -129,7 +129,7 @@ if ($sw == 1) {
 								<?php include("includes/spinner.php"); ?>
 								<div class="row m-b-md">
 									<div class="col-lg-12">
-										<a href="rpt_informe_servicio_mensual.php?id=<?php echo base64_encode($Filtro); ?>&grp=<?php echo base64_encode($Grupo); ?>&prd=<?php echo base64_encode($Periodo); ?>" target="_blank" class="btn btn-outline btn-danger"><i class="fa fa-file-pdf-o"></i> Descargar en PDF</a>
+										<a href="rpt_informe_servicio_mensual_old_version.php?id=<?php echo base64_encode($Filtro); ?>&grp=<?php echo base64_encode($Grupo); ?>&prd=<?php echo base64_encode($Periodo); ?>" target="_blank" class="btn btn-outline btn-danger"><i class="fa fa-file-pdf-o"></i> Descargar en PDF</a>
 										<a href="exportar_excel.php?exp=13&Cons=<?php echo base64_encode($Cons); ?>" class="btn btn-outline btn-primary"><i class="fa fa-file-excel-o"></i> Exportar a Excel</a>
 									</div>
 								</div>
@@ -140,8 +140,10 @@ if ($sw == 1) {
 												<th>Nombre publicador</th>
 												<th>Tipo publicador</th>
 												<th>Prec. Auxiliar</th>
-												<th>Predicó</th>
+												<th>Publicaciones</th>
+												<th>Presentaciones de video</th>
 												<th>Horas</th>
+												<th>Revisitas</th>
 												<th>Cursos biblicos</th>
 												<th>Comentarios</th>
 											</tr>
@@ -152,8 +154,10 @@ if ($sw == 1) {
 													<td><?php echo $row['NombrePublicador']; ?></td>
 													<td><?php echo $row['TipoPublicadorAbr']; ?></td>
 													<td><?php echo $row['DePrecAuxiliar']; ?></td>
-													<td><?php echo $row['DePredica']; ?></td>
+													<td><?php echo $row['Publicaciones']; ?></td>
+													<td><?php echo $row['Videos']; ?></td>
 													<td><?php echo $row['Horas']; ?></td>
+													<td><?php echo $row['Revisitas']; ?></td>
 													<td><?php echo $row['Cursos']; ?></td>
 													<td><?php echo $row['Notas']; ?></td>
 												</tr>

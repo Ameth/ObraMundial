@@ -15,7 +15,7 @@ $TotalPR=0;
 $TotalInf=0;
 $TotalFalt=0;
 
-if(PermitirFuncion(205)){
+if(PermitirFuncion(205)){//Verificar si solo puede ver el grupo al que está asignado
 	$Param=array(
 		"'".$_SESSION['NumCong']."'",
 		"'".$row_Periodo['IDPeriodo']."'",

@@ -4,14 +4,14 @@ if (!isset($_SESSION)) {
     session_start();
 }
 if (isset($_SESSION['User']) && $_SESSION['User'] != "") {
-    header('Location:index1.php');
+    // header('Location:index1.php');
+    header('Location:mantenimiento.php');
     exit();
 }
 session_destroy();
 $log = 1;
 if (isset($_POST['User']) || isset($_POST['Password'])) {
     if (($_POST['User'] == "") || ($_POST['Password'] == "") || ($_POST['CodCong'] == "")) {
-        //header('Location:index1.php');
         $log = 0;
     } else {
         require("includes/conect_srv.php");
@@ -50,7 +50,8 @@ if (isset($_POST['User']) || isset($_POST['Password'])) {
                     if (sqlsrv_query($conexion, $ConsUpdUltIng)) {
                         sqlsrv_close($conexion);
                         //echo "Ingreso al Index";
-                        header('Location:index1.php');
+                        // header('Location:index1.php');
+                        header('Location:mantenimiento.php');
                     } else {
                         sqlsrv_close($conexion);
                         echo "Error de ingreso. Fecha invalida.";

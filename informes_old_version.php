@@ -28,25 +28,12 @@ if (isset($_POST['P']) && ($_POST['P'] != "")) { //Insertar registro
 		$i = 0;
 		while ($i < $Count) {
 
-			//Validar check de si predica
-			if (isset($_POST['chkPredica' . $_POST['IdPub'][$i]]) && ($_POST['chkPredica' . $_POST['IdPub'][$i]] == 1)) {
-				$chkPredica = 1;
-			} else {
-				$chkPredica = 0;
-			}
-
-			if ($chkPredica === 1 || $_POST['IdInforme'][$i] != "") {
-
-				//Validar check de precursor auxiliar
+			if ($_POST['Horas'][$i] != "") {
 				if (isset($_POST['chkPrAux' . $_POST['IdPub'][$i]]) && ($_POST['chkPrAux' . $_POST['IdPub'][$i]] == 1)) {
 					$chkPrAux = 1;
 				} else {
 					$chkPrAux = 0;
 				}
-
-				//Validar que si no es precursor, no tenga horas ingresadas
-
-				$horas = ($chkPrAux || ($_POST['IdTipoPub'][$i] == 2 || $_POST['IdTipoPub'][$i] == 4)) ? $_POST['Horas'][$i] : 0;
 
 				$ParamInsert = array(
 					"'" . $_POST['IdInforme'][$i] . "'",
@@ -55,8 +42,10 @@ if (isset($_POST['P']) && ($_POST['P'] != "")) { //Insertar registro
 					"'" . $_POST['IdTipoPub'][$i] . "'",
 					"'" . $_POST['IdPrivServicio'][$i] . "'",
 					"'" . $chkPrAux . "'",
-					"'" . $chkPredica . "'",
-					"'" . $horas . "'",
+					"'" . $_POST['Publicaciones'][$i] . "'",
+					"'" . $_POST['PresVideo'][$i] . "'",
+					"'" . $_POST['Horas'][$i] . "'",
+					"'" . $_POST['Revisitas'][$i] . "'",
 					"'" . $_POST['Cursos'][$i] . "'",
 					"'" . $_POST['Comentarios'][$i] . "'",
 					"'" . $IdPeriodo . "'",
@@ -138,6 +127,9 @@ $Num = sqlsrv_num_rows($SQL);
 										<h3 class="bg-success p-xs b-r-sm"><i class="fa fa-edit"></i> Ingrese los informes del periodo <?php echo $row_Periodo['CodigoPeriodo'] . " (" . $row_Periodo['NombreMes'] . "/" . $row_Periodo['AnioPeriodo'] . ")"; ?></h3>
 									</label>
 								</div>
+								<div class="form-group">
+									<div class="col-xs-12 text-danger"><strong>NOTA:</strong> Si un publicador no reportó este mes, ingrese 0 en el campo <strong>Horas</strong>.</div>
+								</div>
 								<div class="table-responsive">
 									<table class="table table-striped table-hover dataTables-example">
 										<thead>
@@ -145,8 +137,10 @@ $Num = sqlsrv_num_rows($SQL);
 												<th>Publicador</th>
 												<th>Tipo Publicador</th>
 												<th>Prec. Auxiliar</th>
-												<th>Predicó</th>
+												<th>Publicaciones</th>
+												<th>Presentaciones de video</th>
 												<th>Horas</th>
+												<th>Revisitas</th>
 												<th>Cursos biblicos</th>
 												<th>Comentarios</th>
 											</tr>
@@ -169,28 +163,20 @@ $Num = sqlsrv_num_rows($SQL);
 														<input name="IdPrivServicio[]" type="hidden" id="IdPrivServicio<?php echo $row['IDPublicador']; ?>" value="<?php echo $row['IDPrivServicio']; ?>">
 													</td>
 													<td>
-														<?php if (($row['IDTipoPublicador'] === 1)) { ?>
+														<?php if (($row['IDTipoPublicador'] != 2) && ($row['IDTipoPublicador'] != 4)) { ?>
 															<label class="checkbox-inline i-checks">
-																<input data-info="chkPrAux" data-id="<?php echo $row['IDPublicador']; ?>" name="chkPrAux<?php echo $row['IDPublicador']; ?>" type="checkbox" id="chkPrAux<?php echo $row['IDPublicador']; ?>" value="1" <?php if ($row_Informes['PrecAuxiliar'] == 1) {
-																																																																			echo "checked='checked'";
-																																																																		} ?>>
+																<input name="chkPrAux<?php echo $row['IDPublicador']; ?>" type="checkbox" id="chkPrAux<?php echo $row['IDPublicador']; ?>" value="1" <?php if ($row_Informes['PrecAuxiliar'] == 1) {
+																																																			echo "checked='checked'";
+																																																		} ?>>
 															</label>
 														<?php } ?>
 													</td>
-													<td>
-														<label class="checkbox-inline i-checks">
-															<input name="chkPredica<?php echo $row['IDPublicador']; ?>" type="checkbox" id="chkPredica<?php echo $row['IDPublicador']; ?>" value="1" <?php if ($row_Informes['Predica'] == 1) {
-																																																			echo "checked='checked'";
-																																																		} ?>>
-														</label>
-													</td>
-													<td>
-														<input data-typepub="<?php echo $row['IDTipoPublicador']; ?>" name="Horas[]" autocomplete="off" type="text" class="form-control text-right mw-80 txt-resaltado text-13em <?php if (($row_Informes['Horas'] == "") && ($row_Informes['PrecAuxiliar'] == "") && (($row['IDTipoPublicador'] === 1) || ($row['IDTipoPublicador'] === 3))) {
-																																																										echo "hidden";
-																																																									} ?>" id="Horas<?php echo $row['IDPublicador']; ?>" maxlength="3" onKeyUp="revisaCadena(this);" onKeyPress="return justNumbers(event,this.value);" value="<?php echo $row_Informes['Horas']; ?>">
-													</td>
+													<td><input name="Publicaciones[]" autocomplete="off" type="text" class="form-control text-right mw-80 txt-resaltado text-13em" id="Publicaciones<?php echo $row['IDPublicador']; ?>" maxlength="3" onKeyUp="revisaCadena(this);" onKeyPress="return justNumbers(event,this.value);" value="<?php echo $row_Informes['Publicaciones']; ?>"></td>
+													<td><input name="PresVideo[]" autocomplete="off" type="text" class="form-control text-right mw-80 txt-resaltado text-13em" id="PresVideo<?php echo $row['IDPublicador']; ?>" maxlength="3" onKeyUp="revisaCadena(this);" onKeyPress="return justNumbers(event,this.value);" value="<?php echo $row_Informes['Videos']; ?>"></td>
+													<td><input name="Horas[]" autocomplete="off" type="text" class="form-control text-right mw-80 txt-resaltado text-13em" id="Horas<?php echo $row['IDPublicador']; ?>" maxlength="3" onKeyUp="revisaCadena(this);" onKeyPress="return justNumbers(event,this.value);" value="<?php echo $row_Informes['Horas']; ?>"></td>
+													<td><input name="Revisitas[]" data-info="revisitas" autocomplete="off" type="text" class="form-control text-right mw-80 txt-resaltado text-13em" id="Revisitas<?php echo $row['IDPublicador']; ?>" maxlength="3" onKeyUp="revisaCadena(this);" onKeyPress="return justNumbers(event,this.value);" value="<?php echo $row_Informes['Revisitas']; ?>"></td>
 													<td><input name="Cursos[]" data-info="cursos" data-id="<?php echo $row['IDPublicador']; ?>" autocomplete="off" type="text" class="form-control text-right mw-80 txt-resaltado text-13em" id="Cursos<?php echo $row['IDPublicador']; ?>" maxlength="3" onKeyUp="revisaCadena(this);" onKeyPress="return justNumbers(event,this.value);" value="<?php echo $row_Informes['Cursos']; ?>"></td>
-													<td><input name="Comentarios[]" autocomplete="off" type="text" class="form-control mw-200 txt-resaltado text-13em" id="Comentarios<?php echo $row['IDPublicador']; ?>" maxlength="50" value="<?php echo $row_Informes['Notas']; ?>"></td>
+													<td><input name="Comentarios[]" autocomplete="off" type="text" class="form-control mw-130 txt-resaltado text-13em" id="Comentarios<?php echo $row['IDPublicador']; ?>" maxlength="50" value="<?php echo $row_Informes['Notas']; ?>"></td>
 												</tr>
 											<?php } ?>
 											<?php if ($Num == 0) { ?>
@@ -277,23 +263,6 @@ $Num = sqlsrv_num_rows($SQL);
 				fixedHeader: true,
 				ordering: false
 			});
-
-			$("[data-info='chkPrAux']").on('ifToggled', function(event) {
-				// console.log(event.target.dataset);
-				const {
-					id
-				} = event.target.dataset
-				// console.log(`Publicador: ${id}`)
-				const horas = document.getElementById(`Horas${id}`)
-
-				const {
-					typepub
-				} = horas.dataset
-				if (typepub == 1 || typepub == 3) {
-					horas.classList.toggle("hidden")
-				}
-
-			});
 		});
 	</script>
 	<script>
@@ -303,64 +272,26 @@ $Num = sqlsrv_num_rows($SQL);
 			let alert = true
 
 			list.forEach((curso, index) => {
-				const {
-					id
-				} = curso.dataset
-				const horas = document.getElementById(`Horas${id}`)
-				const chkPredica = document.getElementById(`chkPredica${id}`).checked
-				const chkPrAux = document.getElementById(`chkPrAux${id}`) ? document.getElementById(`chkPrAux${id}`).checked : false
+				if (curso.value !== "") {
+					const {
+						id
+					} = curso.dataset
+					const revisitas = document.getElementById(`Revisitas${id}`)
 
-				// console.log('curso', curso.value);
-				// console.log('revisita', horas.value);
-				// console.log(chkPredica)
-				// console.log(chkPrAux)
+					// console.log('curso', curso.value);
+					// console.log('revisita', revisitas.value);
 
-				//Validar que si tiene cursos biblios, tenga el check de predicación
-				if (Number(curso.value) > 0 && (!chkPredica)) {
-					// console.log(`Entro con curso en ${curso.value} y horas en ${horas.value}`)
-					//Alertar que debe tener horas
-					alert = false
-					Swal.fire({
-						title: "¡Existen estudios sin predicación!",
-						text: "Por favor verifique si el publicador predicó o no.",
-						icon: "warning",
-					});
-				}
-
-				//Validar que si tiene cursos biblios y es precursor, tenga horas
-				if (Number(curso.value) > 0 && ((Number(horas.value) === 0) || (horas.value === "")) && (chkPrAux)) {
-					// console.log(`Entro con curso en ${curso.value} y horas en ${horas.value}`)
-					//Alertar que debe tener horas
-					alert = false
-					Swal.fire({
-						title: "¡Existen estudios sin horas!",
-						text: "Por favor ingrese las horas que correspondan.",
-						icon: "warning",
-					});
-				}
-
-				//Validar que si es precursor auxiliar, tambien predico
-				if ((chkPrAux) && (!chkPredica)) {
-					// console.log(`Entro con curso en ${curso.value} y horas en ${horas.value}`)
-					//Alertar que debe tener horas
-					alert = false
-					Swal.fire({
-						title: "¡Existen precursores auxiliares sin predicación!",
-						text: "Por favor verifique si el publicador predicó o no.",
-						icon: "warning",
-					});
-				}
-
-				//Validar que si es precursor, tenga horas
-				if (((Number(horas.value) === 0) || (horas.value === "")) && (chkPrAux)) {
-					// console.log(`Entro con curso en ${curso.value} y horas en ${horas.value}`)
-					//Alertar que debe tener horas
-					alert = false
-					Swal.fire({
-						title: "¡Existen precursores auxiliares sin horas!",
-						text: "Por favor ingrese las horas que correspondan.",
-						icon: "warning",
-					});
+					//Validar que si tiene cursos biblios, tenga tambien revisitas
+					if (Number(curso.value) > 0 && (Number(revisitas.value) === 0) || revisitas.value === "") {
+						// console.log(`Entro con curso en ${curso.value} y revisitas en ${revisitas.value}`)
+						//Alertar que debe tener revisitas
+						alert = false
+						Swal.fire({
+							title: "¡Existen estudios sin revisitas!",
+							text: "Por favor ingrese las revisitas que correspondan.",
+							icon: "warning",
+						});
+					}
 				}
 			})
 
