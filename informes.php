@@ -307,6 +307,7 @@ $Num = sqlsrv_num_rows($SQL);
 					id
 				} = curso.dataset
 				const horas = document.getElementById(`Horas${id}`)
+				const tipoPub = document.getElementById(`IdTipoPub${id}`)	
 				const chkPredica = document.getElementById(`chkPredica${id}`).checked
 				const chkPrAux = document.getElementById(`chkPrAux${id}`) ? document.getElementById(`chkPrAux${id}`).checked : false
 
@@ -351,13 +352,13 @@ $Num = sqlsrv_num_rows($SQL);
 					});
 				}
 
-				//Validar que si es precursor, tenga horas
-				if (((Number(horas.value) === 0) || (horas.value === "")) && (chkPrAux)) {
+				//Validar que si es precursor auxiliar, tenga horas
+				if (chkPredica && ((Number(horas.value) === 0) || (horas.value === "")) && ((chkPrAux) || (tipoPub.value == 2) || (tipoPub.value == 4))) {
 					// console.log(`Entro con curso en ${curso.value} y horas en ${horas.value}`)
 					//Alertar que debe tener horas
 					alert = false
 					Swal.fire({
-						title: "¡Existen precursores auxiliares sin horas!",
+						title: "¡Existen precursores sin horas!",
 						text: "Por favor ingrese las horas que correspondan.",
 						icon: "warning",
 					});
