@@ -28,14 +28,7 @@ if (isset($_POST['P']) && ($_POST['P'] != "")) { //Insertar registro
 		$i = 0;
 		while ($i < $Count) {
 
-			//Validar check de si predica
-			if (isset($_POST['chkPredica' . $_POST['IdPub'][$i]]) && ($_POST['chkPredica' . $_POST['IdPub'][$i]] == 1)) {
-				$chkPredica = 1;
-			} else {
-				$chkPredica = 0;
-			}
-
-			if ($chkPredica === 1 || $_POST['IdInforme'][$i] != "") {
+			if ($_POST['Predica'][$i] != "") {
 
 				//Validar check de precursor auxiliar
 				if (isset($_POST['chkPrAux' . $_POST['IdPub'][$i]]) && ($_POST['chkPrAux' . $_POST['IdPub'][$i]] == 1)) {
@@ -55,7 +48,7 @@ if (isset($_POST['P']) && ($_POST['P'] != "")) { //Insertar registro
 					"'" . $_POST['IdTipoPub'][$i] . "'",
 					"'" . $_POST['IdPrivServicio'][$i] . "'",
 					"'" . $chkPrAux . "'",
-					"'" . $chkPredica . "'",
+					"'" . $_POST['Predica'][$i] . "'",
 					"'" . $horas . "'",
 					"'" . $_POST['Cursos'][$i] . "'",
 					"'" . $_POST['Comentarios'][$i] . "'",
@@ -177,13 +170,18 @@ $Num = sqlsrv_num_rows($SQL);
 															</label>
 														<?php } ?>
 													</td>
+													
+													
 													<td>
-														<label class="checkbox-inline i-checks">
-															<input name="chkPredica<?php echo $row['IDPublicador']; ?>" type="checkbox" id="chkPredica<?php echo $row['IDPublicador']; ?>" value="1" <?php if ($row_Informes['Predica'] == 1) {
-																																																			echo "checked='checked'";
-																																																		} ?>>
-														</label>
+													<select name="Predica[]" class="form-control" id="Predica<?php echo $row['IDPublicador']; ?>">
+														<option value="">Sin informe</option>
+														<option value="1" <?php if ((isset($row_Informes['Predica'])) && $row_Informes['Predica'] == 1) {echo "selected='selected'";} ?>>SI</option>
+														<option value="0" <?php if ((isset($row_Informes['Predica'])) && $row_Informes['Predica'] == 0) {echo "selected='selected'";} ?>>NO</option>
+													</select>
 													</td>
+
+
+
 													<td>
 														<input data-typepub="<?php echo $row['IDTipoPublicador']; ?>" name="Horas[]" autocomplete="off" type="text" class="form-control text-right mw-80 txt-resaltado text-13em <?php if (($row_Informes['Horas'] == "") && ($row_Informes['PrecAuxiliar'] == "") && (($row['IDTipoPublicador'] === 1) || ($row['IDTipoPublicador'] === 3))) {
 																																																										echo "hidden";
@@ -308,16 +306,16 @@ $Num = sqlsrv_num_rows($SQL);
 				} = curso.dataset
 				const horas = document.getElementById(`Horas${id}`)
 				const tipoPub = document.getElementById(`IdTipoPub${id}`)	
-				const chkPredica = document.getElementById(`chkPredica${id}`).checked
+				const predica = document.getElementById(`Predica${id}`)
 				const chkPrAux = document.getElementById(`chkPrAux${id}`) ? document.getElementById(`chkPrAux${id}`).checked : false
 
 				// console.log('curso', curso.value);
 				// console.log('revisita', horas.value);
-				// console.log(chkPredica)
+				// console.log(`${id}:` + predica.value)
 				// console.log(chkPrAux)
 
 				//Validar que si tiene cursos biblios, tenga el check de predicación
-				if (Number(curso.value) > 0 && (!chkPredica)) {
+				if (Number(curso.value) > 0 && (predica.value == "")) {
 					// console.log(`Entro con curso en ${curso.value} y horas en ${horas.value}`)
 					//Alertar que debe tener horas
 					alert = false
@@ -341,7 +339,7 @@ $Num = sqlsrv_num_rows($SQL);
 				}
 
 				//Validar que si es precursor auxiliar, tambien predico
-				if ((chkPrAux) && (!chkPredica)) {
+				if ((chkPrAux) && (predica.value == "" || predica.value == 0)) {
 					// console.log(`Entro con curso en ${curso.value} y horas en ${horas.value}`)
 					//Alertar que debe tener horas
 					alert = false
@@ -353,7 +351,7 @@ $Num = sqlsrv_num_rows($SQL);
 				}
 
 				//Validar que si es precursor auxiliar, tenga horas
-				if (chkPredica && ((Number(horas.value) === 0) || (horas.value === "")) && ((chkPrAux) || (tipoPub.value == 2) || (tipoPub.value == 4))) {
+				if ((predica.value == 1) && ((Number(horas.value) === 0) || (horas.value === "")) && ((chkPrAux) || (tipoPub.value == 2) || (tipoPub.value == 4))) {
 					// console.log(`Entro con curso en ${curso.value} y horas en ${horas.value}`)
 					//Alertar que debe tener horas
 					alert = false
