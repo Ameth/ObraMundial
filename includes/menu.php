@@ -65,7 +65,8 @@ $Num_Menu=sqlsrv_num_rows($SQL_Menu);
 						<?php if(PermitirFuncion(101)){?><li><a class="alnk" href="gestionar_congregacion.php"><i class="fa fa-bank"></i> Gestionar congregación</a></li><?php }?>
 						<?php if(PermitirFuncion(502)){?><li><a class="alnk" href="gestionar_usuarios.php"><i class="fa fa-user"></i> Gestionar usuarios</a></li><?php }?>
                   		<?php if(PermitirFuncion(501)){?><li><a class="alnk" href="gestionar_perfiles.php"><i class="fa fa-users"></i> Gestionar perfiles</a></li><?php }?>
-                  		<li><a class="alnk" href="contrato_confidencialidad.php"><i class="fa fa-handshake-o"></i> Acuerdo de confidencialidad</a></li>
+                  		<li><a class="alnk" href="informe_link.php"><i class="fa fa-link"></i> Link para ingresar informes</a></li>
+                        <li><a class="alnk" href="contrato_confidencialidad.php"><i class="fa fa-handshake-o"></i> Acuerdo de confidencialidad</a></li>
                     </ul>
                 </li>
             </ul>

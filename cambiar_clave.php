@@ -36,7 +36,7 @@ if(isset($_POST['Cambio'])&&($_POST['Cambio']==1)){
 <head>
 <?php include_once("includes/cabecera.php"); ?>
 <!-- InstanceBeginEditable name="doctitle" -->
-<title><?php echo NOMBRE_PORTAL;?> | Cambiar contrase&ntilde;a</title>
+<title>Cambiar contrase&ntilde;a | <?php echo NOMBRE_PORTAL;?></title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <!-- InstanceEndEditable -->

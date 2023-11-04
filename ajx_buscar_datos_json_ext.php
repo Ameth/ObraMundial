@@ -1,6 +1,10 @@
 <?php 
 if((isset($_GET['type'])&&($_GET['type']!=""))||(isset($_POST['type'])&&($_POST['type']!=""))){
-	require_once("includes/conexion.php");
+	
+	require_once("includes/conect_srv.php");
+    include_once("includes/funciones.php");
+	include_once("includes/LSiqml.php");
+	
 	header('Content-Type: application/json');
 	if(isset($_GET['type'])&&($_GET['type']!="")){
 		$type=$_GET['type'];
