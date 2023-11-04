@@ -10,3 +10,5 @@ Se agregó la opción de selección multiple en los años de servicio en el repo
 1. Se actualiza la versión con el nuevo formato de informes según los cambios anunciados por el CG a partir de noviembre del 2023 para el año de servicio 2024, donde solo reportarán las horas los precursores auxiliares, regulares y especiales. Los publicadores solo reportarán si predicaron o no y la cantidad de estudios bíblicos.
 2. Se modificaron los formularios y reportes para tener en cuenta si el periodo corresponde al formato anterior o el formato nuevo.
 
+### 1.7.1
+Se creó la nueva funcionalidad de un enlace para que los publicadores puedan enviar ellos mismos su informe de servicio mensual.
