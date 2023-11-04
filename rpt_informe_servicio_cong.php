@@ -152,7 +152,7 @@ while($row_Grp=sqlsrv_fetch_array($SQL_Grp)){
 			  <td align='center'>".$row['Cursos']."</td>
 			</tr>";
 			$TotalCant=$TotalCant+$row['Cantidad'];
-			$TotalPredica=$TotalPub+$row['Predica'];
+			$TotalPredica=$TotalPredica+$row['Predica'];
 			$TotalHoras=$TotalHoras+$row['Horas'];
 			$TotalCursos=$TotalCursos+$row['Cursos'];
 		}	
