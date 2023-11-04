@@ -10,7 +10,7 @@ if(!isset($_GET['type'])||($_GET['type']=="")){//Saber que combo voy a consultar
 		if(!isset($_GET['id'])||($_GET['id']=="")){
 			echo "<option value=''>(Seleccione)</option>";
 		}else{
-			$SQL=Seleccionar('uvw_tbl_Publicadores','*',"NumCong='".$_GET['c']."' and IDGrupo='".$_GET['id']."'",'Nombre');
+			$SQL=Seleccionar('uvw_tbl_Publicadores','*',"NumCong='".$_GET['c']."' and IDGrupo='".$_GET['id']."' and IDEstado=1",'Nombre');
 			$Num=sqlsrv_num_rows($SQL);
 			echo "<option value=''>(Seleccione)</option>";
 			if($Num){
