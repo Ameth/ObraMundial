@@ -115,6 +115,7 @@ if(isset($_GET['a'])&&($_GET['a']==base64_encode("OK_EditCong"))){
 					<th>Pais</th>
 					<th>Dirección</th>
 					<th>Correo JW</th>
+					<th>Token</th>
 					<th>Fecha creación</th>
 					<th>Usuario creación</th>
 					<th>Acciones</th>
@@ -130,6 +131,7 @@ if(isset($_GET['a'])&&($_GET['a']==base64_encode("OK_EditCong"))){
 					<td><?php echo $row['Pais'];?></td>
 					<td><?php echo $row['Direccion'];?></td>
 					<td><?php echo $row['CorreoJW'];?></td>
+					<td><?php echo $row['Token'];?></td>
 					<td><?php echo $row['FechaCreacion']->format('Y-m-d');?></td>
 					<td><?php echo $row['NombreUsuario'];?></td>
                     <td><a href="congregacion.php?id=<?php echo base64_encode($row['NumCong']);?>&tl=1" class="alkin btn btn-success btn-xs" title="Editar"><i class="fa fa-edit"></i> Editar</a></td>

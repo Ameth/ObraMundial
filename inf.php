@@ -10,26 +10,31 @@ if (isset($_REQUEST['c']) && ($_REQUEST['c'] != "")) {
         include_once("includes/LSiqml.php");
         include_once("includes/definicion.php");
 
-        $NumCong = base64_decode($_REQUEST['c']);
-        $swCong = 1;
+        $Token = base64_decode($_REQUEST['c']);
 
-        //Periodo mas reciente abierto
-        $ParamPed = array(
-            "'" . $NumCong . "'"
-        );
-        $SQL_Periodo = EjecutarSP('usp_ConsultarUltimoPeriodoCong', $ParamPed);
-        $row_Periodo = sqlsrv_fetch_array($SQL_Periodo);
+        $SQL = Seleccionar('uvw_tbl_Congregaciones', 'NumCong', "Token='" . $Token . "'");
+        $row = sqlsrv_fetch_array($SQL);
 
-        $swPeriodo = isset($row_Periodo['IDPeriodo']) ? 1 : 0;
+        if (isset($row['NumCong']) && $row['NumCong'] !== "") {
+            $NumCong = $row['NumCong'];
+            $swCong = 1;
 
-        //Grupos de congregacion
-        $SQL_Grupos = Seleccionar('uvw_tbl_Grupos', 'IDGrupo, NombreGrupo', "NumCong='" . $NumCong . "'", 'NombreGrupo');
+            //Periodo mas reciente abierto
+            $ParamPed = array(
+                "'" . $NumCong . "'"
+            );
+            $SQL_Periodo = EjecutarSP('usp_ConsultarUltimoPeriodoCong', $ParamPed);
+            $row_Periodo = sqlsrv_fetch_array($SQL_Periodo);
 
-        //Datos congregación
-        $SQL_Cong = Seleccionar('uvw_tbl_Congregaciones', 'NombreCongregacion', "NumCong='" . $NumCong . "'");
-        $row_Cong = sqlsrv_fetch_array($SQL_Cong);
+            $swPeriodo = isset($row_Periodo['IDPeriodo']) ? 1 : 0;
 
+            //Grupos de congregacion
+            $SQL_Grupos = Seleccionar('uvw_tbl_Grupos', 'IDGrupo, NombreGrupo', "NumCong='" . $NumCong . "'", 'NombreGrupo');
 
+            //Datos congregación
+            $SQL_Cong = Seleccionar('uvw_tbl_Congregaciones', 'NombreCongregacion', "NumCong='" . $NumCong . "'");
+            $row_Cong = sqlsrv_fetch_array($SQL_Cong);
+        }
     } catch (Exception $e) {
         echo 'Excepcion capturada: ',  $e->getMessage(), "\n";
     }
@@ -69,7 +74,7 @@ if (isset($_POST['P']) && ($_POST['P'] != "")) { //Insertar registro
         }
 
         sqlsrv_close($conexion);
-        header('Location:inf.php?c='.base64_encode($NumCong).'&a=' . base64_encode("OK_InfAdd"));
+        header('Location:inf.php?c=' . base64_encode($NumCong) . '&a=' . base64_encode("OK_InfAdd"));
     } catch (Exception $e) {
         echo 'Excepcion capturada: ',  $e->getMessage(), "\n";
     }
@@ -274,8 +279,9 @@ $msg = $swCong == 0 ? "Link inválido. Por favor verifique." : "";
 
             const prAux = document.getElementById("PrAux")
             const horas = document.getElementById("Horas")
+            const tipoPub = document.getElementById("IdTipoPub")
 
-            if ((prAux.value == 1) && ((Number(horas.value) === 0) || (horas.value === ""))) {
+            if (((prAux.value == 1) || (tipoPub.value == 2) || (tipoPub.value == 4)) && ((Number(horas.value) === 0) || (horas.value === ""))) {
                 // console.log(`Entro con curso en ${curso.value} y horas en ${horas.value}`)
                 //Alertar que debe tener horas
                 result = false

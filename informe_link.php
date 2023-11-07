@@ -1,6 +1,10 @@
 <?php require_once("includes/conexion.php");
 
-$cong64=base64_encode($_SESSION['NumCong']);
+
+$SQL = Seleccionar('uvw_tbl_Congregaciones', 'Token', "NumCong='" . $_SESSION['NumCong'] . "'");
+$row = sqlsrv_fetch_array($SQL);
+
+$cong64=base64_encode($row['Token']);
 
 $link = "https://obramundial.net/inf.php?c=".$cong64;
 
@@ -92,7 +96,7 @@ $link = "https://obramundial.net/inf.php?c=".$cong64;
 				navigator.clipboard.writeText(text.value)
 				.then(() => {
 					// console.log('Texto copiado al portapapeles: ' + text.value)
-					toastr.success('Texto copiado al portapapeles');
+					toastr.success('Enlace copiado al portapapeles');
 				})
 				.catch(err => {
 					console.error('Error al copiar al portapapeles:', err)
