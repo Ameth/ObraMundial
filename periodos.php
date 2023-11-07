@@ -221,6 +221,12 @@ if (PermitirFuncion(101)) {
 											<option value="2024" <?php if ((isset($row['AnioPeriodo'])) && (strcmp($row['AnioPeriodo'], '2024') == 0)) {
 																		echo "selected=\"selected\"";
 																	} ?>>2024</option>
+											<option value="2025" <?php if ((isset($row['AnioPeriodo'])) && (strcmp($row['AnioPeriodo'], '2025') == 0)) {
+																		echo "selected=\"selected\"";
+																	} ?>>2025</option>
+											<option value="2026" <?php if ((isset($row['AnioPeriodo'])) && (strcmp($row['AnioPeriodo'], '2026') == 0)) {
+																		echo "selected=\"selected\"";
+																	} ?>>2026</option>
 										</select>
 									</div>
 									<label class="col-lg-1 control-label">Mes <span class="text-danger">*</span></label>
