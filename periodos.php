@@ -296,7 +296,7 @@ if (PermitirFuncion(101)) {
 																																										} ?>"></div>
 									<?php if (PermitirFuncion(101)) { ?>
 										<label class="col-lg-1 control-label">Congregación <span class="text-danger">*</span></label>
-										<div class="col-lg-3">
+										<div class="col-lg-2">
 											<select name="Cong" class="form-control select2" required id="Cong" onChange="ValCodPeriodo();">
 												<option value="">(Seleccione)</option>
 												<?php while ($row_Cong = sqlsrv_fetch_array($SQL_Cong)) { ?>
