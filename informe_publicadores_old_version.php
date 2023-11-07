@@ -139,6 +139,7 @@ if ($sw == 1) {
 											<tr>
 												<th>Nombre publicador</th>
 												<th>Tipo publicador</th>
+												<th>Grupo</th>
 												<th>Prec. Auxiliar</th>
 												<th>Publicaciones</th>
 												<th>Presentaciones de video</th>
@@ -153,6 +154,7 @@ if ($sw == 1) {
 												<tr class="gradeX tooltip-demo">
 													<td><?php echo $row['NombrePublicador']; ?></td>
 													<td><?php echo $row['TipoPublicadorAbr']; ?></td>
+													<td><?php echo $row['NombreGrupo']; ?></td>
 													<td><?php echo $row['DePrecAuxiliar']; ?></td>
 													<td><?php echo $row['Publicaciones']; ?></td>
 													<td><?php echo $row['Videos']; ?></td>
