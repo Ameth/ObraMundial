@@ -74,7 +74,7 @@ if (isset($_POST['P']) && ($_POST['P'] != "")) { //Insertar registro
         }
 
         sqlsrv_close($conexion);
-        header('Location:inf.php?c=' . base64_encode($NumCong) . '&a=' . base64_encode("OK_InfAdd"));
+        header('Location:inf.php?c=' . base64_encode($Token) . '&a=' . base64_encode("OK_InfAdd"));
     } catch (Exception $e) {
         echo 'Excepcion capturada: ',  $e->getMessage(), "\n";
     }
@@ -226,7 +226,7 @@ $msg = $swCong == 0 ? "Link inválido. Por favor verifique." : "";
                                     <div class="form-group">
                                         <div class="col-xs-12">
                                             <input type="hidden" id="P" name="P" value="301" />
-                                            <input type="hidden" id="c" name="c" value="<?php echo base64_encode($NumCong); ?>" />
+                                            <input type="hidden" id="c" name="c" value="<?php echo base64_encode($Token); ?>" />
                                             <input type="hidden" id="NombrePub" name="NombrePub" value="" />
                                             <input type="hidden" id="IdTipoPub" name="IdTipoPub" value="" />
                                             <input type="hidden" id="IdPrivServicio" name="IdPrivServicio" value="" />
