@@ -94,18 +94,18 @@ $Cabecera = '<html>
 	body{
 		font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 		font-size:11px;
+		margin-top: 3.5rem;
 	}
 	#header{
 		position: fixed; 
 		left: 0px; 
 		top: -110px; 
-		right: 0px;
-		height: 150px; 
+		right: 0px;		
 	}
 	#footer{
 		position: fixed; 
 		left: 0px; 
-		bottom: -2px; 
+		bottom: -10px; 
 		height: 2px;
 	}
     #footer .page:after{
@@ -130,24 +130,23 @@ $Cabecera = '<html>
 		text-align: center;
 		height: 43;
 	}
-	.table-subtitle{
+
+	.table-subheader{
 		width: 100%;
-		font-size:14px;
-		text-align: center;
-		font-weight: bold;
+		font-size:12px;
 		max-width: 100%;
-		margin-bottom: 1rem;
 		background-color: transparent;
+		padding: 0px;
+		// border-style: solid;
+		// border-width: 0.5px;
 	}
+
 	.table{
 		border-collapse: collapse;
-		border: 1px solid #BABABA;
 		width: 100%;
 		max-width: 100%;
-		margin-top: 50px;
-		margin-bottom: 1rem;
 		background-color: transparent;
-		
+		margin-bottom: 1rem;
 	}
 	.table > thead > tr > th {
 		border: 1px solid #000000;
@@ -156,16 +155,25 @@ $Cabecera = '<html>
 		font-weight: bold;
 		text-align: center;
 	}
-	.table > thead > tr > td {
-		border: 1px solid #000000;
-		//padding: 2px;
-		line-height: 1.42857;
-	}
 	.table > tbody > tr > td {
 		border: 1px solid #000000;
-		//padding: 2px;
 		line-height: 1.42857;
+		white-space: nowrap; 
+		overflow: hidden; 
+		text-overflow: ellipsis; 
 	}
+
+	.table > tbody > tr > .check {
+		padding: 0px;
+		text-align: center;
+    	vertical-align: middle;  
+	}
+	hr {
+		page-break-after: always;
+		border: 0;
+		margin: 0;
+		padding: 0;
+	  }
 </style>
 </head>
 <body>
@@ -173,7 +181,7 @@ $Cabecera = '<html>
 		<p><strong>' . $NombreCong . '</strong></p>
     	<p class="page">Página </p>
   	</div>
-<table table id="header" class="table-title">
+<table id="header" class="table-title">
   <tbody>
     <tr>
       <td colspan="13" class="titulo"><strong>REGISTRO DE PUBLICADOR DE LA CONGREGACIÓN</strong></td>
@@ -183,7 +191,7 @@ $Cabecera = '<html>
       <td colspan="12">' . $row_Pub['Nombre'] . ' ' . $row_Pub['SegundoNombre'] . ' ' . $row_Pub['Apellido'] . ' ' . $row_Pub['SegundoApellido'] . '</td>
     </tr>
     <tr>
-      <td height="10" colspan="2"><strong>Fecha de nacimiento:</strong></td>
+      <td colspan="2"><strong>Fecha de nacimiento:</strong></td>
       <td colspan="7">' . $FechaNac . '</td>
       <td width="3%"><input name="checkbox" type="checkbox" id="checkbox" ' . $GenHombre . '></td>
       <td width="11%"><strong>Hombre</strong></td>
@@ -191,7 +199,7 @@ $Cabecera = '<html>
       <td width="12%"><strong>Mujer</strong></td>
     </tr>
     <tr>
-      <td height="10" colspan="2"><strong>Fecha de bautismo:</strong></td>
+      <td colspan="2"><strong>Fecha de bautismo:</strong></td>
       <td colspan="7">' . $FechaBaut . '</td>
       <td><input name="checkbox" type="checkbox" id="checkbox" ' . $TipoEspOV . '></td>
       <td><strong>Otras ovejas</strong></td>
@@ -199,391 +207,190 @@ $Cabecera = '<html>
       <td><strong>Ungido</strong></td>
     </tr>
     <tr>
-      <td height="10">&nbsp;</td>
-      <td width="9%">&nbsp;</td>
-      <td width="19%">&nbsp;</td>
-      <td width="3%"><input name="checkbox" type="checkbox" id="checkbox" ' . $PrivAnc . '></td>
-      <td width="12%"><strong>Anciano</strong></td>
-      <td width="3%"><input name="checkbox" type="checkbox" id="checkbox" ' . $PrivSM . '></td>
-      <td width="16%"><strong>Siervo ministerial</strong></td>
-      <td width="3%"><input name="checkbox" type="checkbox" id="checkbox" ' . $TipoPR . '></td>
-      <td colspan="5"><strong>Precursor regular</strong></td>
+		<td colspan="13">
+			<table class="table-subheader">
+				<tbody>
+					<tr>
+						<td width="3%"><input name="checkbox" type="checkbox" id="checkbox" ' . $PrivAnc . '></td>
+						<td width="10%"><strong>Anciano</strong></td>
+						<td width="3%"><input name="checkbox" type="checkbox" id="checkbox" ' . $PrivSM . '></td>
+						<td width="18%"><strong>Siervo ministerial</strong></td>
+						<td width="3%"><input name="checkbox" type="checkbox" id="checkbox" ' . $TipoPR . '></td>
+						<td width="18%"><strong>Precursor regular</strong></td>
+						<td width="3%"><input name="checkbox" type="checkbox" id="checkbox"></td>
+						<td width="18%"><strong>Precursor especial</strong></td>
+						<td width="3%"><input name="checkbox" type="checkbox" id="checkbox"></td>
+						<td width="20%"><strong>Misionero que sirve en el campo</strong></td>
+					</tr>
+				</tbody>
+			</table>    
+		</td> 
     </tr>
   </tbody>
 </table>';
 
 //Tablas
-$SQL_AServ = Seleccionar('uvw_tbl_Informes', 'Distinct AnioServicio', "NumCong='" . $_SESSION['NumCong'] . "' and IDPublicador='" . $Publicador . "' $Periodo");
+$SQL_AServ = Seleccionar('uvw_tbl_Informes_S21', 'Distinct AnioServicio, VersionPeriodo', "NumCong='" . $_SESSION['NumCong'] . "' and IDPublicador='" . $Publicador . "' $Periodo");
 $Datos = "";
+$i=1;
 while ($row_Pub = sqlsrv_fetch_array($SQL_AServ)) {
-	$TotalPub = 0;
-	$TotalVideos = 0;
-	$TotalHoras = 0;
-	$TotalRevisitas = 0;
-	$TotalCursos = 0;
 
-	$PromPub = 0;
-	$PromVideos = 0;
-	$PromHoras = 0;
-	$PromRevisitas = 0;
-	$PromCursos = 0;
+	$Meses = array(
+		9 => "Septiembre",
+		10 => "Octubre",
+		11 => "Noviembre",
+		12 => "Diciembre",
+		1 => "Enero",
+		2 => "Febrero",
+		3 => "Marzo",
+		4 => "Abril",
+		5 => "Mayo",
+		6 => "Junio",
+		7 => "Julio",
+		8 => "Agosto",
+	);
 
-	$Count = 0;
+	if ($row_Pub['VersionPeriodo'] == "1") { //Version de S-21 antigua
+		$TotalPub = 0;
+		$TotalVideos = 0;
+		$TotalHoras = 0;
+		$TotalRevisitas = 0;
+		$TotalCursos = 0;
 
-	$Datos .= '
-	<table class="table">
-		<thead>
-			<tr>
-			  <th width="15%">Año de servicio<br>' . $row_Pub['AnioServicio'] . '</th>
-			  <th width="10%">Publicaciones</th>
-			  <th width="10%">Presentaciones de videos</th>
-			  <th width="10%">Horas</th>
-			  <th width="10%">Revisitas</th>
-			  <th width="10%">Cursos bíblicos</th>
-			  <th width="35%">Notas</th>
+		$PromPub = 0;
+		$PromVideos = 0;
+		$PromHoras = 0;
+		$PromRevisitas = 0;
+		$PromCursos = 0;
+
+		$Count = 0;
+
+		$Datos .= '
+		<table class="table">
+			<thead>
+				<tr>
+				  <th width="15%">Año de servicio<br>' . $row_Pub['AnioServicio'] . '</th>
+				  <th width="10%">Publicaciones</th>
+				  <th width="10%">Presentaciones de videos</th>
+				  <th width="10%">Horas</th>
+				  <th width="10%">Revisitas</th>
+				  <th width="10%">Cursos bíblicos</th>
+				  <th width="35%">Notas</th>
+				</tr>
+			</thead>
+		  <tbody>';
+
+		foreach ($Meses as $MesActual => $NombreMes) {
+			//Por cada mes
+			$SQL_InfPub = Seleccionar('uvw_tbl_Informes_Old', '*', "NumCong='" . $_SESSION['NumCong'] . "' and IDPublicador='" . $Publicador . "' and AnioServicio='" . $row_Pub['AnioServicio'] . "' and MesPeriodo='" . $MesActual . "'");
+			$row_InfPub = sqlsrv_fetch_array($SQL_InfPub);
+			if ($row_InfPub['PrecAuxiliar'] == 1) {
+				$PrecAux = "Precursor auxiliar. ";
+			} else {
+				$PrecAux = "";
+			}
+
+			$Datos .= '<tr>
+				<td>' . $NombreMes . '</td>
+				<td align="center">' . $row_InfPub['Publicaciones'] . '</td>
+				<td align="center">' . $row_InfPub['Videos'] . '</td>
+				<td align="center">' . $row_InfPub['Horas'] . '</td>
+				<td align="center">' . $row_InfPub['Revisitas'] . '</td>
+				<td align="center">' . $row_InfPub['Cursos'] . '</td>
+				<td>' . $PrecAux . $row_InfPub['Notas'] . '</td>
+				</tr>';
+			if ($row_InfPub['Horas'] != "") {
+				$TotalPub = $TotalPub + $row_InfPub['Publicaciones'];
+				$TotalVideos = $TotalVideos + $row_InfPub['Videos'];
+				$TotalHoras = $TotalHoras + $row_InfPub['Horas'];
+				$TotalRevisitas = $TotalRevisitas + $row_InfPub['Revisitas'];
+				$TotalCursos = $TotalCursos + $row_InfPub['Cursos'];
+				$Count++;
+			}
+		}
+
+		$Datos .= '<tr style="font-weight: bold;">
+			  <td>Total</td>
+			  <td align="center">' . $TotalPub . '</td>
+			  <td align="center">' . $TotalVideos . '</td>
+			  <td align="center">' . $TotalHoras . '</td>
+			  <td align="center">' . $TotalRevisitas . '</td>
+			  <td align="center">' . $TotalCursos . '</td>
+			  <td align="center">&nbsp;</td>
+			</tr>';
+
+		$PromPub = ($Count > 0) ? $TotalPub / $Count : 0;
+		$PromVideos = ($Count > 0) ? $TotalVideos / $Count : 0;
+		$PromHoras = ($Count > 0) ? $TotalHoras / $Count : 0;
+		$PromRevisitas = ($Count > 0) ? $TotalRevisitas / $Count : 0;
+		$PromCursos = ($Count > 0) ? $TotalCursos / $Count : 0;
+
+		$Datos .= '<tr  style="font-weight: bold;">
+			  <td>Promedio</td>
+			  <td align="center">' . number_format($PromPub, 2) . '</td>
+			  <td align="center">' . number_format($PromVideos, 2) . '</td>
+			  <td align="center">' . number_format($PromHoras, 2) . '</td>
+			  <td align="center">' . number_format($PromRevisitas, 2) . '</td>
+			  <td align="center">' . number_format($PromCursos, 2) . '</td>
+			  <td>&nbsp;</td>
 			</tr>
-		</thead>
-	  <tbody>';
+		  </tbody>
+		</table>';
+	} else { //Version de S-21 nueva
+		$TotalHoras = 0;
 
-	//Septiembre
-	$SQL_InfPub = Seleccionar('uvw_tbl_Informes', '*', "NumCong='" . $_SESSION['NumCong'] . "' and IDPublicador='" . $Publicador . "' and AnioServicio='" . $row_Pub['AnioServicio'] . "' and MesPeriodo='9'");
-	$row_InfPub = sqlsrv_fetch_array($SQL_InfPub);
-	if ($row_InfPub['PrecAuxiliar'] == 1) {
-		$PrecAux = "Precursor auxiliar. ";
-	} else {
-		$PrecAux = "";
-	}
+		$Datos .= '
+		<table class="table">
+			<thead>
+				<tr>
+				  <th width="15%">Año de servicio<br>' . $row_Pub['AnioServicio'] . '</th>
+				  <th width="10%">Participación en el ministerio</th>
+				  <th width="10%">Cursos bíblicos</th>
+				  <th width="10%">Precursor auxiliar</th>
+				  <th width="20%">Horas <br><span style="font-weight: normal;">(Si es precursor o misionero que sirve en el campo)</span></th>
+				  <th width="35%">Notas</th>
+				</tr>
+			</thead>
+		  <tbody>';
 
-	$Datos .= '<tr>
-		  <td>Septiembre</td>
-		  <td align="center">' . $row_InfPub['Publicaciones'] . '</td>
-		  <td align="center">' . $row_InfPub['Videos'] . '</td>
-		  <td align="center">' . $row_InfPub['Horas'] . '</td>
-		  <td align="center">' . $row_InfPub['Revisitas'] . '</td>
-		  <td align="center">' . $row_InfPub['Cursos'] . '</td>
-		  <td>' . $PrecAux . $row_InfPub['Notas'] . '</td>
-		</tr>';
-	if ($row_InfPub['Horas'] != "") {
-		$TotalPub = $TotalPub + $row_InfPub['Publicaciones'];
-		$TotalVideos = $TotalVideos + $row_InfPub['Videos'];
-		$TotalHoras = $TotalHoras + $row_InfPub['Horas'];
-		$TotalRevisitas = $TotalRevisitas + $row_InfPub['Revisitas'];
-		$TotalCursos = $TotalCursos + $row_InfPub['Cursos'];
-		$Count++;
-	}
+		foreach ($Meses as $MesActual => $NombreMes) {
+			//Por cada mes
+			$SQL_InfPub = Seleccionar('uvw_tbl_Informes', '*', "NumCong='" . $_SESSION['NumCong'] . "' and IDPublicador='" . $Publicador . "' and AnioServicio='" . $row_Pub['AnioServicio'] . "' and MesPeriodo='" . $MesActual . "'");
+			$row_InfPub = sqlsrv_fetch_array($SQL_InfPub);
 
-	//Octubre
-	$SQL_InfPub = Seleccionar('uvw_tbl_Informes', '*', "NumCong='" . $_SESSION['NumCong'] . "' and IDPublicador='" . $Publicador . "' and AnioServicio='" . $row_Pub['AnioServicio'] . "' and MesPeriodo='10'");
-	$row_InfPub = sqlsrv_fetch_array($SQL_InfPub);
-	if ($row_InfPub['PrecAuxiliar'] == 1) {
-		$PrecAux = "Precursor auxiliar. ";
-	} else {
-		$PrecAux = "";
-	}
-	$Datos .= '<tr>
-		  <td>Octubre</td>
-		  <td align="center">' . $row_InfPub['Publicaciones'] . '</td>
-		  <td align="center">' . $row_InfPub['Videos'] . '</td>
-		  <td align="center">' . $row_InfPub['Horas'] . '</td>
-		  <td align="center">' . $row_InfPub['Revisitas'] . '</td>
-		  <td align="center">' . $row_InfPub['Cursos'] . '</td>
-		  <td>' . $PrecAux . $row_InfPub['Notas'] . '</td>
-		</tr>';
-	if ($row_InfPub['Horas'] != "") {
-		$TotalPub = $TotalPub + $row_InfPub['Publicaciones'];
-		$TotalVideos = $TotalVideos + $row_InfPub['Videos'];
-		$TotalHoras = $TotalHoras + $row_InfPub['Horas'];
-		$TotalRevisitas = $TotalRevisitas + $row_InfPub['Revisitas'];
-		$TotalCursos = $TotalCursos + $row_InfPub['Cursos'];
-		$Count++;
+
+			$Predica = $row_InfPub['Predica'] == "1" ? 'checked="checked"' : '';
+			$PrecAuxiliar = $row_InfPub['PrecAuxiliar'] == "1" ? 'checked="checked"' : '';
+
+			$Datos .= '<tr>
+				<td>' . $NombreMes . '</td>
+				<td align="center" class="check"><input name="checkbox" type="checkbox" id="checkbox" ' . $Predica . '></td>
+				<td align="center">' . $row_InfPub['Cursos'] . '</td>
+				<td align="center" class="check"><input name="checkbox" type="checkbox" id="checkbox" ' . $PrecAuxiliar . '></td>
+				<td align="center">' . $row_InfPub['Horas'] . '</td>
+				<td>' . $row_InfPub['Notas'] . '</td>
+				</tr>';
+			if ($row_InfPub['Horas'] != "") {
+				$TotalHoras = $TotalHoras + $row_InfPub['Horas'];
+			}
+		}
+
+		$Datos .= '
+				<tr style="font-weight: bold;">
+					<td colspan="4" style="padding-right: 10px; text-align: right; border-style: none; border-width: 0px;" border="0">Total</td>
+					<td align="center">' . $TotalHoras . '</td>
+					<td align="center">&nbsp;</td>
+				</tr>
+			</tbody>
+		</table>';
 	}
 
-	//Noviembre
-	$SQL_InfPub = Seleccionar('uvw_tbl_Informes', '*', "NumCong='" . $_SESSION['NumCong'] . "' and IDPublicador='" . $Publicador . "' and AnioServicio='" . $row_Pub['AnioServicio'] . "' and MesPeriodo='11'");
-	$row_InfPub = sqlsrv_fetch_array($SQL_InfPub);
-	if ($row_InfPub['PrecAuxiliar'] == 1) {
-		$PrecAux = "Precursor auxiliar. ";
-	} else {
-		$PrecAux = "";
-	}
-	$Datos .= '<tr>
-		  <td>Noviembre</td>
-		  <td align="center">' . $row_InfPub['Publicaciones'] . '</td>
-		  <td align="center">' . $row_InfPub['Videos'] . '</td>
-		  <td align="center">' . $row_InfPub['Horas'] . '</td>
-		  <td align="center">' . $row_InfPub['Revisitas'] . '</td>
-		  <td align="center">' . $row_InfPub['Cursos'] . '</td>
-		  <td>' . $PrecAux . $row_InfPub['Notas'] . '</td>
-		</tr>';
-	if ($row_InfPub['Horas'] != "") {
-		$TotalPub = $TotalPub + $row_InfPub['Publicaciones'];
-		$TotalVideos = $TotalVideos + $row_InfPub['Videos'];
-		$TotalHoras = $TotalHoras + $row_InfPub['Horas'];
-		$TotalRevisitas = $TotalRevisitas + $row_InfPub['Revisitas'];
-		$TotalCursos = $TotalCursos + $row_InfPub['Cursos'];
-		$Count++;
+	//Para hacer salto de pagina cada dos tablas
+	if(($i%2)==0){
+		$Datos.="<hr>";
 	}
 
-	//Diciembre
-	$SQL_InfPub = Seleccionar('uvw_tbl_Informes', '*', "NumCong='" . $_SESSION['NumCong'] . "' and IDPublicador='" . $Publicador . "' and AnioServicio='" . $row_Pub['AnioServicio'] . "' and MesPeriodo='12'");
-	$row_InfPub = sqlsrv_fetch_array($SQL_InfPub);
-	if ($row_InfPub['PrecAuxiliar'] == 1) {
-		$PrecAux = "Precursor auxiliar. ";
-	} else {
-		$PrecAux = "";
-	}
-	$Datos .= '<tr>
-		  <td>Diciembre</td>
-		  <td align="center">' . $row_InfPub['Publicaciones'] . '</td>
-		  <td align="center">' . $row_InfPub['Videos'] . '</td>
-		  <td align="center">' . $row_InfPub['Horas'] . '</td>
-		  <td align="center">' . $row_InfPub['Revisitas'] . '</td>
-		  <td align="center">' . $row_InfPub['Cursos'] . '</td>
-		  <td>' . $PrecAux . $row_InfPub['Notas'] . '</td>
-		</tr>';
-	if ($row_InfPub['Horas'] != "") {
-		$TotalPub = $TotalPub + $row_InfPub['Publicaciones'];
-		$TotalVideos = $TotalVideos + $row_InfPub['Videos'];
-		$TotalHoras = $TotalHoras + $row_InfPub['Horas'];
-		$TotalRevisitas = $TotalRevisitas + $row_InfPub['Revisitas'];
-		$TotalCursos = $TotalCursos + $row_InfPub['Cursos'];
-		$Count++;
-	}
-
-	//Enero
-	$SQL_InfPub = Seleccionar('uvw_tbl_Informes', '*', "NumCong='" . $_SESSION['NumCong'] . "' and IDPublicador='" . $Publicador . "' and AnioServicio='" . $row_Pub['AnioServicio'] . "' and MesPeriodo='1'");
-	$row_InfPub = sqlsrv_fetch_array($SQL_InfPub);
-	if ($row_InfPub['PrecAuxiliar'] == 1) {
-		$PrecAux = "Precursor auxiliar. ";
-	} else {
-		$PrecAux = "";
-	}
-	$Datos .= '<tr>
-		  <td>Enero</td>
-		  <td align="center">' . $row_InfPub['Publicaciones'] . '</td>
-		  <td align="center">' . $row_InfPub['Videos'] . '</td>
-		  <td align="center">' . $row_InfPub['Horas'] . '</td>
-		  <td align="center">' . $row_InfPub['Revisitas'] . '</td>
-		  <td align="center">' . $row_InfPub['Cursos'] . '</td>
-		  <td>' . $PrecAux . $row_InfPub['Notas'] . '</td>
-		</tr>';
-	if ($row_InfPub['Horas'] != "") {
-		$TotalPub = $TotalPub + $row_InfPub['Publicaciones'];
-		$TotalVideos = $TotalVideos + $row_InfPub['Videos'];
-		$TotalHoras = $TotalHoras + $row_InfPub['Horas'];
-		$TotalRevisitas = $TotalRevisitas + $row_InfPub['Revisitas'];
-		$TotalCursos = $TotalCursos + $row_InfPub['Cursos'];
-		$Count++;
-	}
-
-	//Febrero
-	$SQL_InfPub = Seleccionar('uvw_tbl_Informes', '*', "NumCong='" . $_SESSION['NumCong'] . "' and IDPublicador='" . $Publicador . "' and AnioServicio='" . $row_Pub['AnioServicio'] . "' and MesPeriodo='2'");
-	$row_InfPub = sqlsrv_fetch_array($SQL_InfPub);
-	if ($row_InfPub['PrecAuxiliar'] == 1) {
-		$PrecAux = "Precursor auxiliar. ";
-	} else {
-		$PrecAux = "";
-	}
-	$Datos .= '<tr>
-		  <td>Febrero</td>
-		  <td align="center">' . $row_InfPub['Publicaciones'] . '</td>
-		  <td align="center">' . $row_InfPub['Videos'] . '</td>
-		  <td align="center">' . $row_InfPub['Horas'] . '</td>
-		  <td align="center">' . $row_InfPub['Revisitas'] . '</td>
-		  <td align="center">' . $row_InfPub['Cursos'] . '</td>
-		  <td>' . $PrecAux . $row_InfPub['Notas'] . '</td>
-		</tr>';
-	if ($row_InfPub['Horas'] != "") {
-		$TotalPub = $TotalPub + $row_InfPub['Publicaciones'];
-		$TotalVideos = $TotalVideos + $row_InfPub['Videos'];
-		$TotalHoras = $TotalHoras + $row_InfPub['Horas'];
-		$TotalRevisitas = $TotalRevisitas + $row_InfPub['Revisitas'];
-		$TotalCursos = $TotalCursos + $row_InfPub['Cursos'];
-		$Count++;
-	}
-
-	//Marzo
-	$SQL_InfPub = Seleccionar('uvw_tbl_Informes', '*', "NumCong='" . $_SESSION['NumCong'] . "' and IDPublicador='" . $Publicador . "' and AnioServicio='" . $row_Pub['AnioServicio'] . "' and MesPeriodo='3'");
-	$row_InfPub = sqlsrv_fetch_array($SQL_InfPub);
-	if ($row_InfPub['PrecAuxiliar'] == 1) {
-		$PrecAux = "Precursor auxiliar. ";
-	} else {
-		$PrecAux = "";
-	}
-	$Datos .= '<tr>
-		  <td>Marzo</td>
-		  <td align="center">' . $row_InfPub['Publicaciones'] . '</td>
-		  <td align="center">' . $row_InfPub['Videos'] . '</td>
-		  <td align="center">' . $row_InfPub['Horas'] . '</td>
-		  <td align="center">' . $row_InfPub['Revisitas'] . '</td>
-		  <td align="center">' . $row_InfPub['Cursos'] . '</td>
-		  <td>' . $PrecAux . $row_InfPub['Notas'] . '</td>
-		</tr>';
-	if ($row_InfPub['Horas'] != "") {
-		$TotalPub = $TotalPub + $row_InfPub['Publicaciones'];
-		$TotalVideos = $TotalVideos + $row_InfPub['Videos'];
-		$TotalHoras = $TotalHoras + $row_InfPub['Horas'];
-		$TotalRevisitas = $TotalRevisitas + $row_InfPub['Revisitas'];
-		$TotalCursos = $TotalCursos + $row_InfPub['Cursos'];
-		$Count++;
-	}
-
-	//Abril
-	$SQL_InfPub = Seleccionar('uvw_tbl_Informes', '*', "NumCong='" . $_SESSION['NumCong'] . "' and IDPublicador='" . $Publicador . "' and AnioServicio='" . $row_Pub['AnioServicio'] . "' and MesPeriodo='4'");
-	$row_InfPub = sqlsrv_fetch_array($SQL_InfPub);
-	if ($row_InfPub['PrecAuxiliar'] == 1) {
-		$PrecAux = "Precursor auxiliar. ";
-	} else {
-		$PrecAux = "";
-	}
-	$Datos .= '<tr>
-		  <td>Abril</td>
-		  <td align="center">' . $row_InfPub['Publicaciones'] . '</td>
-		  <td align="center">' . $row_InfPub['Videos'] . '</td>
-		  <td align="center">' . $row_InfPub['Horas'] . '</td>
-		  <td align="center">' . $row_InfPub['Revisitas'] . '</td>
-		  <td align="center">' . $row_InfPub['Cursos'] . '</td>
-		  <td>' . $PrecAux . $row_InfPub['Notas'] . '</td>
-		</tr>';
-	if ($row_InfPub['Horas'] != "") {
-		$TotalPub = $TotalPub + $row_InfPub['Publicaciones'];
-		$TotalVideos = $TotalVideos + $row_InfPub['Videos'];
-		$TotalHoras = $TotalHoras + $row_InfPub['Horas'];
-		$TotalRevisitas = $TotalRevisitas + $row_InfPub['Revisitas'];
-		$TotalCursos = $TotalCursos + $row_InfPub['Cursos'];
-		$Count++;
-	}
-
-	//Mayo
-	$SQL_InfPub = Seleccionar('uvw_tbl_Informes', '*', "NumCong='" . $_SESSION['NumCong'] . "' and IDPublicador='" . $Publicador . "' and AnioServicio='" . $row_Pub['AnioServicio'] . "' and MesPeriodo='5'");
-	$row_InfPub = sqlsrv_fetch_array($SQL_InfPub);
-	if ($row_InfPub['PrecAuxiliar'] == 1) {
-		$PrecAux = "Precursor auxiliar. ";
-	} else {
-		$PrecAux = "";
-	}
-	$Datos .= '<tr>
-		  <td>Mayo</td>
-		  <td align="center">' . $row_InfPub['Publicaciones'] . '</td>
-		  <td align="center">' . $row_InfPub['Videos'] . '</td>
-		  <td align="center">' . $row_InfPub['Horas'] . '</td>
-		  <td align="center">' . $row_InfPub['Revisitas'] . '</td>
-		  <td align="center">' . $row_InfPub['Cursos'] . '</td>
-		  <td>' . $PrecAux . $row_InfPub['Notas'] . '</td>
-		</tr>';
-	if ($row_InfPub['Horas'] != "") {
-		$TotalPub = $TotalPub + $row_InfPub['Publicaciones'];
-		$TotalVideos = $TotalVideos + $row_InfPub['Videos'];
-		$TotalHoras = $TotalHoras + $row_InfPub['Horas'];
-		$TotalRevisitas = $TotalRevisitas + $row_InfPub['Revisitas'];
-		$TotalCursos = $TotalCursos + $row_InfPub['Cursos'];
-		$Count++;
-	}
-
-	//Junio
-	$SQL_InfPub = Seleccionar('uvw_tbl_Informes', '*', "NumCong='" . $_SESSION['NumCong'] . "' and IDPublicador='" . $Publicador . "' and AnioServicio='" . $row_Pub['AnioServicio'] . "' and MesPeriodo='6'");
-	$row_InfPub = sqlsrv_fetch_array($SQL_InfPub);
-	if ($row_InfPub['PrecAuxiliar'] == 1) {
-		$PrecAux = "Precursor auxiliar. ";
-	} else {
-		$PrecAux = "";
-	}
-	$Datos .= '<tr>
-		  <td>Junio</td>
-		  <td align="center">' . $row_InfPub['Publicaciones'] . '</td>
-		  <td align="center">' . $row_InfPub['Videos'] . '</td>
-		  <td align="center">' . $row_InfPub['Horas'] . '</td>
-		  <td align="center">' . $row_InfPub['Revisitas'] . '</td>
-		  <td align="center">' . $row_InfPub['Cursos'] . '</td>
-		  <td>' . $PrecAux . $row_InfPub['Notas'] . '</td>
-		</tr>';
-	if ($row_InfPub['Horas'] != "") {
-		$TotalPub = $TotalPub + $row_InfPub['Publicaciones'];
-		$TotalVideos = $TotalVideos + $row_InfPub['Videos'];
-		$TotalHoras = $TotalHoras + $row_InfPub['Horas'];
-		$TotalRevisitas = $TotalRevisitas + $row_InfPub['Revisitas'];
-		$TotalCursos = $TotalCursos + $row_InfPub['Cursos'];
-		$Count++;
-	}
-
-	//Julio
-	$SQL_InfPub = Seleccionar('uvw_tbl_Informes', '*', "NumCong='" . $_SESSION['NumCong'] . "' and IDPublicador='" . $Publicador . "' and AnioServicio='" . $row_Pub['AnioServicio'] . "' and MesPeriodo='7'");
-	$row_InfPub = sqlsrv_fetch_array($SQL_InfPub);
-	if ($row_InfPub['PrecAuxiliar'] == 1) {
-		$PrecAux = "Precursor auxiliar. ";
-	} else {
-		$PrecAux = "";
-	}
-	$Datos .= '<tr>
-		  <td>Julio</td>
-		  <td align="center">' . $row_InfPub['Publicaciones'] . '</td>
-		  <td align="center">' . $row_InfPub['Videos'] . '</td>
-		  <td align="center">' . $row_InfPub['Horas'] . '</td>
-		  <td align="center">' . $row_InfPub['Revisitas'] . '</td>
-		  <td align="center">' . $row_InfPub['Cursos'] . '</td>
-		  <td>' . $PrecAux . $row_InfPub['Notas'] . '</td>
-		</tr>';
-	if ($row_InfPub['Horas'] != "") {
-		$TotalPub = $TotalPub + $row_InfPub['Publicaciones'];
-		$TotalVideos = $TotalVideos + $row_InfPub['Videos'];
-		$TotalHoras = $TotalHoras + $row_InfPub['Horas'];
-		$TotalRevisitas = $TotalRevisitas + $row_InfPub['Revisitas'];
-		$TotalCursos = $TotalCursos + $row_InfPub['Cursos'];
-		$Count++;
-	}
-
-	//Agosto
-	$SQL_InfPub = Seleccionar('uvw_tbl_Informes', '*', "NumCong='" . $_SESSION['NumCong'] . "' and IDPublicador='" . $Publicador . "' and AnioServicio='" . $row_Pub['AnioServicio'] . "' and MesPeriodo='8'");
-	$row_InfPub = sqlsrv_fetch_array($SQL_InfPub);
-	if ($row_InfPub['PrecAuxiliar'] == 1) {
-		$PrecAux = "Precursor auxiliar. ";
-	} else {
-		$PrecAux = "";
-	}
-	$Datos .= '<tr>
-		  <td>Agosto</td>
-		  <td align="center">' . $row_InfPub['Publicaciones'] . '</td>
-		  <td align="center">' . $row_InfPub['Videos'] . '</td>
-		  <td align="center">' . $row_InfPub['Horas'] . '</td>
-		  <td align="center">' . $row_InfPub['Revisitas'] . '</td>
-		  <td align="center">' . $row_InfPub['Cursos'] . '</td>
-		  <td>' . $PrecAux . $row_InfPub['Notas'] . '</td>
-		</tr>';
-	if ($row_InfPub['Horas'] != "") {
-		$TotalPub = $TotalPub + $row_InfPub['Publicaciones'];
-		$TotalVideos = $TotalVideos + $row_InfPub['Videos'];
-		$TotalHoras = $TotalHoras + $row_InfPub['Horas'];
-		$TotalRevisitas = $TotalRevisitas + $row_InfPub['Revisitas'];
-		$TotalCursos = $TotalCursos + $row_InfPub['Cursos'];
-		$Count++;
-	}
-	$Datos .= '<tr style="font-weight: bold;">
-		  <td>Total</td>
-		  <td align="center">' . $TotalPub . '</td>
-		  <td align="center">' . $TotalVideos . '</td>
-		  <td align="center">' . $TotalHoras . '</td>
-		  <td align="center">' . $TotalRevisitas . '</td>
-		  <td align="center">' . $TotalCursos . '</td>
-		  <td align="center">&nbsp;</td>
-		</tr>';
-
-	$PromPub = ($Count > 0) ? $TotalPub / $Count : 0;
-	$PromVideos = ($Count > 0) ? $TotalVideos / $Count : 0;
-	$PromHoras = ($Count > 0) ? $TotalHoras / $Count : 0;
-	$PromRevisitas = ($Count > 0) ? $TotalRevisitas / $Count : 0;
-	$PromCursos = ($Count > 0) ? $TotalCursos / $Count : 0;
-
-	$Datos .= '<tr  style="font-weight: bold;">
-		  <td>Promedio</td>
-		  <td align="center">' . number_format($PromPub, 2) . '</td>
-		  <td align="center">' . number_format($PromVideos, 2) . '</td>
-		  <td align="center">' . number_format($PromHoras, 2) . '</td>
-		  <td align="center">' . number_format($PromRevisitas, 2) . '</td>
-		  <td align="center">' . number_format($PromCursos, 2) . '</td>
-		  <td>&nbsp;</td>
-		</tr>
-	  </tbody>
-	</table>';
+	$i++;
 }
 
 
@@ -591,7 +398,7 @@ $Cierre = '</body>
 </html>';
 //InsertarLog("Descarga de entrada");
 //sqlsrv_close($conexion);
-//echo $HTML1.$Datos.$HTML2;/*
+// echo $Cabecera . $Datos . $Cierre;
 // instantiate and use the dompdf class
 $dompdf->loadHtml($Cabecera . $Datos . $Cierre);
 
