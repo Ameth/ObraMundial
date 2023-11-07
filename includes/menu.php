@@ -51,7 +51,7 @@ $Num_Menu=sqlsrv_num_rows($SQL_Menu);
                     <a href="#"><i class="fa fa-line-chart"></i> <span class="nav-label">Reportes</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
 						<?php if(PermitirFuncion(405)){?><li><a class="alnk" href="informe_datos_publicador.php"><i class="fa fa-user"></i> Datos de los publicadores</a></li><?php }?>
-						<?php if(PermitirFuncion(401)){?><li><a class="alnk" href="informe_servicio_mensual.php"><i class="fa fa-bar-chart-o"></i> Informe de servicio mensual</a></li><?php }?>
+						<?php if(PermitirFuncion(401)){?><li><a class="alnk" href="informe_publicadores.php"><i class="fa fa-bar-chart-o"></i> Informe de los publicadores</a></li><?php }?>
 						<?php if(PermitirFuncion(402)){?><li><a class="alnk" href="informe_servicio_cong.php"><i class="fa fa-list-alt"></i> Informe de servicio de la congregación</a></li><?php }?>
 						<?php if(PermitirFuncion(403)){?><li><a class="alnk" href="informe_precursores_regulares.php"><i class="fa fa-suitcase"></i> Precursores regulares</a></li><?php }?>
 						<?php if(PermitirFuncion(404)){?><li><a class="alnk" href="informe_registro_publicador.php"><i class="fa fa-address-card"></i> Descargar Registros de publicador (S-21)</a></li><?php }?>

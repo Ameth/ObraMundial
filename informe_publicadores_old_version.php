@@ -31,7 +31,7 @@ if (PermitirFuncion(205)) {
 }
 
 if ($sw == 1) {
-	$Cons = "Select * From uvw_tbl_Informes Where NumCong='" . $_SESSION['NumCong'] . "' $Filtro Order by NombrePublicador";
+	$Cons = "Select * From uvw_tbl_Informes_Old Where NumCong='" . $_SESSION['NumCong'] . "' $Filtro Order by NombrePublicador";
 	$SQL = sqlsrv_query($conexion, $Cons);
 }
 
@@ -44,7 +44,7 @@ if ($sw == 1) {
 <head>
 	<?php include("includes/cabecera.php"); ?>
 	<!-- InstanceBeginEditable name="doctitle" -->
-	<title>Informe de servicio mensual | <?php echo NOMBRE_PORTAL; ?></title>
+	<title>Informe de los publicadores | <?php echo NOMBRE_PORTAL; ?></title>
 	<!-- InstanceEndEditable -->
 	<!-- InstanceBeginEditable name="head" -->
 
@@ -62,7 +62,7 @@ if ($sw == 1) {
 			<!-- InstanceBeginEditable name="Contenido" -->
 			<div class="row wrapper border-bottom white-bg page-heading">
 				<div class="col-sm-8">
-					<h2>Informe de servicio mensual</h2>
+					<h2>Informe de los publicadores</h2>
 					<ol class="breadcrumb">
 						<li>
 							<a href="index1.php">Inicio</a>
@@ -71,7 +71,7 @@ if ($sw == 1) {
 							<a href="#">Reportes</a>
 						</li>
 						<li class="active">
-							<strong>Informe de servicio mensual</strong>
+							<strong>Informe de los publicadores</strong>
 						</li>
 					</ol>
 				</div>
@@ -83,7 +83,7 @@ if ($sw == 1) {
 					<div class="col-lg-12">
 						<div class="ibox-content">
 							<?php include("includes/spinner.php"); ?>
-							<form action="informe_servicio_mensual.php" method="get" id="formBuscar" class="form-horizontal">
+							<form action="informe_publicadores.php" method="get" id="formBuscar" class="form-horizontal">
 								<div class="form-group">
 									<label class="col-xs-12">
 										<h3 class="bg-success p-xs b-r-sm"><i class="fa fa-filter"></i> Datos para filtrar</h3>
@@ -129,7 +129,7 @@ if ($sw == 1) {
 								<?php include("includes/spinner.php"); ?>
 								<div class="row m-b-md">
 									<div class="col-lg-12">
-										<a href="rpt_informe_servicio_mensual.php?id=<?php echo base64_encode($Filtro); ?>&grp=<?php echo base64_encode($Grupo); ?>&prd=<?php echo base64_encode($Periodo); ?>" target="_blank" class="btn btn-outline btn-danger"><i class="fa fa-file-pdf-o"></i> Descargar en PDF</a>
+										<a href="rpt_informe_publicadores_old_version.php?id=<?php echo base64_encode($Filtro); ?>&grp=<?php echo base64_encode($Grupo); ?>&prd=<?php echo base64_encode($Periodo); ?>" target="_blank" class="btn btn-outline btn-danger"><i class="fa fa-file-pdf-o"></i> Descargar en PDF</a>
 										<a href="exportar_excel.php?exp=13&Cons=<?php echo base64_encode($Cons); ?>" class="btn btn-outline btn-primary"><i class="fa fa-file-excel-o"></i> Exportar a Excel</a>
 									</div>
 								</div>
@@ -140,8 +140,10 @@ if ($sw == 1) {
 												<th>Nombre publicador</th>
 												<th>Tipo publicador</th>
 												<th>Prec. Auxiliar</th>
-												<th>Predicó</th>
+												<th>Publicaciones</th>
+												<th>Presentaciones de video</th>
 												<th>Horas</th>
+												<th>Revisitas</th>
 												<th>Cursos biblicos</th>
 												<th>Comentarios</th>
 											</tr>
@@ -152,8 +154,10 @@ if ($sw == 1) {
 													<td><?php echo $row['NombrePublicador']; ?></td>
 													<td><?php echo $row['TipoPublicadorAbr']; ?></td>
 													<td><?php echo $row['DePrecAuxiliar']; ?></td>
-													<td><?php echo $row['DePredica']; ?></td>
+													<td><?php echo $row['Publicaciones']; ?></td>
+													<td><?php echo $row['Videos']; ?></td>
 													<td><?php echo $row['Horas']; ?></td>
+													<td><?php echo $row['Revisitas']; ?></td>
 													<td><?php echo $row['Cursos']; ?></td>
 													<td><?php echo $row['Notas']; ?></td>
 												</tr>
@@ -184,7 +188,7 @@ if ($sw == 1) {
 					const [idPeriodo, verPeriodo] = field[0].value.split("-")
 					console.log(verPeriodo)
 					if(verPeriodo == 1) {
-						form.action = "informe_servicio_mensual_old_version.php"
+						form.action = "informe_publicadores_old_version.php"
 					}
 					// console.log(form.action)					
 					form.submit();
