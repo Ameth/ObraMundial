@@ -12,3 +12,6 @@ Se agregó la opción de selección multiple en los años de servicio en el repo
 
 ### 1.7.1
 Se creó la nueva funcionalidad de un enlace para que los publicadores puedan enviar ellos mismos su informe de servicio mensual.
+
+### 1.7.2
+Se actualizó la versión del formato S-21 para que muestre la versión que corresponde dependiendo del periodo, si es el formato anterior con las horas, o el formato nuevo con la información de predicación.
