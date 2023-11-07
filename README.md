@@ -11,6 +11,7 @@ Visite: [www.obramundial.net](https://www.obramundial.net)
 - Control de asistencia a las reuniones
 - Gestión de usuarios
 - Permisos por perfiles
+- Enlace para cargar informe directamente por los publicadores
 - Multi-congregación
 
 ### Reportes
