@@ -4,13 +4,13 @@ function LSiqml($cad){
 	$search=array("'",";","..","=","*","?","¿","&","_","\\","\<","\>","<script>","</script>","<",">","\"\"","\"");
 	$replace="";
 	$cad_clear=str_ireplace($search,$replace,$cad);
-	return(trim(utf8_decode($cad_clear)));
+	return(trim($cad_clear));
 }
 function LSiqmlLogin($cad){
 	$search=array("'","\\","\<","\>","<script>","</script>","<",">","\"\"","\"");
 	$replace="";
 	$cad_clear=str_ireplace($search,$replace,$cad);
-	return(trim(utf8_decode($cad_clear)));
+	return(trim($cad_clear));
 }
 function LSiqmlObs($cad){
 	$search=array("'","<script>","</script>","´","¨");
@@ -18,7 +18,7 @@ function LSiqmlObs($cad){
 	$cad_clear=str_ireplace($search,$replace,$cad);
 	$originales = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿŔŕ';
     $modificadas = 'AAAAAAACEEEEIIIIDNOOOOOOUUUUYbsaaaaaaaceeeeiiiidnoooooouuuyybyRr';
-    $cad_clear = utf8_decode($cad_clear);
+    $cad_clear = $cad_clear;
     $cad_clear = strtr($cad_clear, $originales, $modificadas);
 	//$cad_clear=str_replace("Ñ",'N',$cad_clear);
 	//$cad_clear=str_replace("ñ",'n',$cad_clear);
@@ -41,6 +41,6 @@ function LSiqmlName($cad){
 	$search=array("'",";","..","=","*","?","¿","&","\<","\>","<script>","</script>","<",">","\"\"","\"");
 	$replace="";
 	$cad_clear=str_ireplace($search,$replace,$cad);
-	return(trim(utf8_decode($cad_clear)));
+	return(trim($cad_clear));
 }
 ?>

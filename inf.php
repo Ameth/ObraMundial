@@ -12,7 +12,7 @@ if (isset($_REQUEST['c']) && ($_REQUEST['c'] != "")) {
 
         $Token = base64_decode($_REQUEST['c']);
 
-        $SQL = Seleccionar('uvw_tbl_Congregaciones', 'NumCong', "Token='" . $Token . "'");
+        $SQL = Seleccionar('uvw_tbl_Congregaciones', 'NumCong', "Token='" . LSiqml($Token) . "'");
         $row = sqlsrv_fetch_array($SQL);
 
         if (isset($row['NumCong']) && $row['NumCong'] !== "") {
@@ -80,8 +80,14 @@ if (isset($_POST['P']) && ($_POST['P'] != "")) { //Insertar registro
     }
 }
 
-$msg = $swPeriodo == 0 ? "No hay datos para ingresar informes" : "";
-$msg = $swCong == 0 ? "Link inválido. Por favor verifique." : "";
+if ($swCong == 0) {
+    $msg = "Link inválido. Por favor verifique";
+} elseif ($swPeriodo == 0) {
+    $msg = "No hay datos para ingresar informes";
+}
+
+// echo $swPeriodo;
+// echo $swCong;
 
 ?>
 <!DOCTYPE html>
