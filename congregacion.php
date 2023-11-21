@@ -176,11 +176,11 @@ $SQL_Estados = Seleccionar('uvw_tbl_Estados', '*');
 									</label>
 								</div>
 								<div class="form-group">
-									<label class="col-lg-1 control-label">Número de congregación</label>
+									<label class="col-lg-1 control-label">Número de congregación <span class="text-danger">*</span></label>
 									<div class="col-lg-2"><input name="NumCong" type="text" required="required" class="form-control" id="NumCong" value="<?php if ($edit == 1) {
 																																								echo $row['NumCong'];
 																																							} ?>" onChange="ValidarUsuario(this.value);"></div>
-									<label class="col-lg-2 control-label">Nombre de la congregación</label>
+									<label class="col-lg-2 control-label">Nombre de la congregación <span class="text-danger">*</span></label>
 									<div class="col-lg-3"><input name="NombreCong" type="text" required="required" class="form-control" id="NombreCong" value="<?php if ($edit == 1) {
 																																									echo $row['NombreCongregacion'];
 																																								} ?>"></div>
@@ -195,7 +195,7 @@ $SQL_Estados = Seleccionar('uvw_tbl_Estados', '*');
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-lg-1 control-label">Ciudad</label>
+									<label class="col-lg-1 control-label">Ciudad <span class="text-danger">*</span></label>
 									<div class="col-lg-3"><input name="Ciudad" type="text" required="required" class="form-control" id="Ciudad" value="<?php if ($edit == 1) {
 																																							echo $row['Ciudad'];
 																																						} ?>"></div>
@@ -209,7 +209,7 @@ $SQL_Estados = Seleccionar('uvw_tbl_Estados', '*');
 																																} ?>"></div>
 								</div>
 								<div class="form-group">
-									<label class="col-lg-1 control-label">Dirección</label>
+									<label class="col-lg-1 control-label">Dirección <span class="text-danger">*</span></label>
 									<div class="col-lg-3"><input name="Direccion" type="text" required="required" class="form-control" id="Direccion" value="<?php if ($edit == 1) {
 																																									echo $row['Direccion'];
 																																								} ?>"></div>
@@ -217,8 +217,8 @@ $SQL_Estados = Seleccionar('uvw_tbl_Estados', '*');
 									<div class="col-lg-3"><input name="CorreoJW" type="text" class="form-control" id="CorreoJW" value="<?php if ($edit == 1) {
 																																			echo $row['CorreoJW'];
 																																		} ?>"></div>
-									<label class="col-lg-1 control-label">Token</label>
-									<div class="col-lg-2"><input name="Token" type="text" class="form-control" id="Token" value="<?php if ($edit == 1) {
+									<label class="col-lg-1 control-label">Token <span class="text-danger">*</span></label>
+									<div class="col-lg-2"><input name="Token" type="text" required="required" class="form-control" id="Token" value="<?php if ($edit == 1) {
 																																		echo $row['Token'];
 																																	} ?>"></div>
 									<div class="col-lg-1"><button type="button" onClick="generarToken();" class="alkin btn btn-success btn-xs" title="Generar nuevo token"><i class="fa fa-refresh"></i></button></div>
