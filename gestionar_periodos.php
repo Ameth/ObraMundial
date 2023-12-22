@@ -172,7 +172,7 @@ $SQL = sqlsrv_query($conexion, $Cons);
 									<tbody>
 										<?php while ($row = sqlsrv_fetch_array($SQL)) { ?>
 											<tr>
-												<td><?php echo $row['FechaInicioPeriodo']->format('Y-m-d'); ?></td>
+												<td title="<?php echo $row['IDPeriodo']; ?>"><?php echo $row['FechaInicioPeriodo']->format('Y-m-d'); ?></td>
 												<td><?php echo $row['FechaFinalPeriodo']->format('Y-m-d'); ?></td>
 												<td><?php echo $row['CodigoPeriodo']; ?></td>
 												<td><?php echo $row['AnioPeriodo']; ?></td>
