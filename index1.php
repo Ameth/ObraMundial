@@ -116,7 +116,8 @@ $(document).ready(function(){
 				<div class="modal-content">
 					<div class="modal-header">
 						<h4 class="modal-title">Acuerdo de confidencialidad</h4>
-						<small>Por favor lea atentamente este contrato que contiene los T&eacute;rminos y Condiciones de uso de este sitio. Si continua usando este portal, consideramos que usted est&aacute; de acuerdo con ellos.</small>
+						<h4>Por favor lea atentamente este contrato que contiene los T&eacute;rminos y Condiciones de uso de este sitio. 
+							Si continua usando este portal, consideramos que usted est&aacute; de acuerdo con ellos.</h4>
 					</div>
 					<div class="modal-body">
 						<?php echo $Contenido;?>
