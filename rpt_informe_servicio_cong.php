@@ -13,7 +13,7 @@ $NombreCong=$row_Cong['NombreCongregacion']." (".$row_Cong['Ciudad'].", ".$row_C
 
 $Periodo=base64_decode($_GET['id']);
 
-$SQL_Grp=Seleccionar('uvw_tbl_Grupos','*',"NumCong='".$_SESSION['NumCong']."'");
+$SQL_Grp=Seleccionar('uvw_tbl_Grupos','*',"NumCong='".$_SESSION['NumCong']."'",'NombreGrupo');
 
 $SQL_Prd=Seleccionar('uvw_tbl_PeriodosInformes','*',"NumCong='".$_SESSION['NumCong']."' and IDPeriodo='".$Periodo."'");
 $row_Prd=sqlsrv_fetch_array($SQL_Prd);
@@ -165,7 +165,7 @@ while($row_Grp=sqlsrv_fetch_array($SQL_Grp)){
 	  <td align='center'>".$TotalHoras."</td>
 	  <td align='center'>".$TotalCursos."</td>
     </tr>
-	<tbody>
+	</tbody>
 	</table>";
 }
 
@@ -217,7 +217,7 @@ $DatosTotales.="
 	  <td align='center'>".$TotalHoras."</td>
 	  <td align='center'>".$TotalCursos."</td>
     </tr>
-	<tbody>
+	</tbody>
 	</table>";
 
 //Asistencia
@@ -243,7 +243,7 @@ $DatosAsistencia.="
 	  <td align='center'>".$row_Asist['TotalFinSemana']."</td>
 	  <td align='center'>".$row_Asist['PromFinSemana']."</td>
 	</tr>
-	<tbody>
+	</tbody>
 </table>";
 
 
