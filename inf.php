@@ -296,6 +296,14 @@ if ($swCong == 0) {
                     text: "Por favor ingrese las horas que correspondan.",
                     icon: "warning",
                 });
+            }else if ((prAux.value == 1) && ((tipoPub.value == 2) || (tipoPub.value == 4))) {
+                //Alertar que si es precursor, no debe marcar el auxiliar
+                result = false
+                Swal.fire({
+                    title: "¡Usted no es Precursor Auxiliar!",
+                    text: "Debe poner Precursor Auxiliar en NO.",
+                    icon: "warning",
+                });
             }
 
             return result;
