@@ -26,22 +26,23 @@ if (isset($_REQUEST['file']) && $_REQUEST['file'] != "") {
 		} else {
 			$SQL = Seleccionar('uvw_tbl_Publicadores', 'IDPublicador, NombrePublicador', "NumCong='" . $_SESSION['NumCong'] . "' $Filtro", 'NombrePublicador');
 			$sw = 1;
-			//			$row=sqlsrv_fetch_array($SQL);
+			//$row=sqlsrv_fetch_array($SQL);
 		}
 
 		$Files = array();
-		$i = 0;
+		$count_reg = 0;
 
 		LimpiarDirTemp();
 
 		while ($row = sqlsrv_fetch_array($SQL)) {
-			$Files[$i] = $row['NombrePublicador'] . ".pdf";
-			$i++;
+			$Files[$count_reg] = $row['NombrePublicador'] . ".pdf";
+			$count_reg++;
 			$_GET['id'] = base64_encode($row['IDPublicador']);
 			$_GET['anio'] = base64_encode($AnioServicio);
 			$_GET['zip'] = 1;
 			include("rpt_informe_registro_publicador.php");
 		}
+		// echo count($Files)."\n";
 
 		//Crear archivo ZIP e insertar los archivos
 		$zip = new ZipArchive();
@@ -50,17 +51,19 @@ if (isset($_REQUEST['file']) && $_REQUEST['file'] != "") {
 		//echo $filezip;
 		//exit();
 
+		// var_dump($Files);
+
 		if ($zip->open($filezip, ZIPARCHIVE::CREATE) === TRUE) {
 			$Count = count($Files);
-			$i = 0;
+			$count_file = 0;
 			//$zip->close();
-			while ($i < $Count) {
-				$zip->addFile($RutaLocal . $Files[$i], $Files[$i]);
-				//$zip->addFile($RutaAttachSAP[0].$Files[$i],$Files[$i]);
-				//echo "Se agregó: ".$SrvRuta.$Files[$i]."\n";
-				$i++;
+			echo $Count."\n";
+			while ($count_file < $Count) {
+				$zip->addFile($RutaLocal . $Files[$count_file], $Files[$count_file]);
+				// echo "Se agregó: ".$RutaLocal . $Files[$count_file]."\n";
+				$count_file++;
 			}
-			//exit();
+			// exit();
 			$zip->close();
 			//$filename=$zipName;
 		} else {
