@@ -178,17 +178,17 @@ if(isset($_GET['a'])&&($_GET['a']==base64_encode("OK_AsistAdd"))){
 					<div class="col-lg-3">
 						<div class="col-lg-12">
 							<div class="ibox border-left-right border-top-bottom">
-								<div class="ibox-title">
+								<div class="ibox-title bg-primary">
 									<h2 class="font-bold">Total entre semana</h2>
 								</div>
 								<div class="ibox-content">
-									<h1 class="no-margins"><span class="font-bold text-success"><?php echo $row_Total['TotalSemana'];?></span></h1>
+									<h1 class="no-margins"><span class="font-bold text-navy"><?php echo $row_Total['TotalSemana'];?></span></h1>
 								</div>
 							</div>
 						</div>
 						<div class="col-lg-12">
 							<div class="ibox border-left-right border-top-bottom">
-								<div class="ibox-title">
+								<div class="ibox-title bg-primary">
 									<h2 class="font-bold">Promedio entre semana</h2>
 								</div>
 								<div class="ibox-content">
@@ -198,7 +198,7 @@ if(isset($_GET['a'])&&($_GET['a']==base64_encode("OK_AsistAdd"))){
 						</div>
 						<div class="col-lg-12">
 							<div class="ibox border-left-right border-top-bottom">
-								<div class="ibox-title">
+								<div class="ibox-title bg-success">
 									<h2 class="font-bold">Total fin de semana</h2>
 								</div>
 								<div class="ibox-content">
@@ -208,11 +208,11 @@ if(isset($_GET['a'])&&($_GET['a']==base64_encode("OK_AsistAdd"))){
 						</div>
 						<div class="col-lg-12">
 							<div class="ibox border-left-right border-top-bottom">
-								<div class="ibox-title">
+								<div class="ibox-title bg-success">
 									<h2 class="font-bold">Promedio fin de semana</h2>
 								</div>
 								<div class="ibox-content">
-									<h1 class="no-margins"><span class="font-bold text-navy"><?php echo $row_Total['PromFinSemana'];?></span></h1>
+									<h1 class="no-margins"><span class="font-bold text-success"><?php echo $row_Total['PromFinSemana'];?></span></h1>
 								</div>
 							</div>
 						</div>
@@ -279,37 +279,6 @@ if(isset($_GET['a'])&&($_GET['a']==base64_encode("OK_AsistAdd"))){
 			$(".select2").select2();
 			
 			$("span.pie").peity("pie");
-			
-            $('.dataTables-example').DataTable({
-                pageLength: 25,
-                dom: '<"html5buttons"B>lTfgitp',
-				language: {
-					"decimal":        "",
-					"emptyTable":     "No se encontraron resultados.",
-					"info":           "Mostrando _START_ - _END_ de _TOTAL_ registros",
-					"infoEmpty":      "Mostrando 0 - 0 de 0 registros",
-					"infoFiltered":   "(filtrando de _MAX_ registros)",
-					"infoPostFix":    "",
-					"thousands":      ",",
-					"lengthMenu":     "Mostrar _MENU_ registros",
-					"loadingRecords": "Cargando...",
-					"processing":     "Procesando...",
-					"search":         "Filtrar:",
-					"zeroRecords":    "Ningún registro encontrado",
-					"paginate": {
-						"first":      "Primero",
-						"last":       "Último",
-						"next":       "Siguiente",
-						"previous":   "Anterior"
-					},
-					"aria": {
-						"sortAscending":  ": Activar para ordenar la columna ascendente",
-						"sortDescending": ": Activar para ordenar la columna descendente"
-					}
-				},
-                buttons: []
-
-            });
 
         });
 
